@@ -11,6 +11,7 @@ import FeatureCard from '@/components/feature-card';
 import LockIcon from '@mui/icons-material/Lock';
 import { Memory, OfflineBoltOutlined } from '@mui/icons-material';
 import ScreenshotText from '@/components/screenshot-text';
+import TFooter from '@/components/tfooter';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -122,7 +123,7 @@ export default function Home() {
             </Box>
           </Box>
         </Box>
-        <ColoredBox component={motion.div} sx={{ padding: 4 }}>
+        <ColoredBox component={motion.div} sx={{ paddingX: 4, paddingY: 6 }}>
           <Typography
             variant='body1'
             component={'p'}
@@ -217,6 +218,7 @@ export default function Home() {
             />
           </Box>
         </Box>
+        <TFooter />
       </motion.div>
     </>
   );

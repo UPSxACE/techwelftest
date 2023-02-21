@@ -17,7 +17,10 @@ export default function ScreenshotText({ title, desc }) {
   const { t } = useTranslation();
 
   return (
-    <Box component={'div'} sx={{ scrollSnapAlign: 'start', height: '100%' }}>
+    <Box
+      component={'div'}
+      sx={{ scrollSnapAlign: 'start', height: { md: '100%' } }}
+    >
       <Typography variant='h4' component='h2' sx={{ marginBottom: 2 }}>
         {title}
       </Typography>
