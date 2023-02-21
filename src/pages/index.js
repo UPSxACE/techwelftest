@@ -27,6 +27,17 @@ export default function Home() {
     };
   });
 
+  // Full Height NextJS Image
+  const FhImage = styled(Image)((props) => {
+    console.log(props.theme.breakpoints.up('md'));
+    return {
+      height: 'auto',
+      objectFit: 'cover',
+      width: '100%',
+      height: '100%',
+    };
+  });
+
   return (
     <>
       <Head>
@@ -38,63 +49,77 @@ export default function Home() {
       <motion.div id='body'>
         <TNavBar />
         <Box
-          component={motion.div}
           sx={{
             display: 'flex',
-            flexWrap: 'wrap',
-            paddingY: 4,
-            paddingX: 4,
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: {
+              md: 'calc(100vh - 68px)',
+            },
           }}
         >
           <Box
             component={motion.div}
             sx={{
               display: 'flex',
-              flexDirection: 'column',
-              width: {
-                xs: '100%',
-                md: '50%',
-              },
-              paddingRight: 4,
-              marginBottom: { xs: 4, md: 0 },
+              flexWrap: 'wrap',
+              paddingY: 4,
+              paddingX: 4,
+              maxHeight: { md: '480px' },
+              maxWidth: { md: '1200px' },
             }}
           >
-            <Typography variant='h2' component='h1' sx={{ paddingBottom: 1 }}>
-              {t('Product Name')}
-            </Typography>
-            <Typography variant='body1' sx={{ paddingBottom: 2 }}>
-              {t('ProductDesc1')}
-            </Typography>
-            <Typography variant='body1'>{t('ProductDesc2')}</Typography>
-            <Box sx={{ marginTop: 'auto', paddingTop: 4 }}>
-              <Button
-                sx={{
-                  width: 'fit-content',
-                  paddingX: 4,
-                  paddingY: 1.5,
-                }}
-                variant='contained'
-              >
-                Click Me
-              </Button>
+            <Box
+              component={motion.div}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: {
+                  xs: '100%',
+                  md: '50%',
+                },
+                paddingRight: 4,
+                marginBottom: { xs: 4, md: 0 },
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography variant='h2' component='h1' sx={{ paddingBottom: 1 }}>
+                {t('Product Name')}
+              </Typography>
+              <Typography variant='body1' sx={{ paddingBottom: 2 }}>
+                {t('ProductDesc1')}
+              </Typography>
+              <Typography variant='body1'>{t('ProductDesc2')}</Typography>
+              <Box sx={{ paddingTop: 4 /* marginTop:"auto" */ }}>
+                <Button
+                  sx={{
+                    width: 'fit-content',
+                    paddingX: 4,
+                    paddingY: 1.5,
+                  }}
+                  variant='contained'
+                >
+                  Click Me
+                </Button>
+              </Box>
             </Box>
-          </Box>
-          <Box
-            component={motion.div}
-            sx={{
-              width: {
-                xs: '100%',
-                md: '50%',
-              },
-            }}
-          >
-            <FwImage
-              alt='Software Main Picture'
-              src='/software-pic-1.jpg'
-              width='0'
-              height='0'
-              sizes='100vw'
-            />
+            <Box
+              component={motion.div}
+              sx={{
+                width: {
+                  xs: '100%',
+                  md: '50%',
+                },
+              }}
+            >
+              <FhImage
+                alt='Software Main Picture'
+                src='/software-pic-1.jpg'
+                width='0'
+                height='0'
+                sizes='100vw'
+              />
+            </Box>
           </Box>
         </Box>
         <ColoredBox component={motion.div} sx={{ padding: 4 }}>
