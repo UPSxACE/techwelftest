@@ -6,6 +6,10 @@ import TNavBar from '@/components/tnavbar';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { styled } from '@mui/system';
+import ColoredBox from '@/components/colored-box';
+import FeatureCard from '@/components/feature-card';
+import LockIcon from '@mui/icons-material/Lock';
+import { Memory, OfflineBoltOutlined } from '@mui/icons-material';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -92,6 +96,37 @@ export default function Home() {
             />
           </Box>
         </Box>
+        <ColoredBox sx={{ padding: 4 }}>
+          <Typography
+            variant='body1'
+            component={'p'}
+            sx={{ textAlign: 'center' }}
+          >
+            {t('ProductDesc3')}
+          </Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingTop: 4 }}>
+            <FeatureCard
+              title={t('feature1')}
+              desc={t('feature1desc')}
+              width={{ xs: '100%', md: 'calc(100% / 3)' }}
+              icon={<LockIcon sx={{ fontSize: 132 }} />}
+              sx={{ marginBottom: { xs: 4, md: 0 } }}
+            />
+            <FeatureCard
+              title={t('feature2')}
+              desc={t('feature2desc')}
+              width={{ xs: '100%', md: 'calc(100% / 3)' }}
+              sx={{ marginBottom: { xs: 4, md: 0 } }}
+              icon={<Memory sx={{ fontSize: 132 }} />}
+            />
+            <FeatureCard
+              title={t('feature3')}
+              desc={t('feature3desc')}
+              width={{ xs: '100%', md: 'calc(100% / 3)' }}
+              icon={<OfflineBoltOutlined sx={{ fontSize: 132 }} />}
+            />
+          </Box>
+        </ColoredBox>
       </motion.div>
     </>
   );
