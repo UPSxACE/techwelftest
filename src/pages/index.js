@@ -3,7 +3,7 @@ import { Inter } from '@next/font/google';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import TNavBar from '@/components/tnavbar';
-import { Box } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
 import { styled } from '@mui/system';
 
@@ -32,17 +32,47 @@ export default function Home() {
       </Head>
       <motion.div id='body'>
         <TNavBar />
-        <Box component={motion.div} sx={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Box
+          component={motion.div}
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            paddingY: 4,
+            paddingX: 4,
+          }}
+        >
           <Box
             component={motion.div}
             sx={{
+              display: 'flex',
+              flexDirection: 'column',
               width: {
                 xs: '100%',
                 md: '50%',
               },
+              paddingRight: 4,
+              marginBottom: { xs: 4, md: 0 },
             }}
           >
-            a
+            <Typography variant='h2' component='h1' sx={{ paddingBottom: 1 }}>
+              {t('Product Name')}
+            </Typography>
+            <Typography variant='body1' sx={{ paddingBottom: 2 }}>
+              {t('ProductDesc1')}
+            </Typography>
+            <Typography variant='body1'>{t('ProductDesc2')}</Typography>
+            <Box sx={{ marginTop: 'auto', paddingTop: 4 }}>
+              <Button
+                sx={{
+                  width: 'fit-content',
+                  paddingX: 4,
+                  paddingY: 1.5,
+                }}
+                variant='contained'
+              >
+                Click Me
+              </Button>
+            </Box>
           </Box>
           <Box
             component={motion.div}
