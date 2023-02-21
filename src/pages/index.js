@@ -10,6 +10,7 @@ import ColoredBox from '@/components/colored-box';
 import FeatureCard from '@/components/feature-card';
 import LockIcon from '@mui/icons-material/Lock';
 import { Memory, OfflineBoltOutlined } from '@mui/icons-material';
+import ScreenshotText from '@/components/screenshot-text';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -146,8 +147,9 @@ export default function Home() {
             }}
           >
             <Box
+              component={motion.div}
               sx={{
-                position: 'absolute',
+                position: { md: 'absolute' },
                 top: 0,
                 left: 0,
                 bottom: 0,
@@ -158,56 +160,26 @@ export default function Home() {
                 },
                 '-ms-overflow-style': 'none',
                 scrollbarWidth: 'none',
+                overscrollBehaviorY: 'contain',
+                scrollSnapType: 'y mandatory',
               }}
             >
-              <Box>
-                <Typography
-                  variant='h4'
-                  component='h2'
-                  sx={{ marginBottom: 2 }}
-                >
-                  {t('ScreenshotTitle1')}
-                </Typography>
-                <Typography
-                  variant='body1'
-                  component='p'
-                  sx={{ marginBottom: 2 }}
-                >
-                  {t('ScreenshotDesc1')}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography
-                  variant='h4'
-                  component='h2'
-                  sx={{ marginBottom: 2 }}
-                >
-                  {t('ScreenshotTitle2')}
-                </Typography>
-                <Typography
-                  variant='body1'
-                  component='p'
-                  sx={{ marginBottom: 2 }}
-                >
-                  {t('ScreenshotDesc2')}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography
-                  variant='h4'
-                  component='h2'
-                  sx={{ marginBottom: 2 }}
-                >
-                  {t('ScreenshotTitle3')}
-                </Typography>
-                <Typography
-                  variant='body1'
-                  component='p'
-                  sx={{ marginBottom: 2 }}
-                >
-                  {t('ScreenshotDesc3')}
-                </Typography>
-              </Box>
+              <ScreenshotText
+                title={t('ScreenshotTitle1')}
+                desc={t('ScreenshotDesc1')}
+              />
+              <ScreenshotText
+                title={t('ScreenshotTitle2')}
+                desc={t('ScreenshotDesc2')}
+              />
+              <ScreenshotText
+                title={t('ScreenshotTitle3')}
+                desc={t('ScreenshotDesc3')}
+              />
+              <ScreenshotText
+                title={t('ScreenshotTitle4')}
+                desc={t('ScreenshotDesc4')}
+              />
             </Box>
           </Box>
           <Box sx={{ width: { xs: '100%', md: '65%' }, fontSize: 0 }}>
