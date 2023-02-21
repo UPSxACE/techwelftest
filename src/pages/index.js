@@ -4,11 +4,23 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import TNavBar from '@/components/tnavbar';
 import { Box } from '@mui/material';
+import Image from 'next/image';
+import { styled } from '@mui/system';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { t } = useTranslation();
+
+  // Full Width NextJS Image
+  const FwImage = styled(Image)((props) => {
+    console.log(props.theme.breakpoints.up('md'));
+    return {
+      height: 'auto',
+      objectFit: 'contain',
+      width: '100%',
+    };
+  });
 
   return (
     <>
@@ -20,6 +32,36 @@ export default function Home() {
       </Head>
       <motion.div id='body'>
         <TNavBar />
+        <Box component={motion.div} sx={{ display: 'flex', flexWrap: 'wrap' }}>
+          <Box
+            component={motion.div}
+            sx={{
+              width: {
+                xs: '100%',
+                md: '50%',
+              },
+            }}
+          >
+            a
+          </Box>
+          <Box
+            component={motion.div}
+            sx={{
+              width: {
+                xs: '100%',
+                md: '50%',
+              },
+            }}
+          >
+            <FwImage
+              alt='Software Main Picture'
+              src='/software-pic-1.jpg'
+              width='0'
+              height='0'
+              sizes='100vw'
+            />
+          </Box>
+        </Box>
       </motion.div>
     </>
   );
