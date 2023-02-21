@@ -13,7 +13,9 @@ export default function PageLink({ route, pageName, ...props }) {
       sx={{ mr: 2, color: 'black', textDecoration: 'none' }}
       {...props}
     >
-      {t(pageName)}
+      <Typography variant='body1' component='span'>
+        {t(pageName)}
+      </Typography>
     </Link>
   );
 }
