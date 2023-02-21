@@ -35,7 +35,7 @@ export default function FeatureCard({ width, icon, title, desc, ...props }) {
           paddingX: 5,
         }}
       >
-        <Typography variant='h5' component={'h2'}>
+        <Typography variant='h5' component={'h3'}>
           {title}
         </Typography>
         <Typography

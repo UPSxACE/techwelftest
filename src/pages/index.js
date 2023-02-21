@@ -96,7 +96,7 @@ export default function Home() {
             />
           </Box>
         </Box>
-        <ColoredBox sx={{ padding: 4 }}>
+        <ColoredBox component={motion.div} sx={{ padding: 4 }}>
           <Typography
             variant='body1'
             component={'p'}
@@ -127,6 +127,99 @@ export default function Home() {
             />
           </Box>
         </ColoredBox>
+        <Box
+          component={motion.div}
+          sx={{ padding: 4, display: 'flex', flexWrap: 'wrap' }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              width: {
+                xs: '100%',
+                md: '35%',
+              },
+              paddingRight: { md: 4 },
+              overflow: 'hidden',
+              flexDirection: 'column',
+              minHeight: 0,
+              position: 'relative',
+            }}
+          >
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                overflow: 'scroll',
+                '&::-webkit-scrollbar': {
+                  display: 'none',
+                },
+                '-ms-overflow-style': 'none',
+                scrollbarWidth: 'none',
+              }}
+            >
+              <Box>
+                <Typography
+                  variant='h4'
+                  component='h2'
+                  sx={{ marginBottom: 2 }}
+                >
+                  {t('ScreenshotTitle1')}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  component='p'
+                  sx={{ marginBottom: 2 }}
+                >
+                  {t('ScreenshotDesc1')}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  variant='h4'
+                  component='h2'
+                  sx={{ marginBottom: 2 }}
+                >
+                  {t('ScreenshotTitle2')}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  component='p'
+                  sx={{ marginBottom: 2 }}
+                >
+                  {t('ScreenshotDesc2')}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  variant='h4'
+                  component='h2'
+                  sx={{ marginBottom: 2 }}
+                >
+                  {t('ScreenshotTitle3')}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  component='p'
+                  sx={{ marginBottom: 2 }}
+                >
+                  {t('ScreenshotDesc3')}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <Box sx={{ width: { xs: '100%', md: '65%' }, fontSize: 0 }}>
+            <FwImage
+              alt='App Screenshot'
+              src='/web1.jpg'
+              width='0'
+              height='0'
+              sizes='100vw'
+            />
+          </Box>
+        </Box>
       </motion.div>
     </>
   );
