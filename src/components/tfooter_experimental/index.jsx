@@ -36,12 +36,18 @@ export default function TFooter() {
             height={201 * 0.15}
             alt='Techwelf Logo'
           />
-          <Typography variant='h5' component='h2' sx={{ paddingLeft: 1 }}>
+          <Typography
+            color='text.primary'
+            variant='h5'
+            component='h2'
+            sx={{ paddingLeft: 1 }}
+          >
             Techwelf
           </Typography>
         </Box>
 
         <Typography
+          color='text.primary'
           variant='body2'
           component='span'
           sx={{
@@ -58,7 +64,7 @@ export default function TFooter() {
         </Typography>
       </Box>
 
-      <Typography variant='body2' component='span'>
+      <Typography color='text.primary' variant='body2' component='span'>
         © TechWelf {currentYear}. Todos os Direitos Reservados
       </Typography>
     </ColoredBox>

@@ -23,7 +23,7 @@ export default function TNavBar({ children, ...props }) {
   const user_settings = ['setting_a', 'setting_b'];
 
   return (
-    <AppBar position='static'>
+    <AppBar position='sticky'>
       <Container maxWidth='xl'>
         <Toolbar sx={{ paddingY: 1 }} disableGutters>
           <Box
@@ -45,7 +45,7 @@ export default function TNavBar({ children, ...props }) {
               color='inherit'
               sx={{ height: 52, width: 52 }}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ color: 'text.primary' }} />
             </IconButton>
             <Menu
               id='menu-appbar'
@@ -71,6 +71,7 @@ export default function TNavBar({ children, ...props }) {
                 marginRight: 'auto',
                 fontSize: 52,
                 textDecoration: 'none',
+                color: 'text.primary',
               }}
             />
             <Tooltip title='User Options'>
@@ -99,7 +100,9 @@ export default function TNavBar({ children, ...props }) {
             >
               {user_settings.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
+                  <Typography color='text.secondary' textAlign='center'>
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -115,6 +118,7 @@ export default function TNavBar({ children, ...props }) {
                 mr: 2,
                 fontSize: 52,
                 textDecoration: 'none',
+                color: 'text.primary',
               }}
             />
             {renderPages()}
@@ -144,7 +148,9 @@ export default function TNavBar({ children, ...props }) {
             >
               {user_settings.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
+                  <Typography color='text.secondary' textAlign='center'>
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -185,6 +191,12 @@ export default function TNavBar({ children, ...props }) {
   }
 
   function UserAvatar() {
-    return <Avatar alt='User Avatar' src='/user.png' />;
+    return (
+      <Avatar
+        sx={{ color: 'text.primary' }}
+        alt='User Avatar'
+        src='/user.png'
+      />
+    );
   }
 }

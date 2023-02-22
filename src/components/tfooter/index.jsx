@@ -14,14 +14,15 @@ export default function TFooter() {
         flexDirection: 'row',
         paddingX: 4,
         paddingY: 2,
+        scrollSnapAlign: 'end',
       }}
     >
-      <Typography variant='body2' component='span'>
+      <Typography color='text.primary' variant='body2' component='span'>
         © TechWelf {currentYear}. Todos os Direitos Reservados
       </Typography>
       <Box sx={{ marginLeft: 'auto' }}>
-        <Typography variant='body2' component='span'>
-          Icones
+        <Typography color='text.primary' variant='body2' component='span'>
+          Logos
         </Typography>
       </Box>
     </ColoredBox>

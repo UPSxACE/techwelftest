@@ -35,10 +35,11 @@ export default function FeatureCard({ width, icon, title, desc, ...props }) {
           paddingX: 5,
         }}
       >
-        <Typography variant='h5' component={'h3'}>
+        <Typography variant='h5' color='text.primary' component={'h3'}>
           {title}
         </Typography>
         <Typography
+          color='text.primary'
           variant='body2'
           component='p'
           sx={{ marginTop: 2, textAlign: 'center' }}

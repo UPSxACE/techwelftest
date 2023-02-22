@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'normalize.css/normalize.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import themeConfig from '@/theme-config';
