@@ -1,10 +1,11 @@
-const pt = {
-  Home: 'Início',
-  FeaturesTab: 'Funcionalidades',
-  AboutUs: 'Sobre Nós',
+const gb = {
+  Home: 'Home',
+  FeaturesTab: 'Features',
+  AboutUs: 'About Us',
   Pricing: 'Preços',
   ContactUs: 'Contacte-Nos',
-  Printscreens: 'Printscreens',
+  Printscreens: 'Screenshots',
+  ProductName: 'ProductNameGB',
   ProductDesc1:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et imperdiet ante, eget tincidunt magna. Nam sit amet enim ipsum. Ut nisi nulla, eleifend quis molestie suscipit, tempor id nisi. Cras ac egestas sem, sit amet consectetur massa. Mauris at mauris lacus. Nullam mattis blandit magna id dapibus. Mauris vitae ligula vitae leo tristique rhoncus.',
   ProductDesc2:
@@ -52,4 +53,4 @@ const pt = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 };
 
-export default pt;
+export default gb;

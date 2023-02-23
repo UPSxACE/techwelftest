@@ -7,7 +7,7 @@ import { useMeasure } from 'react-use';
 // Full Height and Width NextJS Image
 const FhwImage = styled(Image)((props) => {
   return {
-    height: '100vh',
+    height: 'calc(100vh - 68px)',
     objectFit: 'cover',
     width: '100vw',
     maxWidth: '100%',
@@ -71,7 +71,7 @@ export default function ScreenshotText({
               marginTop: 2,
               marginBottom: 2,
               textAlign: 'center',
-              color: 'white',
+              color: 'text.primary',
             }}
           >
             {title}
@@ -80,7 +80,11 @@ export default function ScreenshotText({
             color='text.primary'
             variant='body1'
             component='p'
-            sx={{ marginBottom: 4, textAlign: 'center', color: 'white' }}
+            sx={{
+              marginBottom: 4,
+              textAlign: 'center',
+              color: 'text.primary',
+            }}
           >
             {desc}
           </Typography>

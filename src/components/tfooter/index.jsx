@@ -14,7 +14,8 @@ export default function TFooter() {
         flexDirection: 'row',
         paddingX: 4,
         paddingY: 2,
-        scrollSnapAlign: 'end',
+        scrollSnapAlign: { md: 'end' },
+        backgroundColor: 'primary.components',
       }}
     >
       <Typography color='text.primary' variant='body2' component='span'>
