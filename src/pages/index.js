@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Inter } from '@next/font/google';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import TNavBar from '@/components/tnavbar';
 import { Box, Button, Typography } from '@mui/material';
 import Image from 'next/image';
@@ -10,22 +10,19 @@ import ColoredBox from '@/components/colored-box';
 import FeatureCard from '@/components/feature-card';
 import LockIcon from '@mui/icons-material/Lock';
 import { Memory, OfflineBoltOutlined } from '@mui/icons-material';
-import ScreenshotText from '@/components/screenshot-text';
+import TFooter from '@/components/tfooter';
+import { useRef } from 'react';
+import ScreenshotCarousel from '@/components/screenshot-carousel';
+import image from '../../public/software-pic-1.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFaceAngry } from '@fortawesome/free-regular-svg-icons';
+import appConfig from '@/app-config';
+import themeConfig from '@/theme-config';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { t } = useTranslation();
-
-  // Full Width NextJS Image
-  const FwImage = styled(Image)((props) => {
-    console.log(props.theme.breakpoints.up('md'));
-    return {
-      height: 'auto',
-      objectFit: 'contain',
-      width: '100%',
-    };
-  });
 
   return (
     <>
@@ -35,163 +32,242 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <motion.div id='body'>
-        <TNavBar />
+      <TNavBar />
+      <a style={{ position: 'relative', top: -67 }} id='page-start' />
+      <motion.div
+        id='body'
+        style={{
+          marginTop: '-68px',
+          overscrollBehaviorY: 'contain',
+          //overflowY: 'auto',
+          width: '100vw',
+          maxWidth: '100%',
+        }}
+      >
         <Box
-          component={motion.div}
           sx={{
             display: 'flex',
-            flexWrap: 'wrap',
-            paddingY: 4,
-            paddingX: 4,
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
+            height: 'calc(100vh)',
+            backgroundColor: 'primary.components',
           }}
         >
           <Box
-            component={motion.div}
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: {
-                xs: '100%',
-                md: '50%',
-              },
-              paddingRight: 4,
-              marginBottom: { xs: 4, md: 0 },
+              top: 0,
+              left: 0,
+              width: '100vw',
+              maxWidth: '100%',
+              height: '100vh',
+              position: 'absolute',
+              backgroundImage: `url(${appConfig.backgroundImage.src})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              opacity: 0.1,
             }}
-          >
-            <Typography variant='h2' component='h1' sx={{ paddingBottom: 1 }}>
-              {t('Product Name')}
-            </Typography>
-            <Typography variant='body1' sx={{ paddingBottom: 2 }}>
-              {t('ProductDesc1')}
-            </Typography>
-            <Typography variant='body1'>{t('ProductDesc2')}</Typography>
-            <Box sx={{ marginTop: 'auto', paddingTop: 4 }}>
-              <Button
-                sx={{
-                  width: 'fit-content',
-                  paddingX: 4,
-                  paddingY: 1.5,
-                }}
-                variant='contained'
-              >
-                Click Me
-              </Button>
-            </Box>
-          </Box>
+          ></Box>
           <Box
             component={motion.div}
             sx={{
-              width: {
-                xs: '100%',
-                md: '50%',
-              },
-            }}
-          >
-            <FwImage
-              alt='Software Main Picture'
-              src='/software-pic-1.jpg'
-              width='0'
-              height='0'
-              sizes='100vw'
-            />
-          </Box>
-        </Box>
-        <ColoredBox component={motion.div} sx={{ padding: 4 }}>
-          <Typography
-            variant='body1'
-            component={'p'}
-            sx={{ textAlign: 'center' }}
-          >
-            {t('ProductDesc3')}
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingTop: 4 }}>
-            <FeatureCard
-              title={t('feature1')}
-              desc={t('feature1desc')}
-              width={{ xs: '100%', md: 'calc(100% / 3)' }}
-              icon={<LockIcon sx={{ fontSize: 132 }} />}
-              sx={{ marginBottom: { xs: 4, md: 0 } }}
-            />
-            <FeatureCard
-              title={t('feature2')}
-              desc={t('feature2desc')}
-              width={{ xs: '100%', md: 'calc(100% / 3)' }}
-              sx={{ marginBottom: { xs: 4, md: 0 } }}
-              icon={<Memory sx={{ fontSize: 132 }} />}
-            />
-            <FeatureCard
-              title={t('feature3')}
-              desc={t('feature3desc')}
-              width={{ xs: '100%', md: 'calc(100% / 3)' }}
-              icon={<OfflineBoltOutlined sx={{ fontSize: 132 }} />}
-            />
-          </Box>
-        </ColoredBox>
-        <Box
-          component={motion.div}
-          sx={{ padding: 4, display: 'flex', flexWrap: 'wrap' }}
-        >
-          <Box
-            sx={{
               display: 'flex',
-              width: {
-                xs: '100%',
-                md: '35%',
-              },
-              paddingRight: { md: 4 },
-              overflow: 'hidden',
-              flexDirection: 'column',
-              minHeight: 0,
-              position: 'relative',
+              flexWrap: 'wrap',
+              paddingY: 4,
+              paddingX: 4,
+              maxWidth: { md: '1200px' },
+              zIndex: 1,
             }}
           >
             <Box
               component={motion.div}
               sx={{
-                position: { md: 'absolute' },
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                overflow: 'scroll',
-                '&::-webkit-scrollbar': {
-                  display: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                width: {
+                  xs: '100%',
+                  md: '50%',
                 },
-                '-ms-overflow-style': 'none',
-                scrollbarWidth: 'none',
-                overscrollBehaviorY: 'contain',
-                scrollSnapType: 'y mandatory',
+                paddingRight: 4,
+                marginBottom: { xs: 4, md: 0 },
+                justifyContent: 'space-between',
               }}
             >
-              <ScreenshotText
-                title={t('ScreenshotTitle1')}
-                desc={t('ScreenshotDesc1')}
-              />
-              <ScreenshotText
-                title={t('ScreenshotTitle2')}
-                desc={t('ScreenshotDesc2')}
-              />
-              <ScreenshotText
-                title={t('ScreenshotTitle3')}
-                desc={t('ScreenshotDesc3')}
-              />
-              <ScreenshotText
-                title={t('ScreenshotTitle4')}
-                desc={t('ScreenshotDesc4')}
-              />
+              <Typography
+                color='text.special'
+                variant='h2'
+                component='h1'
+                sx={{ paddingBottom: 1 }}
+                dangerouslySetInnerHTML={{
+                  __html: t('ProductName', {
+                    interpolation: { escapeValue: false },
+                  }),
+                }}
+              ></Typography>
+              <Typography
+                color='text.primary'
+                variant='body1'
+                sx={{ paddingBottom: 2 }}
+              >
+                {t('ProductDesc1')}
+              </Typography>
+              <Typography color='text.primary' variant='body1'>
+                {t('ProductDesc2')}
+              </Typography>
+              <Box sx={{ paddingTop: 4 /* marginTop:"auto" */ }}>
+                <Button
+                  sx={{
+                    width: 'fit-content',
+                    paddingX: 4,
+                    paddingY: 1.5,
+                  }}
+                  variant='contained'
+                  href={appConfig.mainButtonTarget}
+                >
+                  Click Me
+                </Button>
+              </Box>
             </Box>
-          </Box>
-          <Box sx={{ width: { xs: '100%', md: '65%' }, fontSize: 0 }}>
-            <FwImage
-              alt='App Screenshot'
-              src='/web1.jpg'
-              width='0'
-              height='0'
-              sizes='100vw'
-            />
+            {/*<Box
+              component={motion.div}
+              sx={{
+                width: {
+                  xs: '100%',
+                  md: '50%',
+                },
+              }}
+            >
+              <FhImage
+                alt='Software Main Picture'
+                src='/software-pic-1.jpg'
+                width='0'
+                height='0'
+                sizes='100vw'
+              />
+            </Box>*/}
           </Box>
         </Box>
+        <a style={{ position: 'relative', top: -67 }} id='features' />
+        <ColoredBox
+          component={motion.div}
+          sx={{
+            paddingX: 4,
+            paddingY: 6,
+            display: 'flex',
+            justifyContent: 'center',
+            minHeight: 'calc(100vh)',
+            alignItems: 'center',
+          }}
+        >
+          <Box sx={{ maxWidth: 1200 }}>
+            <Typography
+              color='text.secondary'
+              variant='h6'
+              component={'p'}
+              sx={{ textAlign: 'center', fontWeight: 500 }}
+            >
+              {t('ProductDesc3')}
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingTop: 4 }}>
+              {appConfig.features.map((feature) => {
+                return (
+                  <FeatureCard
+                    key={feature.name}
+                    title={t(feature.name)}
+                    desc={t(feature.desc)}
+                    width={{
+                      xs: '100%',
+                      md: 'calc(100% / 2)',
+                      lg: 'calc(100% / 3)',
+                    }}
+                    icon={
+                      <Typography
+                        variant='inherit'
+                        sx={{ color: 'text.special', fontSize: '40px' }}
+                      >
+                        <FontAwesomeIcon icon={feature.icon} />
+                      </Typography>
+                    }
+                    sx={{
+                      marginBottom: { xs: 4, md: 0 },
+
+                      display: { xs: 'flex', md: 'block' },
+                      alignItems: { xs: 'center' },
+                    }}
+                  />
+                );
+              })}
+            </Box>
+          </Box>
+        </ColoredBox>
+        <Box
+          component={motion.div}
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            height: { md: 'calc(100vh - 68px)' },
+            scrollSnapAlign: { md: 'start' },
+            backgroundColor: 'grey',
+            width: '100vw',
+            maxWidth: '100%',
+            '& .slider-wrapper': {
+              width: '100vw',
+              maxWidth: '100%',
+              height: 'calc(100vh - 68px)',
+            },
+            '& .control-dots': {
+              bottom: '15px!important',
+            },
+            '& .control-arrow': {
+              display: {
+                xs: 'none',
+                md: 'block',
+              },
+              height: '50px',
+              top: { xs: '0%', md: '50%!important' },
+              bottom: { md: '50%!important' },
+              backgroundColor: 'rgba(0,0,0,0.5)!important',
+              width: '50px',
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
+
+            '& .control-prev': {
+              paddingRight: '8px!important',
+            },
+            '& .control-next': {
+              paddingLeft: '8px!important',
+            },
+            '& .control-prev:hover': {
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
+            '& .control-next:hover': {
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
+            '& .dot.selected': {
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100vw',
+              maxWidth: '100%',
+              height: 'calc(100vh - 68px)',
+              maxWidth: '100%',
+              fontSize: 0,
+            }}
+          >
+            <a style={{ position: 'relative', top: -67 }} id='screenshots' />
+            <ScreenshotCarousel />
+          </Box>
+        </Box>
+        <TFooter />
       </motion.div>
     </>
   );

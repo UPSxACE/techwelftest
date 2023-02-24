@@ -1,14 +1,14 @@
-const pt = {
-  Home: 'Início',
-  FeaturesTab: 'Funcionalidades',
-  AboutUs: 'Sobre Nós',
+const gb = {
+  Home: 'Home',
+  FeaturesTab: 'Features',
+  AboutUs: 'About Us',
   Pricing: 'Preços',
   ContactUs: 'Contacte-Nos',
-  Printscreens: 'Printscreens',
-  ProductName: 'PLATAFORMA OK1<sup>ST</sup>PART',
+  Printscreens: 'Screenshots',
+  ProductName: 'OK1<sup>ST</sup>PART PLATFORM',
   ProductDesc1:
-    'Desenvolvido em parceria com o grupo Faurecia, a plataforma OK1stPart é uma ferramenta de controlo de qualidade, utilizada na verificação da primeira peça produzida após uma mudança relevante no processo de produção.',
-  ProductDesc2: 'Solução complexa e flexível.',
+    'Developed in partnership with the Faurecia group, the OK1stPart platform is a quality control tool, used to verify the first piece produced after a relevant change in the production process.',
+  ProductDesc2: 'Complex and flexible solution.',
   ProductDesc3:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin vel ligula vel accumsan. Phasellus id felis purus. Suspendisse potenti. Nullam accumsan dui suscipit diam finibus hendrerit. Mauris interdum massa.',
   feature1: 'Feature 1',
@@ -52,4 +52,4 @@ const pt = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 };
 
-export default pt;
+export default gb;

@@ -3,7 +3,7 @@ import { styled, useTheme } from '@mui/system';
 import Link from '@mui/material/Link';
 import { useTranslation } from 'react-i18next';
 
-export default function PageLink({ route, pageName, ...props }) {
+export default function PageLink({ route, pageName, secondary, ...props }) {
   const { t } = useTranslation();
 
   return (
@@ -13,7 +13,17 @@ export default function PageLink({ route, pageName, ...props }) {
       sx={{ mr: 2, color: 'black', textDecoration: 'none' }}
       {...props}
     >
-      <Typography variant='body1' component='span'>
+      <Typography
+        color={secondary ? 'text.secondary' : 'text.primary'}
+        variant='body1'
+        component='span'
+        sx={{
+          '&:hover': {
+            color: 'primary.special',
+            transition: '300ms',
+          },
+        }}
+      >
         {t(pageName)}
       </Typography>
     </Link>
