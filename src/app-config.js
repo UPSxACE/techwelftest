@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import gb from './locales/gb';
 import pt from './locales/pt';
-import bkImage from '../public/software-pic-1.jpg';
+import bkImage from '../public/software-pic-1.webp';
 
 const appConfig = {
   // Available html anchors: #page-start #screenshots, #features
