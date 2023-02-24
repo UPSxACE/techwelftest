@@ -98,9 +98,12 @@ export default function Home() {
                 variant='h2'
                 component='h1'
                 sx={{ paddingBottom: 1 }}
-              >
-                {t('ProductName')}
-              </Typography>
+                dangerouslySetInnerHTML={{
+                  __html: t('ProductName', {
+                    interpolation: { escapeValue: false },
+                  }),
+                }}
+              ></Typography>
               <Typography
                 color='text.primary'
                 variant='body1'

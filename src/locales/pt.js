@@ -5,10 +5,10 @@ const pt = {
   Pricing: 'Preços',
   ContactUs: 'Contacte-Nos',
   Printscreens: 'Printscreens',
+  ProductName: 'PLATAFORMA OK1<sup>ST</sup>PART',
   ProductDesc1:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et imperdiet ante, eget tincidunt magna. Nam sit amet enim ipsum. Ut nisi nulla, eleifend quis molestie suscipit, tempor id nisi. Cras ac egestas sem, sit amet consectetur massa. Mauris at mauris lacus. Nullam mattis blandit magna id dapibus. Mauris vitae ligula vitae leo tristique rhoncus.',
-  ProductDesc2:
-    'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+    'Desenvolvido em parceria com o grupo Faurecia, a plataforma OK1stPart é uma ferramenta de controlo de qualidade, utilizada na verificação da primeira peça produzida após uma mudança relevante no processo de produção.',
+  ProductDesc2: 'Solução complexa e flexível.',
   ProductDesc3:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin vel ligula vel accumsan. Phasellus id felis purus. Suspendisse potenti. Nullam accumsan dui suscipit diam finibus hendrerit. Mauris interdum massa.',
   feature1: 'Feature 1',
