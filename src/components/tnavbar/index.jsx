@@ -21,6 +21,7 @@ import { useScroll } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 import LanguageContext from '@/contexts/language-context';
+import Link from 'next/link';
 
 export default function TNavBar({ children, ...props }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -147,9 +148,15 @@ export default function TNavBar({ children, ...props }) {
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography color='text.secondary' textAlign='center'>
-                    {setting}
-                  </Typography>
+                  <Link
+                    style={{ textDecoration: 'none' }}
+                    noWrap
+                    href={setting.route}
+                  >
+                    <Typography color='text.secondary' textAlign='center'>
+                      {t(setting.name)}
+                    </Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -261,9 +268,15 @@ export default function TNavBar({ children, ...props }) {
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography color='text.secondary' textAlign='center'>
-                    {t(setting)}
-                  </Typography>
+                  <Link
+                    style={{ textDecoration: 'none' }}
+                    noWrap
+                    href={setting.route}
+                  >
+                    <Typography color='text.secondary' textAlign='center'>
+                      {t(setting.name)}
+                    </Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
