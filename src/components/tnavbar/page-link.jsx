@@ -9,7 +9,6 @@ export default function PageLink({ route, pageName, secondary, ...props }) {
   return (
     <Link
       href={route}
-      noWrap
       sx={{ mr: 2, color: 'black', textDecoration: 'none' }}
       {...props}
     >

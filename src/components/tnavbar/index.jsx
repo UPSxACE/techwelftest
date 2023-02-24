@@ -148,11 +148,7 @@ export default function TNavBar({ children, ...props }) {
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Link
-                    style={{ textDecoration: 'none' }}
-                    noWrap
-                    href={setting.route}
-                  >
+                  <Link style={{ textDecoration: 'none' }} href={setting.route}>
                     <Typography color='text.secondary' textAlign='center'>
                       {t(setting.name)}
                     </Typography>
@@ -268,11 +264,7 @@ export default function TNavBar({ children, ...props }) {
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
                 <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Link
-                    style={{ textDecoration: 'none' }}
-                    noWrap
-                    href={setting.route}
-                  >
+                  <Link style={{ textDecoration: 'none' }} href={setting.route}>
                     <Typography color='text.secondary' textAlign='center'>
                       {t(setting.name)}
                     </Typography>

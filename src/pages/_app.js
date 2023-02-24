@@ -33,10 +33,12 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  const getLayout = Component.getLayout || ((page) => page);
+
   return (
     <LanguageContext.Provider value={{ currentLanguage, setLanguage }}>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        {getLayout(<Component {...pageProps} />)}
       </ThemeProvider>
     </LanguageContext.Provider>
   );
