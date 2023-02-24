@@ -46,7 +46,7 @@ const appConfig = {
   userAccess: true, // Allow common users to register and login
   usersOptionsMenu: [
     { name: 'Login', route: '/login' },
-    { name: 'Register', route: '/login' },
+    { name: 'Register', route: '/register' },
   ],
   pages: [
     {
