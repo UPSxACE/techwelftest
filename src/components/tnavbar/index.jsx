@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { motion, useMotionValueEvent } from 'framer-motion';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import PageLink from './page-link';
 import { useScroll } from 'framer-motion';
@@ -22,22 +22,31 @@ import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 import LanguageContext from '@/contexts/language-context';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-export default function TNavBar({ children, ...props }) {
+export default function TNavBar({
+  children,
+  transparentBar = false,
+  ...props
+}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [anchorElLanguage, setAnchorElLanguage] = useState(null);
-  const [color, setColor] = useState(false);
+  const [color, setColor] = useState(!transparentBar);
   const { t } = useTranslation();
 
   const { scrollYProgress } = useScroll();
   const { currentLanguage, setLanguage } = useContext(LanguageContext);
 
   useMotionValueEvent(scrollYProgress, 'change', (last) => {
-    last > 0.01 ? setColor(true) : setColor(false);
+    if (transparentBar) last > 0.01 ? setColor(true) : setColor(false);
   });
 
   const languagesEnabled = Boolean(appConfig.languages.length > 1);
+
+  useEffect(() => {
+    console.log('appbar mounted');
+  }, []);
 
   return (
     <AppBar
@@ -74,6 +83,7 @@ export default function TNavBar({ children, ...props }) {
               <MenuIcon sx={{ color: 'text.primary' }} />
             </IconButton>
             <Menu
+              hideBackdrop
               disableScrollLock={true}
               id='menu-appbar'
               anchorEl={anchorElNav}
@@ -130,6 +140,7 @@ export default function TNavBar({ children, ...props }) {
               </Tooltip>
             )}
             <Menu
+              hideBackdrop
               disableScrollLock={true}
               sx={{ mt: '45px' }}
               id='menu-appbar'
@@ -147,13 +158,17 @@ export default function TNavBar({ children, ...props }) {
               onClose={handleCloseUserMenu}
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Link style={{ textDecoration: 'none' }} href={setting.route}>
+                <Link
+                  key={index}
+                  style={{ textDecoration: 'none' }}
+                  href={setting.route}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
                     <Typography color='text.secondary' textAlign='center'>
                       {t(setting.name)}
                     </Typography>
-                  </Link>
-                </MenuItem>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -189,6 +204,7 @@ export default function TNavBar({ children, ...props }) {
               </Tooltip>
             )}
             <Menu
+              hideBackdrop
               disableScrollLock={true}
               sx={{ mt: '45px' }}
               id='menu-appbar'
@@ -246,6 +262,7 @@ export default function TNavBar({ children, ...props }) {
             )}
             {/* User Options Menu */}
             <Menu
+              hideBackdrop
               disableScrollLock={true}
               sx={{ mt: '45px' }}
               id='menu-appbar'
@@ -263,13 +280,17 @@ export default function TNavBar({ children, ...props }) {
               onClose={handleCloseUserMenu}
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Link style={{ textDecoration: 'none' }} href={setting.route}>
+                <Link
+                  key={index}
+                  style={{ textDecoration: 'none' }}
+                  href={setting.route}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
                     <Typography color='text.secondary' textAlign='center'>
                       {t(setting.name)}
                     </Typography>
-                  </Link>
-                </MenuItem>
+                  </MenuItem>{' '}
+                </Link>
               ))}
             </Menu>
           </Box>

@@ -19,7 +19,7 @@ import bkImage from '../public/software-pic-1.jpg';
 
 const appConfig = {
   // Available html anchors: #page-start #screenshots, #features
-  mainButtonTarget: '#screenshots',
+  mainButtonTarget: '/#screenshots',
   backgroundImage: bkImage,
   defaultLanguage: {
     id: 'pt',
@@ -51,15 +51,15 @@ const appConfig = {
   pages: [
     {
       name: 'Home',
-      route: '#page-start',
+      route: '/#page-start',
     },
     {
       name: 'FeaturesTab',
-      route: '#features',
+      route: '/#features',
     },
     {
       name: 'Printscreens',
-      route: '#screenshots',
+      route: '/#screenshots',
     },
   ],
   features: [
@@ -132,6 +132,7 @@ const appConfig = {
       imgPath: '/web4.jpg',
     },
   ],
+  transparentBarPaths: ['/'],
 };
 
 export default appConfig;

@@ -246,9 +246,10 @@ export default function Home() {
           <ScreenshotCarousel />
         </Box>
       </Box>
-      <TFooter />
     </>
   );
 }
 
-Home.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+Home.getLayout = function getLayout(page) {
+  return <MainLayout transparentBar>{page}</MainLayout>;
+};

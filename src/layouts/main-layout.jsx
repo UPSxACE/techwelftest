@@ -2,15 +2,19 @@ import TFooter from '@/components/tfooter';
 import TNavBar from '@/components/tnavbar';
 import { motion } from 'framer-motion';
 
-export default function MainLayout({ children }) {
+export default function MainLayout({ transparentBar = false, children }) {
   return (
     <>
-      <TNavBar />
+      {transparentBar ? (
+        <TNavBar key={0} transparentBar={true} />
+      ) : (
+        <TNavBar key={1} />
+      )}
       <a style={{ position: 'relative', top: -67 }} id='page-start' />
       <motion.div
         id='body'
         style={{
-          marginTop: '-68px',
+          marginTop: transparentBar ? '-68px' : 0,
           overscrollBehaviorY: 'contain',
           //overflowY: 'auto',
           width: '100vw',
