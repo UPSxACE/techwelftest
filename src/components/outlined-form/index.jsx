@@ -384,6 +384,11 @@ const Input = ({
         </Tooltip>
       }
       {...inputProps}
+      defaultValue={
+        formData[field] && formData[field]['value']
+          ? formData[field]['value']
+          : null
+      }
     />
   );
 };
