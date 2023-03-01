@@ -11,6 +11,7 @@ const Submit = ({
   onSubmit,
   onSuccess,
   onError,
+  autoFinalize,
 }) => {
   const { formData, setFormData } = formDataState;
   const { formStatus, setFormStatus } = formStatusState;
@@ -103,13 +104,13 @@ const Submit = ({
           setFormLoading(true);
           handleSubmit()
             .then((result) => {
-              if (onSuccess) onSuccess(result);
-              setFormStatus(true);
+              if (onSuccess) onSuccess(result, setFormStatus);
+              if (autoFinalize) setFormStatus(true);
               setFormLoading(false);
             })
             .catch((error) => {
-              if (onError) onError(error);
-              setFormStatus(error);
+              if (onError) onError(error, setFormStatus);
+              if (autoFinalize) setFormStatus(error);
               setFormLoading(false);
             });
         }

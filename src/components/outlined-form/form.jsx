@@ -10,8 +10,23 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { styled } from '@mui/system';
 
-const Form = ({ formDataState, children }) => {
+const StyledForm = styled('form')((props) => ({
+  maxWidth: 600,
+  padding: 25,
+  paddingTop: 25,
+  paddingBottom: 25,
+  [props.theme.breakpoints.up('md')]: {
+    padding: 50,
+    paddingTop: 50,
+    paddingBottom: 50,
+  },
+  border: '1px solid #dadce0',
+  borderRadius: 10,
+}));
+
+const Form = ({ formDataState, autoFinalize, children }) => {
   const { formData, setFormData } = formDataState;
   const [initialized, setInitialized] = useState(false);
   const [formStatus, setFormStatus] = useState(null);
@@ -19,14 +34,6 @@ const Form = ({ formDataState, children }) => {
 
   const { t } = useTranslation();
 
-  const formStyles = {
-    maxWidth: 600,
-    padding: 50,
-    paddingTop: 35,
-    paddingBottom: 35,
-    border: '1px solid #dadce0',
-    borderRadius: 10,
-  };
   /* 
       Form status meanings:
       null = yet to be submited; 
@@ -44,7 +51,7 @@ const Form = ({ formDataState, children }) => {
       // Check if every field was initialized already
       Children.map(children, (formControl) => {
         // Check if children(that is supposed to be a Form Control component) has the prop field
-        const field = formControl.props.field;
+        const field = formControl.props && formControl.props.field;
 
         // If it has the prop field defined, proceed to checking if its initialized
         if (field) {
@@ -80,38 +87,30 @@ const Form = ({ formDataState, children }) => {
   }, []);
 
   if (formLoading) {
-    return <form style={formStyles}>LOADING...</form>;
+    return <StyledForm>LOADING...</StyledForm>;
   }
 
   if (initialized && formStatus === null) {
     return (
-      <form
-        style={{
-          maxWidth: 600,
-          padding: 50,
-          paddingTop: 35,
-          paddingBottom: 35,
-          border: '1px solid #dadce0',
-          borderRadius: 10,
-        }}
-      >
+      <StyledForm>
         {Children.map(children, (child) => {
           if (isValidElement(child)) {
             return cloneElement(child, {
               formDataState,
               formStatusState: { formStatus, setFormStatus },
               formLoadingState: { formLoading, setFormLoading },
+              autoFinalize,
             });
           }
           return child;
         })}
-      </form>
+      </StyledForm>
     );
   }
 
   if (initialized && formStatus === true) {
     return (
-      <form style={formStyles}>
+      <StyledForm>
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'
@@ -131,14 +130,14 @@ const Form = ({ formDataState, children }) => {
         >
           {t('register_submit_success')}
         </Typography>
-      </form>
+      </StyledForm>
     );
   }
 
   if (initialized) {
     // Error submitting form
     return (
-      <form style={formStyles}>
+      <StyledForm>
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'
@@ -173,7 +172,7 @@ const Form = ({ formDataState, children }) => {
             {t('form_try_again')}
           </Typography>
         </Link>
-      </form>
+      </StyledForm>
     );
   }
 };

@@ -31,10 +31,10 @@ export default function Register() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 14,
+        padding: { xs: 2, sm: 8, md: 14 },
       }}
     >
-      <OutlinedForm.Form formDataState={{ formData, setFormData }}>
+      <OutlinedForm.Form autoFinalize formDataState={{ formData, setFormData }}>
         <OutlinedForm.Header>
           <Box sx={{ mb: 2 }}>
             <Typography
@@ -46,7 +46,7 @@ export default function Register() {
             </Typography>
             <Box>
               <Typography variant='body1'>
-                Crie a sua conta no OK 1st Part
+                {t('create_your_account')}
               </Typography>
             </Box>
           </Box>
@@ -54,7 +54,12 @@ export default function Register() {
 
         <OutlinedForm.Control required label={t('CompanyName')} field='cname'>
           <OutlinedForm.Label />
-          <OutlinedForm.Input JOIValidator={validators.cname} />
+          <OutlinedForm.Input
+            tooltip={{
+              tip: t('tooltip_tip_companyName'),
+            }}
+            JOIValidator={validators.cname}
+          />
           <OutlinedForm.HelperText />
         </OutlinedForm.Control>
 

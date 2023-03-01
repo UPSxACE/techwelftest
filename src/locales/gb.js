@@ -73,6 +73,11 @@ const gb = {
     'If your logo is white, PLEASE click on the square on the right side to change the background.',
   error_occurred: 'An error has occurred',
   form_try_again: 'Try again',
+  create_your_account: 'Create your OK 1st Part account',
+  login_with_account: 'Insert your credentials',
+  Username: 'Username',
+  forgot_password: 'I forgot my password',
+  no_account_yet: 'Create an account',
 };
 
 export default gb;

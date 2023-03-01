@@ -72,6 +72,11 @@ const pt = {
     'Caso o seu logo seja branco, POR FAVOR, clique no quadrado à direita para mudar a cor do fundo.',
   error_occurred: 'Ocorreu um erro',
   form_try_again: 'Tente outra vez',
+  create_your_account: 'Crie a sua conta no OK 1st Part',
+  login_with_account: 'Introduza as suas credenciais',
+  Username: 'Username',
+  forgot_password: 'Esqueci-me da palavra-passe',
+  no_account_yet: 'Criar uma conta',
 };
 
 export default pt;
