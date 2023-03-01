@@ -52,6 +52,26 @@ const pt = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   Login: 'Login',
   Register: 'Registar',
+  string_empty: 'Este campo não pode ficar vazio.',
+  string_email: 'Por favor, insira um email válido.',
+  formExample: 'Exemplo: ',
+  submit: 'Submeter',
+  CompanyName: 'Nome da Empresa',
+  EmailAddress: 'Endereço de Email',
+  account_already: 'Fazer login em vez disso',
+  err_string_min: 'O tamanho mínimo deste campo é de {{size}} caractéres.',
+  err_number_base: 'Este campo deve ser preenchido apenas com números.',
+  does_not_match_password: 'As passwords não coincidem.',
+  image_too_big: 'A imagem não pode ser maior do que {{limitW}}x{{limitH}} px.',
+  register_submit_success_title: 'LOREM IPSUM',
+  register_submit_success:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin vel ligula vel accumsan. Phasellus id felis purus. Suspendisse potenti. Nullam accumsan dui suscipit diam finibus hendrerit. Mauris interdum massa.',
+  register_submit_error:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin vel ligula vel accumsan. Phasellus id felis purus. Suspendisse potenti. Nullam accumsan dui suscipit diam finibus hendrerit. Mauris interdum massa.',
+  register_if_image_white:
+    'Caso o seu logo seja branco, POR FAVOR, clique no quadrado à direita para mudar a cor do fundo.',
+  error_occurred: 'Ocorreu um erro',
+  form_try_again: 'Tente outra vez',
 };
 
 export default pt;

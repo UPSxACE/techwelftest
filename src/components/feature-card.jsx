@@ -11,13 +11,13 @@ export default function FeatureCard({ width, icon, title, desc, ...props }) {
         flexDirection: 'column',
         width: width,
         ...props.sx,
-        ':nth-child(3n)': {
+        ':nth-of-type(3n)': {
           lg: { alignItems: 'flex-end' },
         },
-        ':nth-child(3n-2)': {
+        ':nth-of-type(3n-2)': {
           lg: { alignItems: 'flex-start' },
         },
-        ':nth-child(3n-1)': {
+        ':nth-of-type(3n-1)': {
           lg: { alignItems: 'center' },
         },
       }}

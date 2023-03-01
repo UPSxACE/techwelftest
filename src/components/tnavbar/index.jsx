@@ -44,10 +44,6 @@ export default function TNavBar({
 
   const languagesEnabled = Boolean(appConfig.languages.length > 1);
 
-  useEffect(() => {
-    console.log('appbar mounted');
-  }, []);
-
   return (
     <AppBar
       position='sticky'
@@ -83,7 +79,6 @@ export default function TNavBar({
               <MenuIcon sx={{ color: 'text.primary' }} />
             </IconButton>
             <Menu
-              hideBackdrop
               disableScrollLock={true}
               id='menu-appbar'
               anchorEl={anchorElNav}
@@ -102,19 +97,30 @@ export default function TNavBar({
             >
               {renderPagesMenu()}
             </Menu>
-            <a href='#page-start'>
-              <LogoDev
-                sx={{
-                  marginLeft: 'auto',
-                  marginRight:
-                    languagesEnabled || appConfig.userAccess
-                      ? 'auto'
-                      : 'initial',
-                  fontSize: 52,
-                  textDecoration: 'none',
-                  color: 'text.primary',
-                }}
-              />
+            <a
+              href='#page-start'
+              style={{
+                marginLeft: 'auto',
+                marginRight:
+                  languagesEnabled || appConfig.userAccess ? 'auto' : 'initial',
+              }}
+            >
+              {appConfig.logo ? (
+                <Image
+                  width={125}
+                  height={52}
+                  alt='Company logo'
+                  src={appConfig.logo}
+                />
+              ) : (
+                <LogoDev
+                  sx={{
+                    fontSize: 52,
+                    textDecoration: 'none',
+                    color: 'text.primary',
+                  }}
+                />
+              )}
             </a>
             {languagesEnabled && (
               <Tooltip title='Change Language'>
@@ -140,7 +146,6 @@ export default function TNavBar({
               </Tooltip>
             )}
             <Menu
-              hideBackdrop
               disableScrollLock={true}
               sx={{ mt: '45px' }}
               id='menu-appbar'
@@ -162,6 +167,7 @@ export default function TNavBar({
                   key={index}
                   style={{ textDecoration: 'none' }}
                   href={setting.route}
+                  onClick={handleCloseUserMenu}
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography color='text.secondary' textAlign='center'>
@@ -180,14 +186,24 @@ export default function TNavBar({
             }}
           >
             <a href='#page-start'>
-              <LogoDev
-                sx={{
-                  mr: 2,
-                  fontSize: 52,
-                  textDecoration: 'none',
-                  color: 'text.primary',
-                }}
-              />
+              {appConfig.logo ? (
+                <Image
+                  width={125}
+                  height={52}
+                  alt='Company logo'
+                  src={appConfig.logo}
+                  style={{ marginRight: 16 }}
+                />
+              ) : (
+                <LogoDev
+                  sx={{
+                    mr: 2,
+                    fontSize: 52,
+                    textDecoration: 'none',
+                    color: 'text.primary',
+                  }}
+                />
+              )}
             </a>
             {renderPages()}
             {languagesEnabled && (
@@ -204,7 +220,6 @@ export default function TNavBar({
               </Tooltip>
             )}
             <Menu
-              hideBackdrop
               disableScrollLock={true}
               sx={{ mt: '45px' }}
               id='menu-appbar'
@@ -262,7 +277,6 @@ export default function TNavBar({
             )}
             {/* User Options Menu */}
             <Menu
-              hideBackdrop
               disableScrollLock={true}
               sx={{ mt: '45px' }}
               id='menu-appbar'
@@ -284,6 +298,7 @@ export default function TNavBar({
                   key={index}
                   style={{ textDecoration: 'none' }}
                   href={setting.route}
+                  onClick={handleCloseUserMenu}
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography color='text.secondary' textAlign='center'>

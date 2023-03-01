@@ -77,7 +77,7 @@ export default function Home() {
             }}
           >
             <Typography
-              color='text.special'
+              color='text.primary'
               variant='h2'
               component='h1'
               sx={{ paddingBottom: 1 }}

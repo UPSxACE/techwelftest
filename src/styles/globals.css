@@ -5,3 +5,11 @@
 html {
   scroll-behavior: smooth;
 }
+
+a {
+  color: #0072e5;
+}
+
+a:visited {
+  color: #0072e5;
+}

@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 export default function Login() {
   const { t } = useTranslation();
 
-  return <Box>aaa</Box>;
+  return <Box sx={{ height: 'calc(100vh - 68px)' }}>aaa</Box>;
 }
 
 Login.getLayout = function getLayout(page) {
