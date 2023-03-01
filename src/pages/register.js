@@ -1,26 +1,13 @@
 import OutlinedForm from '@/components/outlined-form';
 import MainLayout from '@/layouts/main-layout';
 import themeConfig from '@/theme-config';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InfoOutlined } from '@mui/icons-material';
-import {
-  Box,
-  FormControl,
-  FormGroup,
-  FormHelperText,
-  Input,
-  InputLabel,
-  OutlinedInput,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Inter } from '@next/font/google';
 import axios from 'axios';
 import Joi from 'joi';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 
 const inter = Inter({ subsets: ['latin'] });
 export default function Register() {
