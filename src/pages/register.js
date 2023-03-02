@@ -175,7 +175,9 @@ export default function Register() {
                 paddingTop: 12,
               }}
             >
-              <Typography component='span'>{t('account_already')}</Typography>
+              <Typography sx={{ color: '#0072e5' }} component='span'>
+                {t('account_already')}
+              </Typography>
             </Link>
           </Box>
         </OutlinedForm.Footer>

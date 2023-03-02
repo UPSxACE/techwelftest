@@ -6,6 +6,7 @@ const themeConfig = {
       components2: '#ffffff', // white
       components3: '#535353', // black
       special: '#336677', // OK1st color //'#ff4c4c', // red
+      links: '#0072e5',
     },
     secondary: {
       main: '#3f51b5', // blue

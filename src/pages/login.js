@@ -85,26 +85,36 @@ export default function Login() {
         <OutlinedForm.Footer>
           <Box sx={{ display: 'flex', justifyContent: 'center', pt: 1 }}>
             <Link
+              className='noPurple'
               href='/register'
               style={{
                 textDecoration: 'none',
                 paddingRight: 12,
               }}
             >
-              <Typography component='span' variant='body1'>
+              <Typography
+                sx={{ color: 'primary.links' }}
+                component='span'
+                variant='body1'
+              >
                 {t('no_account_yet')}
               </Typography>
             </Link>
 
             <Link
               href='/register'
+              className='noPurple'
               style={{
                 textDecoration: 'none',
                 marginLeft: 'auto',
                 paddingLeft: 12,
               }}
             >
-              <Typography component='span' variant='body1'>
+              <Typography
+                sx={{ color: 'primary.links' }}
+                component='span'
+                variant='body1'
+              >
                 {t('forgot_password')}
               </Typography>
             </Link>
