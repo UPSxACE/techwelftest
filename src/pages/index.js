@@ -94,9 +94,6 @@ export default function Home() {
             >
               {t('ProductDesc1')}
             </Typography>
-            <Typography color='text.primary' variant='body1'>
-              {t('ProductDesc2')}
-            </Typography>
             <Box sx={{ paddingTop: 4 /* marginTop:"auto" */ }}>
               <Button
                 sx={{

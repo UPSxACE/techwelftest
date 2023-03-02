@@ -7,7 +7,7 @@ const gb = {
   Printscreens: 'Screenshots',
   ProductName: 'OK1<sup>ST</sup>PART PLATFORM',
   ProductDesc1:
-    'Developed in partnership with the Faurecia group, the OK1stPart platform is a quality control tool, used to verify the first piece produced after a relevant change in the production process.',
+    'New generation quality control software proposing the best functionalities in the market powered by  techwelf. simplifying production management, automation & visibility throughout the manufacturing process. detailed information and real time tracking is what makes OK1ST stand out from others.',
   ProductDesc2: 'Complex and flexible solution.',
   ProductDesc3:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin vel ligula vel accumsan. Phasellus id felis purus. Suspendisse potenti. Nullam accumsan dui suscipit diam finibus hendrerit. Mauris interdum massa.',
