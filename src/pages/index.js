@@ -34,7 +34,9 @@ export default function Home() {
           alignItems: 'center',
           position: 'relative',
           height: 'calc(100vh)',
-          backgroundColor: 'primary.components',
+          backgroundColor: 'primary.background1',
+          background:
+            'linear-gradient(50deg, rgba(27,53,91,1) 0%, rgba(51,155,148,1) 40%, rgba(65,185,169,1) 65%, rgba(0,242,174,1) 100%)',
         }}
       >
         <Box
@@ -45,7 +47,7 @@ export default function Home() {
             maxWidth: '100%',
             height: '100vh',
             position: 'absolute',
-            backgroundImage: `url(${appConfig.backgroundImage.src})`,
+            //backgroundImage: `url(${appConfig.backgroundImage.src})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             opacity: 0.1,
