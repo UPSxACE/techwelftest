@@ -98,12 +98,16 @@ export default function Home() {
             </Typography>
             <Box sx={{ paddingTop: 4 /* marginTop:"auto" */ }}>
               <Button
+                variant='outlined'
                 sx={{
                   width: 'fit-content',
                   paddingX: 4,
                   paddingY: 1.5,
+                  //backgroundColor: 'white',
+                  color: 'white',
+                  borderColor: 'white',
                 }}
-                variant='contained'
+                //variant='contained'
                 href={appConfig.mainButtonTarget}
               >
                 Click Me
