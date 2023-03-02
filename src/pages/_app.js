@@ -11,6 +11,10 @@ import LanguageContext from '@/contexts/language-context';
 import appConfig from '@/app-config';
 import i18next from 'i18next';
 import { useState } from 'react';
+import authenticationContext from '@/contexts/authentication-context';
+
+const AuthContext = authenticationContext;
+
 config.autoAddCss = false;
 
 const theme = createTheme(themeConfig);
@@ -18,6 +22,12 @@ init_i18();
 
 export default function App({ Component, pageProps }) {
   const [currentLanguage, _setLanguage] = useState(appConfig.defaultLanguage);
+  const [auth, setAuth] = useState({
+    authToken: null,
+    authenticated: null,
+    role: null, // admin, guest...?
+    //setXYZ: (XYZ) => {},
+  });
 
   function setLanguage(language_id) {
     i18next.changeLanguage(language_id, (err, t) => {
@@ -37,9 +47,11 @@ export default function App({ Component, pageProps }) {
 
   return (
     <LanguageContext.Provider value={{ currentLanguage, setLanguage }}>
-      <ThemeProvider theme={theme}>
-        {getLayout(<Component {...pageProps} />)}
-      </ThemeProvider>
+      <AuthContext.Provider value={{ auth, setAuth }}>
+        <ThemeProvider theme={theme}>
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
+      </AuthContext.Provider>
     </LanguageContext.Provider>
   );
 }

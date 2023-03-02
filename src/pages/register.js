@@ -1,6 +1,7 @@
 import OutlinedForm from '@/components/outlined-form';
 import MainLayout from '@/layouts/main-layout';
 import themeConfig from '@/theme-config';
+import onlyGuest from '@/utils/onlyGuest';
 import { Box, Typography } from '@mui/material';
 import { Inter } from '@next/font/google';
 import axios from 'axios';
@@ -10,7 +11,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const inter = Inter({ subsets: ['latin'] });
-export default function Register() {
+function Register() {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({});
 
@@ -189,3 +190,5 @@ export default function Register() {
 Register.getLayout = function getLayout(page) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export default onlyGuest(Register);

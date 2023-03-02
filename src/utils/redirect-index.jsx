@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 
-function RedirectLogin() {
+function RedirectIndex() {
   const router = useRouter();
   // Make sure we're in the browser
   if (typeof window !== 'undefined') {
-    router.push('/login');
+    router.push('/');
   }
 }
 
-export default RedirectLogin;
+export default RedirectIndex;

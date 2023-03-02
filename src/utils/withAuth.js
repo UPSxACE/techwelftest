@@ -9,10 +9,10 @@ const withAuth = (Component) => {
   const Auth = (props) => {
     const router = useRouter();
     // Login data added to props via redux-store (or use react context for example)
-    const { authenticated } = useContext(authenticationContext);
+    const { auth } = useContext(authenticationContext);
 
     // If user is not logged in, return login component
-    if (!authenticated) {
+    if (!auth.authenticated) {
       return <RedirectLogin />;
     }
 

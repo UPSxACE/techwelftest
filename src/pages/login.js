@@ -1,20 +1,23 @@
 import OutlinedForm from '@/components/outlined-form';
+import authenticationContext from '@/contexts/authentication-context';
 import MainLayout from '@/layouts/main-layout';
+import onlyGuest from '@/utils/onlyGuest';
 import { Box, Typography } from '@mui/material';
 import { Inter } from '@next/font/google';
 import axios from 'axios';
 import Joi from 'joi';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Login() {
+function Login() {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
   const router = useRouter();
+  const { auth, setAuth } = useContext(authenticationContext);
 
   const validators = {
     username: Joi.string(),
@@ -75,7 +78,8 @@ export default function Login() {
             await axios.post('http://localhost:9000/test/formdata', formData, {
               headers: { 'Content-Type': 'multipart/form-data' },
             });
-            router.push('/');
+            setAuth({ ...auth, authenticated: true });
+            //router.push('/');
           }}
           onError={async (error, setStatus) => {
             setStatus(error);
@@ -128,3 +132,5 @@ export default function Login() {
 Login.getLayout = function getLayout(page) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export default onlyGuest(Login);
