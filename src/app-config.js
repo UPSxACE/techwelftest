@@ -19,7 +19,7 @@ import bkImage from '../public/software-pic-1.webp';
 
 const appConfig = {
   // Available html anchors: #page-start #screenshots, #features
-  logo: '/logo.png', // Either a path to an image, or the value false
+  logo: '/logowhite.png', // Either a path to an image, or the value false
   mainButtonTarget: '/#screenshots',
   backgroundImage: bkImage,
   defaultLanguage: {
