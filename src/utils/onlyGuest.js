@@ -12,13 +12,15 @@ const onlyGuest = (Component) => {
     // Login data added to props via redux-store (or use react context for example)
     const { auth } = useContext(authenticationContext);
 
-    // If user is not logged in, return login component
+    // If user is logged in, return login component
     if (auth.authenticated) {
       return <RedirectIndex />;
     }
 
-    // If user is logged in, return original component
-    return <Component {...props} />;
+    const getLayout = Component.getLayout || ((page) => page);
+
+    // If user is not logged in, return original component
+    return <>{getLayout(<Component {...props} />)}</>;
   };
 
   // Copy getInitial props so it will run as well

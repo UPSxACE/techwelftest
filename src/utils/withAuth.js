@@ -16,8 +16,10 @@ const withAuth = (Component) => {
       return <RedirectLogin />;
     }
 
+    const getLayout = Component.getLayout || ((page) => page);
+
     // If user is logged in, return original component
-    return <Component {...props} />;
+    return <>{getLayout(<Component {...props} />)}</>;
   };
 
   // Copy getInitial props so it will run as well
