@@ -46,7 +46,7 @@ export default function ScreenshotDiv({ title, desc, imgPath, reverse }) {
         <FwImage
           alt='Screenshot from the product'
           height={0}
-          width={600}
+          width={900}
           src={imgPath}
         />
       </Box>
@@ -57,7 +57,7 @@ export default function ScreenshotDiv({ title, desc, imgPath, reverse }) {
           paddingRight: { md: reverse ? 5 : 0 },
         }}
       >
-        <Typography variant='h3' component={'h2'}>
+        <Typography variant='h3' component={'h2'} sx={{ paddingBottom: 1.5 }}>
           {title}
         </Typography>
         <Typography variant='body1' component={'p'}>

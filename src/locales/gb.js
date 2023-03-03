@@ -44,12 +44,12 @@ const gb = {
   IndexPcText:
     'Try it out yourself, and see what you think of it. In just a few minutes you can get access to a limited version of our software.',
   IndexPcButton: 'Register for a demo',
-  ScreenshotTitle1: 'Screenshot Title 1',
+  ScreenshotTitle1: 'Dashboard',
   ScreenshotDesc1:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  ScreenshotTitle2: 'Screenshot Title 2',
+    'A Dashboard with countless numerical informations, providing a very detailed and general view of the data for the user, helping you to have the information on time.',
+  ScreenshotTitle2: 'Form Management',
   ScreenshotDesc2:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    'You are offered a simplified interface that allows you to create many types of questions, and follow the whole process, from its creation, to its approval and analysis.',
   ScreenshotTitle3: 'Screenshot Title 3',
   ScreenshotDesc3:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',

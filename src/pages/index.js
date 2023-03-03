@@ -221,8 +221,8 @@ export default function Home() {
               return (
                 <ScreenshotDiv
                   key={index}
-                  title={screenshot.title}
-                  desc={screenshot.desc}
+                  title={t(screenshot.title)}
+                  desc={t(screenshot.desc)}
                   imgPath={screenshot.imgPath}
                   reverse={index % 2 !== 0}
                 />

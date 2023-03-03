@@ -110,30 +110,25 @@ const appConfig = {
       icon: faLayerGroup,
     },
   ],
-  // Give preference to dark pictures as a contrast to the white section before the carousel
   screenshots: [
     {
       title: 'ScreenshotTitle1',
       desc: 'ScreenshotDesc1',
-      imgPath: '/web1.jpg',
+      imgPath: '/screenshot1.png',
     },
     {
       title: 'ScreenshotTitle2',
       desc: 'ScreenshotDesc2',
-      imgPath: '/web2.jpg',
+      imgPath: '/screenshot3.png',
     },
     {
       title: 'ScreenshotTitle3',
       desc: 'ScreenshotDesc3',
-      imgPath: '/web3.jpg',
-    },
-    {
-      title: 'ScreenshotTitle4',
-      desc: 'ScreenshotDesc4',
-      imgPath: '/web4.jpg',
+      imgPath: '/screenshot4.png',
     },
   ],
   screenshotsMode: 'scroll', // options: scroll or carousel
+  // In case you choose "carousel", give preference to dark screenshots as a contrast to the white section before the carousel
   wgyb: true, // set false to disable the WGYB section
   transparentBarPaths: ['/'],
   pcButtonTarget: '/register',
