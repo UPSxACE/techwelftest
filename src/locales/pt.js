@@ -13,21 +13,21 @@ const pt = {
   ProductDesc3:
     'OK1ST is the tool that will check and validate your products and their production process. Through the collection of reference parameters by our tool, it will keep the record of inspections which will be needed in the future observations of a final product.',
   FeaturesText: 'Our wild range of functionalities provide you full control',
-  feature1: 'Feature 1',
+  feature1: 'Registo e controlo de respostas',
   feature1desc:
-    'Praesent gravida, tortor in molestie varius, erat ex pellentesque neque, eu molestie mauris est eu mi. Mauris nunc felis, fermentum nec felis a, vehicula.',
-  feature2: 'Feature 2',
+    'Visualização geral de todos os formulários automatizados diariamente em forma de resposta para cada  situação, e seus diversos  alertas.',
+  feature2: 'Produção de relatórios',
   feature2desc:
-    'Sed sem ante, blandit nec tellus vitae, ultricies dignissim dolor. Aliquam pretium, nunc eu bibendum sollicitudin, turpis eros imperdiet lorem, tempus finibus elit est.',
-  feature3: 'Feature 3',
+    'Geração de múltiplos relatórios de síntese, e suporte a exportação de dados em diferentes formatos, incluindo Excel.',
+  feature3: 'Profile management',
   feature3desc:
-    'Aenean eu elementum ante. Nullam eros orci, mattis non pretium sed, semper nec ipsum. Quisque mi sapien, interdum eu ultrices eu, blandit a leo.',
-  feature4: 'Feature 4',
+    'OK1st allows you to create numerous profiles, and quickly assign them roles and shifts.',
+  feature4: 'Multilingual',
   feature4desc:
-    'Praesent gravida, tortor in molestie varius, erat ex pellentesque neque, eu molestie mauris est eu mi. Mauris nunc felis, fermentum nec felis a, vehicula.',
-  feature5: 'Feature 5',
+    'Our aim is to make our app available for everyone, so OK1ST includes support to both english and portuguese, and more in the future.',
+  feature5: 'Accessible',
   feature5desc:
-    'Sed sem ante, blandit nec tellus vitae, ultricies dignissim dolor. Aliquam pretium, nunc eu bibendum sollicitudin, turpis eros imperdiet lorem, tempus finibus elit est.',
+    'You can access the application in any device with just an internet connection and a browser.',
   feature6: 'Feature 6',
   feature6desc:
     'Aenean eu elementum ante. Nullam eros orci, mattis non pretium sed, semper nec ipsum. Quisque mi sapien, interdum eu ultrices eu, blandit a leo.',
