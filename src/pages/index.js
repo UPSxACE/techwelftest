@@ -162,111 +162,115 @@ export default function Home() {
             </Box>*/}
         </Box>
       </Box>
-      {/* Product Presentation */}
+      {/* Screenshots / Product Presentation */}
       <a style={{ position: 'relative', top: -67 }} id='product' />
-      <Box
-        component={motion.div}
-        sx={{
-          paddingX: 4,
-          paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          minHeight: 'calc(100vh)',
-          alignItems: 'center',
-        }}
-      >
+      {appConfig.screenshotsMode === 'scroll' && (
         <Box
+          component={motion.div}
           sx={{
-            width: '100%',
+            paddingX: 4,
+            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'flex-start',
+            minHeight: 'calc(100vh)',
             alignItems: 'center',
           }}
         >
-          <Typography
-            color='text.secondary'
-            variant='h4'
-            component={'h2'}
-            sx={{ textAlign: 'center', fontWeight: 500 }}
-            mb={3}
-          >
-            {t('made_easier')}
-          </Typography>
-          <Typography
-            color='text.secondary'
-            variant='h6'
-            component={'p'}
+          <Box
             sx={{
-              textAlign: 'center',
-              fontWeight: 500,
-              mb: { xs: 5, sm: 6, md: 9, lg: 12 },
-              maxWidth: 1200,
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
-            {t('ProductDesc3')}
-          </Typography>
-        </Box>
+            <Typography
+              color='text.secondary'
+              variant='h4'
+              component={'h2'}
+              sx={{ textAlign: 'center', fontWeight: 500 }}
+              mb={3}
+            >
+              {t('made_easier')}
+            </Typography>
+            <Typography
+              color='text.secondary'
+              variant='h6'
+              component={'p'}
+              sx={{
+                textAlign: 'center',
+                fontWeight: 500,
+                mb: { xs: 5, sm: 6, md: 9, lg: 12 },
+                maxWidth: 1200,
+              }}
+            >
+              {t('ProductDesc3')}
+            </Typography>
+          </Box>
 
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <ScreenshotDiv
-            title={'Title'}
-            desc={'Desc'}
-            imgPath={'/print-example.png'}
-          />
-          <ScreenshotDiv
-            title={'Title'}
-            desc={'Desc'}
-            imgPath={'/print-example.png'}
-            reverse
-          />
-          <ScreenshotDiv
-            title={'Title'}
-            desc={'Desc'}
-            imgPath={'/print-example.png'}
-          />
-        </Box>
-      </Box>
-      {/* WGYB */}
-      <ColoredBox
-        sx={{
-          paddingX: 4,
-          paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          backgroundColor: 'primary.special2',
-        }}
-      >
-        <Box
-          sx={{
-            width: '100%',
-            maxWidth: 1200,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Typography color={'text.primary'} variant='h4' component='h2' mb={2}>
-            {t('wgyb1')}
-          </Typography>
-          <Typography
-            color={'text.primary'}
-            variant='h5'
-            component='p'
-            textAlign={'center'}
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
-            {t('wgyb2')}
-          </Typography>
+            {appConfig.screenshots.map((screenshot, index) => {
+              return (
+                <ScreenshotDiv
+                  key={index}
+                  title={screenshot.title}
+                  desc={screenshot.desc}
+                  imgPath={screenshot.imgPath}
+                  reverse={index % 2 !== 0}
+                />
+              );
+            })}
+          </Box>
         </Box>
-      </ColoredBox>
+      )}
+      {/* WGYB */}
+      {appConfig.wgyb && (
+        <ColoredBox
+          sx={{
+            paddingX: 4,
+            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: 'primary.special2',
+          }}
+        >
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: 1200,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              color={'text.primary'}
+              variant='h4'
+              component='h2'
+              mb={2}
+            >
+              {t('wgyb1')}
+            </Typography>
+            <Typography
+              color={'text.primary'}
+              variant='h5'
+              component='p'
+              textAlign={'center'}
+            >
+              {t('wgyb2')}
+            </Typography>
+          </Box>
+        </ColoredBox>
+      )}
       {/* Features */}
       <a style={{ position: 'relative', top: -67 }} id='features' />
       <Box
@@ -389,70 +393,75 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
-      {/* Carousel 
-      <Box
-        component={motion.div}
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          height: { md: 'calc(100vh - 68px)' },
-          scrollSnapAlign: { md: 'start' },
-          backgroundColor: 'grey',
-          width: '100vw',
-          maxWidth: '100%',
-          '& .slider-wrapper': {
-            width: '100vw',
-            maxWidth: '100%',
-            height: 'calc(100vh - 68px)',
-          },
-          '& .control-dots': {
-            bottom: '15px!important',
-          },
-          '& .control-arrow': {
-            display: {
-              xs: 'none',
-              md: 'block',
-            },
-            height: '50px',
-            top: { xs: '0%', md: '50%!important' },
-            bottom: { md: '50%!important' },
-            backgroundColor: 'rgba(0,0,0,0.5)!important',
-            width: '50px',
-            backgroundColor: themeConfig.palette.primary.special + '!important',
-          },
-
-          '& .control-prev': {
-            paddingRight: '8px!important',
-          },
-          '& .control-next': {
-            paddingLeft: '8px!important',
-          },
-          '& .control-prev:hover': {
-            backgroundColor: themeConfig.palette.primary.special + '!important',
-          },
-          '& .control-next:hover': {
-            backgroundColor: themeConfig.palette.primary.special + '!important',
-          },
-          '& .dot.selected': {
-            backgroundColor: themeConfig.palette.primary.special + '!important',
-          },
-        }}
-      >
+      {appConfig.screenshotsMode === 'carousel' && (
         <Box
+          component={motion.div}
           sx={{
-            position: 'relative',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            height: { md: 'calc(100vh - 68px)' },
+            scrollSnapAlign: { md: 'start' },
+            backgroundColor: 'grey',
             width: '100vw',
             maxWidth: '100%',
-            height: 'calc(100vh - 68px)',
-            maxWidth: '100%',
-            fontSize: 0,
+            '& .slider-wrapper': {
+              width: '100vw',
+              maxWidth: '100%',
+              height: 'calc(100vh - 68px)',
+            },
+            '& .control-dots': {
+              bottom: '15px!important',
+            },
+            '& .control-arrow': {
+              display: {
+                xs: 'none',
+                md: 'block',
+              },
+              height: '50px',
+              top: { xs: '0%', md: '50%!important' },
+              bottom: { md: '50%!important' },
+              backgroundColor: 'rgba(0,0,0,0.5)!important',
+              width: '50px',
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
+
+            '& .control-prev': {
+              paddingRight: '8px!important',
+            },
+            '& .control-next': {
+              paddingLeft: '8px!important',
+            },
+            '& .control-prev:hover': {
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
+            '& .control-next:hover': {
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
+            '& .dot.selected': {
+              backgroundColor:
+                themeConfig.palette.primary.special + '!important',
+            },
           }}
         >
-          <a style={{ position: 'relative', top: -67 }} id='screenshots' />
-          <ScreenshotCarousel />
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100vw',
+              maxWidth: '100%',
+              height: 'calc(100vh - 68px)',
+              maxWidth: '100%',
+              fontSize: 0,
+            }}
+          >
+            <a style={{ position: 'relative', top: -67 }} id='screenshots' />
+            <ScreenshotCarousel />
+          </Box>
         </Box>
-      </Box>*/}
+      )}
     </>
   );
 }

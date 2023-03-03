@@ -133,6 +133,8 @@ const appConfig = {
       imgPath: '/web4.jpg',
     },
   ],
+  screenshotsMode: 'scroll', // options: scroll or carousel
+  wgyb: true, // set false to disable the WGYB section
   transparentBarPaths: ['/'],
   pcButtonTarget: '/register',
 };
