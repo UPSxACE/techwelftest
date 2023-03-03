@@ -23,6 +23,7 @@ import Image from 'next/image';
 import LanguageContext from '@/contexts/language-context';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import themeConfig from '@/theme-config';
 
 export default function TNavBar({
   children,
@@ -49,9 +50,12 @@ export default function TNavBar({
       position='sticky'
       sx={{
         fontSize: 0,
-        backgroundColor: color
+        background: color
+          ? `linear-gradient(${themeConfig.palette.primary.gradientAngle}deg, ${themeConfig.palette.primary.special1} 0%, ${themeConfig.palette.primary.special2} 100%)`
+          : 'transparent',
+        /*backgroundColor: color
           ? 'primary.components'
-          : 'rgba(0,0,0,0)' /*primary.components*/,
+          : 'rgba(0,0,0,0)' /*primary.components,*/
         boxShadow: 0,
       }}
     >

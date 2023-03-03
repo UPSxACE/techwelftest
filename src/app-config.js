@@ -134,6 +134,7 @@ const appConfig = {
     },
   ],
   transparentBarPaths: ['/'],
+  pcButtonTarget: '/register',
 };
 
 export default appConfig;

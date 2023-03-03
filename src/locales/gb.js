@@ -9,8 +9,10 @@ const gb = {
   ProductDesc1:
     'New generation quality control software proposing the best functionalities in the market powered by  techwelf. simplifying production management, automation & visibility throughout the manufacturing process. detailed information and real time tracking is what makes OK1ST stand out from others.',
   ProductDesc2: 'Complex and flexible solution.',
+  made_easier: 'Production line control made easier',
   ProductDesc3:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin vel ligula vel accumsan. Phasellus id felis purus. Suspendisse potenti. Nullam accumsan dui suscipit diam finibus hendrerit. Mauris interdum massa.',
+    'OK1ST is the tool that will check and validate your products and their production process. Through the collection of reference parameters by our tool, it will keep the record of inspections which will be needed in the future observations of a final product.',
+  FeaturesText: 'Our wild range of functionalities provide you full control',
   feature1: 'Feature 1',
   feature1desc:
     'Praesent gravida, tortor in molestie varius, erat ex pellentesque neque, eu molestie mauris est eu mi. Mauris nunc felis, fermentum nec felis a, vehicula.',
@@ -38,6 +40,10 @@ const gb = {
   feature9: 'Feature 9',
   feature9desc:
     'Aenean eu elementum ante. Nullam eros orci, mattis non pretium sed, semper nec ipsum. Quisque mi sapien, interdum eu ultrices eu, blandit a leo.',
+  IndexPcTitle: 'What are you waiting for?',
+  IndexPcText:
+    'Try it out yourself, and see what you think of it. In just a few minutes you can get access to a limited version of our software.',
+  IndexPcButton: 'Register for a demo',
   ScreenshotTitle1: 'Screenshot Title 1',
   ScreenshotDesc1:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -78,6 +84,9 @@ const gb = {
   Username: 'Username',
   forgot_password: 'I forgot my password',
   no_account_yet: 'Create an account',
+  wgyb1: 'WE HELP YOU SUCCEED',
+  wgyb2:
+    "The success of your business is crucially  important to us, we're  providing the solution you've been looking for. Whether you are a car manufacturer or any other business related to manufacturing we provide you the best quality TO MAKE IT WORK",
 };
 
 export default gb;

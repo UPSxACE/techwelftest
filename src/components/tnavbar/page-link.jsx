@@ -18,7 +18,7 @@ export default function PageLink({ route, pageName, secondary, ...props }) {
         component='span'
         sx={{
           '&:hover': {
-            color: 'primary.special',
+            color: 'primary.special3',
             transition: '300ms',
           },
         }}

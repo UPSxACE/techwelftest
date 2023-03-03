@@ -7,6 +7,7 @@ const themeConfig = {
       components3: '#535353', // black
       special1: '#284852', // dark green
       special2: '#1a746c', // green
+      special3: '#ed7575', // red
       //special: '#336677', // OK1st color //'#ff4c4c', // red
       links: '#0072e5', // blue
       gradientAngle: '139',
