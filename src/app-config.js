@@ -74,6 +74,12 @@ const appConfig = {
       desc: 'feature2desc',
       icon: faMicrochip,
     },
+    ,
+    {
+      name: 'feature6',
+      desc: 'feature6desc',
+      icon: faWifi,
+    },
     {
       name: 'feature3',
       desc: 'feature3desc',
@@ -88,12 +94,7 @@ const appConfig = {
       name: 'feature5',
       desc: 'feature5desc',
       icon: faTasks,
-    },
-    {
-      name: 'feature6',
-      desc: 'feature6desc',
-      icon: faWifi,
-    },
+    } /*
     {
       name: 'feature7',
       desc: 'feature7desc',
@@ -108,7 +109,7 @@ const appConfig = {
       name: 'feature9',
       desc: 'feature9desc',
       icon: faLayerGroup,
-    },
+    },*/,
   ],
   screenshots: [
     {
