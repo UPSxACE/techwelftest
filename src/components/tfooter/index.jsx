@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import ColoredBox from '../colored-box';
+import Info from './info';
 
 const currentYear = new Date().getFullYear();
 
@@ -11,20 +12,26 @@ export default function TFooter() {
       component={motion.div}
       sx={{
         display: 'flex',
-        flexDirection: 'row',
-        paddingX: 4,
-        paddingY: 2,
+        flexDirection: 'column',
+        paddingX: 5,
+        paddingY: 5,
         scrollSnapAlign: { md: 'end' },
         backgroundColor: 'primary.components',
       }}
     >
-      <Typography color='text.primary' variant='body2' component='span'>
-        © TechWelf {currentYear}. Todos os Direitos Reservados
-      </Typography>
-      <Box sx={{ marginLeft: 'auto' }}>
+      <Info />
+      <Divider sx={{ borderColor: 'white', marginTop: 5, marginBottom: 5 }} />
+      <Box
+        sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
+      >
         <Typography color='text.primary' variant='body2' component='span'>
-          Logos
+          © TechWelf {currentYear}. Todos os Direitos Reservados
         </Typography>
+        {/*<Box sx={{ marginLeft: 'auto' }}>
+          <Typography color='text.primary' variant='body2' component='span'>
+            Logos
+          </Typography>
+        </Box>*/}
       </Box>
     </ColoredBox>
   );

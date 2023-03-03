@@ -87,6 +87,9 @@ const gb = {
   wgyb1: 'WE HELP YOU SUCCEED',
   wgyb2:
     "The success of your business is crucially  important to us, we're  providing the solution you've been looking for. Whether you are a car manufacturer or any other business related to manufacturing we provide you the best quality TO MAKE IT WORK",
+  Product: 'Product',
+  Company: 'Company',
+  SocialMedia: 'Social Media',
 };
 
 export default gb;
