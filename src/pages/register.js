@@ -124,7 +124,7 @@ function Register() {
           field='websiteColor'
         >
           <OutlinedForm.ColorPicker
-            defaultColor={themeConfig.palette.primary.special}
+            defaultColor={themeConfig.palette.primary.special1}
             tooltip={{
               tip: t('tooltip_tip_websiteColor'),
             }}

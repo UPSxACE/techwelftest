@@ -319,14 +319,24 @@ export default function Home() {
                     alignItems: { xs: 'center' },
                     paddingX: { xs: 1, sm: 2, md: 5 },
                     ':nth-of-type(3n)': {
-                      lg: { alignItems: 'flex-end' },
-                    },
-                    ':nth-of-type(3n-2)': {
-                      lg: { alignItems: 'flex-start' },
+                      lg: { alignItems: 'flex-end', paddingRight: 0 },
                     },
                     ':nth-of-type(3n-1)': {
                       lg: { alignItems: 'center' },
                     },
+                    ':nth-of-type(3n-2)': {
+                      lg: { alignItems: 'flex-start', paddingLeft: 0 },
+                    },
+                    ':nth-of-type(2n)': (theme) => ({
+                      [theme.breakpoints.between('md', 'lg')]: {
+                        paddingRight: 2,
+                      },
+                    }),
+                    ':nth-of-type(2n+1)': (theme) => ({
+                      [theme.breakpoints.between('md', 'lg')]: {
+                        paddingLeft: 2,
+                      },
+                    }),
                   }}
                   containerStyle={{}}
                 />
