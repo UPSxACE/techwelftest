@@ -1,6 +1,7 @@
 {
   "name": "techwelf-ok1stpart",
   "version": "1.0.0",
+  "homepage": "/",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -26,14 +27,17 @@
     "eslint-config-next": "13.1.6",
     "framer-motion": "^9.0.4",
     "i18next": "^22.4.10",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.1.1",
     "joi": "^17.8.3",
     "next": "13.1.6",
+    "next-i18next": "^13.2.1",
     "normalize.css": "^8.0.1",
     "react": "18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "18.2.0",
     "react-fontawesome": "^1.7.1",
-    "react-i18next": "^12.1.5",
+    "react-i18next": "^12.2.0",
     "react-responsive-carousel": "^3.2.23",
     "react-use": "^17.4.0"
   }

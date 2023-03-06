@@ -4,14 +4,14 @@ import 'normalize.css/normalize.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import themeConfig from '@/theme-config';
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { initReactI18next, useTranslation } from 'react-i18next';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import LanguageContext from '@/contexts/language-context';
 import appConfig from '@/app-config';
-import i18next from 'i18next';
 import { useState } from 'react';
 import authenticationContext from '@/contexts/authentication-context';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 const AuthContext = authenticationContext;
 
@@ -29,8 +29,10 @@ export default function App({ Component, pageProps }) {
     //setXYZ: (XYZ) => {},
   });
 
+  //const { i18n } = useTranslation();
+
   function setLanguage(language_id) {
-    i18next.changeLanguage(language_id, (err, t) => {
+    i18n.changeLanguage(language_id, (err, t) => {
       if (err) return console.log('Something went wrong loading', err);
       t('key'); // -> same as i18next.t
     });
@@ -69,6 +71,7 @@ function init_i18() {
   }
 
   i18n
+    //.use(LanguageDetector)
     .use(initReactI18next) // passes i18n down to react-i18next
     .init({
       // the translations
@@ -78,7 +81,7 @@ function init_i18() {
         // WARNING: If you will edit the resources array manually, PLEASE disable "easyTranslationLoader", in case it's enabled in app-config.js
         ...resources_array, // WARNNING: Do NOT delete this, even if you won't use it
       },
-      lng: appConfig.defaultLanguage.id, // if you're using a language detector, do not define the lng option
+      // lng: appConfig.defaultLanguage.id, // if you're using a language detector, do not define the lng option
       fallbackLng: appConfig.defaultLanguage.id,
 
       interpolation: {
