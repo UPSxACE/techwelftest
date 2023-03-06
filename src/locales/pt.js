@@ -12,7 +12,9 @@ const pt = {
   made_easier: 'Production line control made easier',
   ProductDesc3:
     'OK1ST is the tool that will check and validate your products and their production process. Through the collection of reference parameters by our tool, it will keep the record of inspections which will be needed in the future observations of a final product.',
-  FeaturesText: 'Our wild range of functionalities provide you full control',
+  FeaturesText1: 'Our wild range of functionalities provide you full control',
+  FeaturesText2:
+    'Complementing the work environment, helping you create a solid production cicle, and simplifying your business.',
   feature1: 'Controlo de respostas',
   feature1desc:
     'Visualização geral de todos os formulários automatizados diariamente em forma de resposta para cada  situação, e seus diversos  alertas.',
@@ -44,6 +46,9 @@ const pt = {
   IndexPcText:
     'Try it out yourself, and see what you think of it. In just a few minutes you can get access to a limited version of our software.',
   IndexPcButton: 'Register for a demo',
+  IndexPcTextAlt:
+    'Reach us to get access to a limited version of our software, and try it out yourself.',
+  IndexPcButtonAlt: 'Contact Us',
   ScreenshotTitle1: 'Dashboard',
   ScreenshotDesc1:
     'A Dashboard with countless numerical informations, providing a very detailed and general view of the data for the user, helping you to have the information on time.',
@@ -89,6 +94,7 @@ const pt = {
   Product: 'Product',
   Company: 'Company',
   SocialMedia: 'Social Media',
+  cta_button: 'Learn More',
 };
 
 export default pt;

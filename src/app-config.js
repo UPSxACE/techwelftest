@@ -18,9 +18,9 @@ import pt from './locales/pt';
 import bkImage from '../public/software-pic-1.webp';
 
 const appConfig = {
-  // Available html anchors: #page-start #screenshots, #features
+  // Available html anchors: #page-start #screenshots, #features, #product
   logo: '/logowhite.png', // Either a path to an image, or the value false
-  mainButtonTarget: '/#screenshots',
+  mainButtonTarget: '/#product',
   backgroundImage: bkImage,
   defaultLanguage: {
     id: 'pt',
@@ -44,7 +44,7 @@ const appConfig = {
       translationFile: gb,
     },
   ],
-  userAccess: true, // Allow common users to register and login
+  userAccess: false, // Allow common users to register and login
   usersOptionsMenu: [
     { name: 'Login', route: '/login' },
     { name: 'Register', route: '/register' },
@@ -56,11 +56,11 @@ const appConfig = {
     },
     {
       name: 'FeaturesTab',
-      route: '/#features',
+      route: '/#product',
     },
     {
       name: 'Printscreens',
-      route: '/#screenshots',
+      route: '/#features',
     },
   ],
   features: [
@@ -122,11 +122,12 @@ const appConfig = {
       desc: 'ScreenshotDesc2',
       imgPath: '/screenshot3.png',
     },
+    /*
     {
       title: 'ScreenshotTitle3',
       desc: 'ScreenshotDesc3',
       imgPath: '/screenshot4.png',
-    },
+    },*/
   ],
   screenshotsMode: 'scroll', // options: scroll or carousel
   // In case you choose "carousel", give preference to dark screenshots as a contrast to the white section before the carousel

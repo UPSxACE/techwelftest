@@ -139,7 +139,7 @@ export default function Home() {
                 //variant='contained'
                 href={appConfig.mainButtonTarget}
               >
-                Click Me
+                {t('cta_button')}
               </Button>
             </Box>
           </Box>
@@ -287,11 +287,19 @@ export default function Home() {
         <Box sx={{ maxWidth: 1200 }}>
           <Typography
             color='text.secondary'
-            variant='h6'
+            variant='h4'
             component={'p'}
-            sx={{ textAlign: 'center', fontWeight: 500 }}
+            sx={{ textAlign: 'center', fontWeight: 500, mb: 2 }}
           >
-            {t('FeaturesText')}
+            {t('FeaturesText1')}
+          </Typography>
+          <Typography
+            color='text.secondary'
+            variant='body1'
+            component={'p'}
+            sx={{ textAlign: 'center', fontWeight: 400, fontSize: 20 }}
+          >
+            {t('FeaturesText2')}
           </Typography>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingTop: 4 }}>
             {appConfig.features.map((feature) => {
@@ -348,58 +356,61 @@ export default function Home() {
               <FwImage src='/pc.png' height={0} width={600} />
             </Box>
             {/* PC Section */}
-            {appConfig.userAccess && (
-              <Box
-                sx={{
-                  width: {
-                    xs: '100%',
-                    md: '50%',
-                  },
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: { xs: 'flex-start', md: 'center' },
-                  pt: { xs: 9, md: 0 },
-                }}
+
+            <Box
+              sx={{
+                width: {
+                  xs: '100%',
+                  md: '50%',
+                },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: { xs: 'flex-start', md: 'center' },
+                pt: { xs: 9, md: 0 },
+              }}
+            >
+              <Typography
+                color='text.secondary'
+                variant='h4'
+                component={'h3'}
+                sx={{ textAlign: 'center', fontWeight: 500, mb: 2 }}
               >
-                <Typography
-                  color='text.secondary'
-                  variant='h4'
-                  component={'h3'}
-                  sx={{ textAlign: 'center', fontWeight: 500, mb: 2 }}
+                {t('IndexPcTitle')}
+              </Typography>
+              <Typography
+                color='text.secondary'
+                variant='body1'
+                component={'p'}
+                sx={{ textAlign: 'center', mb: 2 }}
+              >
+                {appConfig.userAccess ? t('IndexPcText') : t('IndexPcTextAlt')}
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.75 }}>
+                <Button
+                  variant='contained'
+                  sx={{
+                    width: 'fit-content',
+                    paddingX: 4,
+                    paddingY: 1.5,
+                    color: 'white',
+                    borderColor: 'white',
+                    '&:hover': {
+                      backgroundColor: 'primary.special3',
+                      borderColor: 'primary.special3',
+                    },
+                  }}
+                  href={
+                    appConfig.userAcess
+                      ? appConfig.pcButtonTarget
+                      : 'mailto:geral@techwelf.com'
+                  }
                 >
-                  {t('IndexPcTitle')}
-                </Typography>
-                <Typography
-                  color='text.secondary'
-                  variant='body1'
-                  component={'p'}
-                  sx={{ textAlign: 'center', mb: 2 }}
-                >
-                  {t('IndexPcText')}
-                </Typography>
-                <Box
-                  sx={{ display: 'flex', justifyContent: 'center', mt: 0.75 }}
-                >
-                  <Button
-                    variant='contained'
-                    sx={{
-                      width: 'fit-content',
-                      paddingX: 4,
-                      paddingY: 1.5,
-                      color: 'white',
-                      borderColor: 'white',
-                      '&:hover': {
-                        backgroundColor: 'primary.special3',
-                        borderColor: 'primary.special3',
-                      },
-                    }}
-                    href={appConfig.pcButtonTarget}
-                  >
-                    {t('IndexPcButton')}
-                  </Button>
-                </Box>
+                  {appConfig.userAccess
+                    ? t('IndexPcButton')
+                    : t('IndexPcButtonAlt')}
+                </Button>
               </Box>
-            )}
+            </Box>
           </Box>
         </Box>
       </Box>
