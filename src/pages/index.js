@@ -98,7 +98,7 @@ export default function Home() {
               flexDirection: 'column',
               width: {
                 xs: '100%',
-                md: '50%',
+                md: '60%',
               },
               paddingRight: 4,
               marginBottom: { xs: 4, md: 0 },
@@ -157,7 +157,7 @@ export default function Home() {
               sx={{
                 width: {
                   xs: '100%',
-                  md: '50%',
+                  md: '40%',
                 },
               }}
             >
