@@ -25,7 +25,7 @@ export default function TFooter() {
         sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
       >
         <Typography color='text.primary' variant='body2' component='span'>
-          © TechWelf {currentYear}. Todos os Direitos Reservados
+          © TechWelf {currentYear}. {t('all_rights')}
         </Typography>
         {/*<Box sx={{ marginLeft: 'auto' }}>
           <Typography color='text.primary' variant='body2' component='span'>

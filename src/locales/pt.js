@@ -95,6 +95,7 @@ const pt = {
   Company: 'Company',
   SocialMedia: 'Social Media',
   cta_button: 'Learn More',
+  all_rights: 'Todos os Direitos Reservados',
 };
 
 export default pt;
