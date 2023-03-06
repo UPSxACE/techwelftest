@@ -38,6 +38,12 @@ export default function App({ Component, pageProps }) {
 
   const { i18n } = useTranslation();
 
+  /*
+  useEffect(() => {
+    i18n.changeLanguage(router.locale);
+  }, []);
+  */
+
   function setLanguage(language_id) {
     i18n.changeLanguage(language_id, (err, t) => {
       if (err) return console.log('Something went wrong loading', err);
