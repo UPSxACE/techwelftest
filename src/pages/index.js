@@ -57,6 +57,8 @@ export default function Home() {
           background: `linear-gradient(${themeConfig.palette.primary.gradientAngle}deg, ${themeConfig.palette.primary.special1} 0%, ${themeConfig.palette.primary.special2} 100%)`,
         }}
       >
+        {/*
+        Not the most effective way of adding images
         <Box
           sx={{
             top: 0,
@@ -65,12 +67,19 @@ export default function Home() {
             maxWidth: '100%',
             height: '100vh',
             position: 'absolute',
-            backgroundImage: `url(${appConfig.backgroundImage.src})`,
+            //backgroundImage: `url(${appConfig.backgroundImage.src})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             opacity: 0.1,
           }}
-        ></Box>
+        ></Box>*/}
+        <Image
+          alt='Website Background Image'
+          src={appConfig.backgroundImage}
+          fill
+          style={{ opacity: 0.1, objectFit: 'cover', objectPosition: 'center' }}
+          priority
+        />
         <Box
           component={motion.div}
           sx={{

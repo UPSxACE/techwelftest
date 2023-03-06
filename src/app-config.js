@@ -21,7 +21,7 @@ const appConfig = {
   // Available html anchors: #page-start #screenshots, #features, #product
   logo: '/logowhite.png', // Either a path to an image, or the value false
   mainButtonTarget: '/#product',
-  backgroundImage: bkImage,
+  backgroundImage: '/software-pic-1.webp',
   defaultLanguage: {
     id: 'pt',
     name: 'Portuguese',
