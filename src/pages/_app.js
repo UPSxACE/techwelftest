@@ -3,25 +3,32 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'normalize.css/normalize.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import themeConfig from '@/theme-config';
-import i18n from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import LanguageContext from '@/contexts/language-context';
 import appConfig from '@/app-config';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import authenticationContext from '@/contexts/authentication-context';
 import LanguageDetector from 'i18next-browser-languagedetector';
+
+// import i18n (needs to be bundled ;))
+import '../i18n';
+import { useRouter } from 'next/router';
 
 const AuthContext = authenticationContext;
 
 config.autoAddCss = false;
 
 const theme = createTheme(themeConfig);
-init_i18();
 
 export default function App({ Component, pageProps }) {
-  const [currentLanguage, _setLanguage] = useState(appConfig.defaultLanguage);
+  const router = useRouter();
+
+  const [currentLanguage, _setLanguage] = useState(
+    appConfig.languages[router.locale]
+  );
+
   const [auth, setAuth] = useState({
     authToken: null,
     authenticated: null,
@@ -29,7 +36,7 @@ export default function App({ Component, pageProps }) {
     //setXYZ: (XYZ) => {},
   });
 
-  //const { i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   function setLanguage(language_id) {
     i18n.changeLanguage(language_id, (err, t) => {
@@ -37,9 +44,7 @@ export default function App({ Component, pageProps }) {
       t('key'); // -> same as i18next.t
     });
 
-    const newLanguage = appConfig.languages.find(
-      (language) => language.id === language_id
-    );
+    const newLanguage = appConfig.languages[language_id];
     if (newLanguage) {
       _setLanguage(newLanguage);
     }
@@ -56,36 +61,4 @@ export default function App({ Component, pageProps }) {
       </AuthContext.Provider>
     </LanguageContext.Provider>
   );
-}
-
-// Functions
-function init_i18() {
-  let resources_array = {};
-  if (appConfig.easyTranslationLoader) {
-    appConfig.languages.map((language) => {
-      const id = language.id;
-      const resource = {};
-      resource[id] = { translation: language.translationFile };
-      resources_array = { ...resources_array, ...resource };
-    });
-  }
-
-  i18n
-    //.use(LanguageDetector)
-    .use(initReactI18next) // passes i18n down to react-i18next
-    .init({
-      // the translations
-      // (tip move them in a JSON file and import them,
-      // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
-      resources: {
-        // WARNING: If you will edit the resources array manually, PLEASE disable "easyTranslationLoader", in case it's enabled in app-config.js
-        ...resources_array, // WARNNING: Do NOT delete this, even if you won't use it
-      },
-      // lng: appConfig.defaultLanguage.id, // if you're using a language detector, do not define the lng option
-      fallbackLng: appConfig.defaultLanguage.id,
-
-      interpolation: {
-        escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-      },
-    });
 }

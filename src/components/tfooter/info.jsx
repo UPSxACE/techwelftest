@@ -82,7 +82,9 @@ function CategoryItem({ href, ext_href, children }) {
         component='li'
         sx={style}
       >
-        <CategoryLink href={href}>{children} </CategoryLink>
+        <CategoryLink href={href} scroll={false}>
+          {children}{' '}
+        </CategoryLink>
       </Typography>
     );
   }

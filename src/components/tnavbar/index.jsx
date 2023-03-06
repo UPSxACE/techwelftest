@@ -43,7 +43,7 @@ export default function TNavBar({
     if (transparentBar) last > 0.01 ? setColor(true) : setColor(false);
   });
 
-  const languagesEnabled = Boolean(appConfig.languages.length > 1);
+  const languagesEnabled = Boolean(Object.keys(appConfig.languages).length > 1);
 
   return (
     <AppBar
@@ -240,11 +240,15 @@ export default function TNavBar({
               open={Boolean(anchorElLanguage)}
               onClose={handleCloseLanguageMenu}
             >
-              {appConfig.languages.map((language) => (
+              {Object.keys(appConfig.languages).map((language) => (
                 <a
-                  key={language.id}
+                  key={appConfig.languages[language].id}
                   onClick={() => {
-                    setLanguage(language.id);
+                    const setCookie = (locale) => {
+                      document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`;
+                    };
+                    setLanguage(appConfig.languages[language].id);
+                    setCookie(appConfig.languages[language].id);
                   }}
                 >
                   <MenuItem onClick={handleCloseLanguageMenu}>
@@ -253,11 +257,11 @@ export default function TNavBar({
                         small
                         pressable
                         name='English'
-                        imgPath={language.flagPath}
+                        imgPath={appConfig.languages[language].flagPath}
                       />
                     </ListItemIcon>
                     <Typography color='text.secondary' textAlign='center'>
-                      {t(language.name)}
+                      {t(appConfig.languages[language].name)}
                     </Typography>
                   </MenuItem>
                 </a>

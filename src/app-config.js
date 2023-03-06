@@ -29,21 +29,21 @@ const appConfig = {
     translationFile: pt,
   },
   easyTranslationLoader: true, // If this is enabled, it will add the languages to the i18init() function in _app.js for you
-  languages: [
+  languages: {
     // Don't forget to add a translation for each new language, with the same variable name as the nome in the key "name"
-    {
+    pt: {
       id: 'pt',
       name: 'Portuguese',
       flagPath: '/locales/pt.svg',
       translationFile: pt,
     },
-    {
+    gb: {
       id: 'gb',
       name: 'English',
       flagPath: '/locales/gb.svg',
       translationFile: gb,
     },
-  ],
+  },
   userAccess: false, // Allow common users to register and login
   usersOptionsMenu: [
     { name: 'Login', route: '/login' },

@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/system';
-import Link from '@mui/material/Link';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 
 export default function PageLink({ route, pageName, secondary, ...props }) {
@@ -9,8 +9,9 @@ export default function PageLink({ route, pageName, secondary, ...props }) {
   return (
     <Link
       href={route}
-      sx={{ mr: 2, color: 'black', textDecoration: 'none' }}
+      style={{ marginRight: 8, color: 'black', textDecoration: 'none' }}
       {...props}
+      scroll={false}
     >
       <Typography
         color={secondary ? 'text.secondary' : 'text.primary'}
