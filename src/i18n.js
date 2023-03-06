@@ -18,10 +18,10 @@ if (appConfig.easyTranslationLoader) {
 
 i18n
 
-  .use(LanguageDetector)
+  //.use(LanguageDetector)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
-    detection: { order: ['cookie'], lookupCookie: 'NEXT_LOCALE' },
+    detection: { order: ['path'], lookupFromPathIndex: 0 },
     // the translations
     // (tip move them in a JSON file and import them,
     // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)

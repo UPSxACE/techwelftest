@@ -23,10 +23,10 @@ const appConfig = {
   mainButtonTarget: '/#product',
   backgroundImage: '/software-pic-1.webp',
   defaultLanguage: {
-    id: 'pt',
-    name: 'Portuguese',
-    flagPath: '/locales/pt.svg',
-    translationFile: pt,
+    id: 'gb',
+    name: 'English',
+    flagPath: '/locales/gb.svg',
+    translationFile: gb,
   },
   easyTranslationLoader: true, // If this is enabled, it will add the languages to the i18init() function in _app.js for you
   languages: {
@@ -50,6 +50,7 @@ const appConfig = {
     { name: 'Register', route: '/register' },
   ],
   pages: [
+    /*
     {
       name: 'Home',
       route: '/#page-start',
@@ -61,7 +62,7 @@ const appConfig = {
     {
       name: 'Printscreens',
       route: '/#features',
-    },
+    },*/
   ],
   features: [
     {

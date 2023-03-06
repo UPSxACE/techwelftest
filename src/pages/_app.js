@@ -26,7 +26,8 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
 
   const [currentLanguage, _setLanguage] = useState(
-    appConfig.languages[router.locale]
+    //ERR!: appConfig.languages[router.locale]
+    appConfig.defaultLanguage
   );
 
   const [auth, setAuth] = useState({

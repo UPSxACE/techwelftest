@@ -248,7 +248,7 @@ export default function TNavBar({
                       document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`;
                     };
                     setLanguage(appConfig.languages[language].id);
-                    setCookie(appConfig.languages[language].id);
+                    //setCookie(appConfig.languages[language].id);
                   }}
                 >
                   <MenuItem onClick={handleCloseLanguageMenu}>
