@@ -1,6 +1,28 @@
 import { Box, Typography } from '@mui/material';
+import { styled } from '@mui/system';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+
+const CategoryLink = styled(Link)((props) => ({
+  textDecoration: 'none',
+  transition:
+    'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 125ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 125ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 125ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;',
+
+  '&:hover': {
+    color: props.theme.palette.primary.special3,
+  },
+}));
+
+const CategoryExternalLink = styled('a')((props) => ({
+  textDecoration: 'none',
+  transition:
+    'background-color 125ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 125ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 125ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 125ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;',
+
+  '&:hover': {
+    color: props.theme.palette.primary.special3,
+  },
+}));
 
 function CategoryList({ children }) {
   return (
@@ -30,14 +52,43 @@ function CategoryTitle({ children }) {
   );
 }
 
-function CategoryItem({ children }) {
+function CategoryItem({ href, ext_href, children }) {
+  const style = { paddingY: 0.25 };
+
+  if (ext_href) {
+    return (
+      <Typography
+        color='text.primary'
+        variant='body2'
+        component='li'
+        sx={style}
+      >
+        <CategoryExternalLink
+          target={'_blank'}
+          rel='noreferrer'
+          href={ext_href}
+        >
+          {children}
+        </CategoryExternalLink>
+      </Typography>
+    );
+  }
+
+  if (href) {
+    return (
+      <Typography
+        color='text.primary'
+        variant='body2'
+        component='li'
+        sx={style}
+      >
+        <CategoryLink href={href}>{children} </CategoryLink>
+      </Typography>
+    );
+  }
+
   return (
-    <Typography
-      color='text.primary'
-      variant='body2'
-      component='li'
-      sx={{ paddingY: 0.25 }}
-    >
+    <Typography color='text.primary' variant='body2' component='li' sx={style}>
       {children}
     </Typography>
   );
@@ -73,9 +124,9 @@ export default function Info() {
             margin: 0,
           }}
         >
-          <CategoryItem>{t('Home')}</CategoryItem>
-          <CategoryItem>{t('FeaturesTab')}</CategoryItem>
-          <CategoryItem>{t('Printscreens')}</CategoryItem>
+          <CategoryItem href={'/#page-start'}>{t('Home')}</CategoryItem>
+          <CategoryItem href={'/#product'}>{t('FeaturesTab')}</CategoryItem>
+          <CategoryItem href={'/#features'}>{t('Printscreens')}</CategoryItem>
         </CategoryList>
       </Box>
       <Box>
@@ -98,10 +149,20 @@ export default function Info() {
       <Box>
         <CategoryTitle>{t('Social Media')}</CategoryTitle>
         <CategoryList>
-          <CategoryItem>Facebook</CategoryItem>
-          <CategoryItem>Twitter</CategoryItem>
-          <CategoryItem>Instagram</CategoryItem>
-          <CategoryItem>LinkedIn</CategoryItem>
+          <CategoryItem
+            ext_href={'https://www.facebook.com/profile.php?id=100057266026408'}
+          >
+            Facebook
+          </CategoryItem>
+          <CategoryItem ext_href={'https://twitter.com/techwelf'}>
+            Twitter
+          </CategoryItem>
+          <CategoryItem ext_href={'https://www.instagram.com/techwelf/'}>
+            Instagram
+          </CategoryItem>
+          <CategoryItem ext_href={'https://www.linkedin.com/company/techwelf/'}>
+            LinkedIn
+          </CategoryItem>
         </CategoryList>
       </Box>
     </Box>
