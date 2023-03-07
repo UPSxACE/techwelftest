@@ -4,12 +4,17 @@
 import { faFaceAngry } from '@fortawesome/free-regular-svg-icons';
 import {
   faCode,
+  faDatabase,
   faGears,
+  faGlobe,
   faLayerGroup,
+  faListCheck,
   faLock,
   faMicrochip,
+  faShield,
   faTasks,
   faTelevision,
+  faUserGroup,
   faUsers,
   faWifi,
 } from '@fortawesome/free-solid-svg-icons';
@@ -68,28 +73,28 @@ const appConfig = {
     {
       name: 'feature1',
       desc: 'feature1desc',
-      icon: faLock,
+      icon: faListCheck,
     },
     {
       name: 'feature2',
       desc: 'feature2desc',
-      icon: faMicrochip,
+      icon: faDatabase,
     },
     ,
     {
       name: 'feature6',
       desc: 'feature6desc',
-      icon: faWifi,
+      icon: faShield,
     },
     {
       name: 'feature3',
       desc: 'feature3desc',
-      icon: faTelevision,
+      icon: faUserGroup,
     },
     {
       name: 'feature4',
       desc: 'feature4desc',
-      icon: faGears,
+      icon: faGlobe,
     },
     {
       name: 'feature5',
