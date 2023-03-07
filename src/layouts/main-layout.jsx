@@ -6,13 +6,13 @@ import Head from 'next/head';
 export default function MainLayout({
   transparentBar = false,
   children,
-  title = '',
+  title,
 }) {
   return (
     <>
       <Head>
-        <title>OK1st Part{title && ' - ' + title}</title>
-        <meta name='description' content='Techwelf sample' />
+        <title>{title ? 'OK1st Part' : 'OK1st Part' + ' - ' + title}</title>
+        <meta name='description' content='OK1st Part, powered by Techwelf' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>

@@ -397,29 +397,33 @@ export default function Home() {
                 {appConfig.userAccess ? t('IndexPcText') : t('IndexPcTextAlt')}
               </Typography>
               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.75 }}>
-                <Button
-                  variant='contained'
-                  sx={{
-                    width: 'fit-content',
-                    paddingX: 4,
-                    paddingY: 1.5,
-                    color: 'white',
-                    borderColor: 'white',
-                    '&:hover': {
-                      backgroundColor: 'primary.special3',
-                      borderColor: 'primary.special3',
-                    },
-                  }}
+                <Link
+                  style={{ textDecoration: 'none' }}
                   href={
-                    appConfig.userAcess
+                    appConfig.userAccess
                       ? appConfig.pcButtonTarget
                       : 'mailto:geral@techwelf.com'
                   }
                 >
-                  {appConfig.userAccess
-                    ? t('IndexPcButton')
-                    : t('IndexPcButtonAlt')}
-                </Button>
+                  <Button
+                    variant='contained'
+                    sx={{
+                      width: 'fit-content',
+                      paddingX: 4,
+                      paddingY: 1.5,
+                      color: 'white',
+                      borderColor: 'white',
+                      '&:hover': {
+                        backgroundColor: 'primary.special3',
+                        borderColor: 'primary.special3',
+                      },
+                    }}
+                  >
+                    {appConfig.userAccess
+                      ? t('IndexPcButton')
+                      : t('IndexPcButtonAlt')}
+                  </Button>
+                </Link>
               </Box>
             </Box>
           </Box>

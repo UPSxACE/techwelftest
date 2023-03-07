@@ -119,6 +119,7 @@ function Register() {
           <OutlinedForm.HelperText />
         </OutlinedForm.Control>
 
+        {/*
         <OutlinedForm.Control
           required
           label={t('websiteColor')}
@@ -155,7 +156,7 @@ function Register() {
             }
           />
           <OutlinedForm.HelperText />
-        </OutlinedForm.Control>
+        </OutlinedForm.Control>*/}
 
         <OutlinedForm.Submit
           title='submit'
