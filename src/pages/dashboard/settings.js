@@ -1,32 +1,37 @@
+import DashboardPageHeader from '@/components/dashboard-page-header';
 import DashboardLayout from '@/layouts/dashboard-layout';
-import MainLayout from '@/layouts/main-layout';
-import withAuth from '@/utils/withAuth';
 import { Box } from '@mui/material';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Head from 'next/head';
 
-export default function Dashboard() {
+export default function Settings() {
   return (
     <Box
       sx={{
         width: '100%',
         minHeight: 'calc(100vh - 70px)',
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: { xs: 2, sm: 8, md: 14 },
+        px: 4,
+        py: 1.5,
+        backgroundColor: 'primary.components4',
+        flexDirection: 'column',
       }}
     >
-      AAA
+      <DashboardPageHeader
+        title='Settings'
+        rightText={'Dashboard / Settings'}
+      />
+      Form
     </Box>
   );
 }
 
-Dashboard.getLayout = function getLayout(page) {
+Settings.getLayout = function getLayout(page) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
-//export default withAuth(Dashboard);
+//export default withAuth(Settings);
 
 export async function getStaticProps({ locale }) {
   return {

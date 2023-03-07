@@ -4,7 +4,7 @@ import appConfig from '@/app-config';
 import Image from 'next/image';
 import MenuCategory from './menu-category';
 import { Home } from '@mui/icons-material';
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function DashboardNavbarMenu() {
@@ -28,7 +28,12 @@ export default function DashboardNavbarMenu() {
       </Box>
       <MenuCategory.Control>
         <MenuCategory.Group title='Group Example'>
-          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+          <MenuCategory.Item faIcon={faHouse} route='/dashboard' title='Home' />
+          <MenuCategory.Item
+            faIcon={faGear}
+            route='/dashboard/settings'
+            title='Settings'
+          />
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />

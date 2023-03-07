@@ -18,7 +18,12 @@ export default function Item({ title, route = '#', faIcon, children }) {
           },
         }}
       >
-        <Typography color={'text.primary'} variant={'body1'} component='i'>
+        <Typography
+          sx={{ width: 20, display: 'flex', justifyContent: 'center' }}
+          color={'text.primary'}
+          variant={'h6'}
+          component='i'
+        >
           <FontAwesomeIcon icon={faIcon} />
         </Typography>
 

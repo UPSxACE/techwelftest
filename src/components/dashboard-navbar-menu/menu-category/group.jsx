@@ -10,7 +10,7 @@ export default function Group({ title, children }) {
         },
       }}
     >
-      <Typography color={'text.primary'} variant={'body1'} component='h1'>
+      <Typography color={'text.primary'} variant={'h6'} component='h1'>
         {title}
       </Typography>
       {children}

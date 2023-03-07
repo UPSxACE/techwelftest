@@ -35,9 +35,11 @@ export default function DashboardNavbarUser() {
         display: 'flex',
         alignItems: 'center',
         paddingX: 1.5,
+        backgroundColor: 'primary.components2',
+        position: 'relative',
       }}
     >
-      <Search sx={{ fontSize: 40 }} />
+      {appConfig.dashboardSearch && <Search sx={{ fontSize: 40 }} />}
       <Typography
         variant='h4'
         color='text.secondary'
