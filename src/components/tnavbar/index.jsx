@@ -24,6 +24,7 @@ import LanguageContext from '@/contexts/language-context';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import themeConfig from '@/theme-config';
+import UserAvatar from '../user-avatar';
 
 export default function TNavBar({
   children,
@@ -362,16 +363,6 @@ export default function TNavBar({
         <PageLink secondary route={page.route} pageName={page.name} />
       </MenuItem>
     ));
-  }
-
-  function UserAvatar() {
-    return (
-      <Avatar
-        sx={{ color: 'text.primary' }}
-        alt='User Avatar'
-        src='/user_white.png'
-      />
-    );
   }
 
   function LanguageIcon({ name, imgPath, small = false }) {

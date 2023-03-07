@@ -54,6 +54,10 @@ const appConfig = {
     { name: 'Login', route: '/login' },
     { name: 'Register', route: '/register' },
   ],
+  userDashboardMenu: [
+    { name: 'Help', route: '/' },
+    { name: 'Logout', route: '/' },
+  ],
   pages: [
     /*
     {
@@ -140,6 +144,7 @@ const appConfig = {
   wgyb: true, // set false to disable the WGYB section
   transparentBarPaths: ['/'],
   pcButtonTarget: '/register',
+  dashboardSearch: true,
 };
 
 export default appConfig;

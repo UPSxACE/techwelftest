@@ -1,3 +1,4 @@
+import DashboardLayout from '@/layouts/dashboard-layout';
 import MainLayout from '@/layouts/main-layout';
 import withAuth from '@/utils/withAuth';
 import { Box } from '@mui/material';
@@ -8,7 +9,8 @@ export default function Dashboard() {
   return (
     <Box
       sx={{
-        minHeight: 'calc(100vh - 68px)',
+        width: '100%',
+        minHeight: 'calc(100vh - 70px)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -21,7 +23,7 @@ export default function Dashboard() {
 }
 
 Dashboard.getLayout = function getLayout(page) {
-  return <MainLayout>{page}</MainLayout>;
+  return <DashboardLayout>{page}</DashboardLayout>;
 };
 
 //export default withAuth(Dashboard);

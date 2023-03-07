@@ -1,9 +1,13 @@
+import DashboardNavbarMenu from '@/components/dashboard-navbar-menu';
+import DashboardNavbar from '@/components/dashboard-navbar-menu';
+import DashboardNavbarUser from '@/components/dashboard-navbar-user';
 import TFooter from '@/components/tfooter';
 import TNavBar from '@/components/tnavbar';
+import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
 
-export default function MainLayout({
+export default function DashboardLayout({
   transparentBar = false,
   children,
   title,
@@ -19,24 +23,23 @@ export default function MainLayout({
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      {transparentBar ? (
-        <TNavBar key={0} transparentBar={true} />
-      ) : (
-        <TNavBar key={1} />
-      )}
       <a style={{ position: 'relative', top: -67 }} id='page-start' />
       <motion.div
         id='body'
         style={{
-          marginTop: transparentBar ? '-68px' : 0,
           overscrollBehaviorY: 'contain',
           //overflowY: 'auto',
           width: '100vw',
           maxWidth: '100%',
         }}
       >
-        {children}
-        <TFooter />
+        <Box component={motion.div} sx={{ display: 'flex' }}>
+          <DashboardNavbarMenu />
+          <Box sx={{ width: '100%' }}>
+            <DashboardNavbarUser />
+            {children}
+          </Box>
+        </Box>
       </motion.div>
     </>
   );
