@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -134,3 +135,13 @@ Login.getLayout = function getLayout(page) {
 };
 
 export default onlyGuest(Login);
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      // not compatible with getInitialProps
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
+}
