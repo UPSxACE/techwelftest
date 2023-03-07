@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 export default function DashboardPageHeader({ icon, title, rightText }) {
   return (
-    <Box sx={{ width: '100%', display: 'flex' }}>
+    <Box sx={{ width: '100%', display: 'flex', marginBottom: 1 }}>
       {icon && (
         <Typography component='h1' variant='h6'>
           <FontAwesomeIcon icon={icon} />

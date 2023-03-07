@@ -37,6 +37,7 @@ export default function DashboardNavbarUser() {
         paddingX: 1.5,
         backgroundColor: 'primary.components2',
         position: 'relative',
+        zIndex: 10,
       }}
     >
       {appConfig.dashboardSearch && <Search sx={{ fontSize: 40 }} />}

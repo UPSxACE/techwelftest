@@ -16,24 +16,15 @@ export default function Settings() {
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        px: 4,
-        py: 1.5,
-        backgroundColor: 'primary.components4',
         flexDirection: 'column',
       }}
     >
-      <DashboardPageHeader
-        title='Settings'
-        rightText={'Dashboard / Settings'}
-      />
-
       <Box
         sx={{
           flex: 1,
           backgroundColor: 'white',
           borderRadius: 0,
-          marginTop: 1,
-          marginBottom: 1,
+          backgroundColor: 'primary.components4',
           overflow: 'hidden',
           width: '100%',
           position: 'relative',
@@ -45,61 +36,65 @@ export default function Settings() {
             width: '100%',
             height: '100%',
             overflow: 'auto',
-            border: '1px solid #dadce0',
           }}
         >
-          <OutlinedForm.Form
-            formDataState={{ formData, setFormData }}
-            fullWidth
-            style={{
-              flex: 1,
-              backgroundColor: 'white',
-              borderRadius: 0,
-              overflow: 'hidden',
-              border: 0,
-            }}
-          >
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-            <OutlinedForm.Control label='Name' field='one'>
-              <OutlinedForm.Label />
-              <OutlinedForm.Input />
-            </OutlinedForm.Control>
-          </OutlinedForm.Form>
+          <Box sx={{ px: 4, pt: 1.5, pb: 4 }}>
+            <DashboardPageHeader
+              title='Settings'
+              rightText={'Dashboard / Settings'}
+            />
+
+            <OutlinedForm.Form
+              formDataState={{ formData, setFormData }}
+              fullWidth
+              style={{
+                flex: 1,
+                backgroundColor: 'white',
+                borderRadius: 0,
+              }}
+            >
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+              <OutlinedForm.Control label='Name' field='one'>
+                <OutlinedForm.Label />
+                <OutlinedForm.Input />
+              </OutlinedForm.Control>
+            </OutlinedForm.Form>
+          </Box>
         </Box>
       </Box>
     </Box>
