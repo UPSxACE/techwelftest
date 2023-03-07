@@ -273,6 +273,7 @@ export default function Home() {
               variant='h4'
               component='h2'
               mb={2}
+              textAlign={'center'}
             >
               {t('wgyb1')}
             </Typography>

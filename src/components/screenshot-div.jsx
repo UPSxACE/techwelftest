@@ -26,10 +26,10 @@ export default function ScreenshotDiv({ title, desc, imgPath, reverse }) {
         width: '100%',
         maxWidth: 1200,
         flexWrap: 'wrap',
-        '&:not(:first-child)': {
+        '&:not(:first-of-type)': {
           marginTop: { xs: 5, sm: 6, md: 9, lg: 6 },
         },
-        '&:not(:last-child)': {
+        '&:not(:last-of-type)': {
           marginBottom: { xs: 5, sm: 6, md: 9, lg: 7 },
         },
         flexDirection: reverse ? 'row-reverse' : 'row',
@@ -55,6 +55,7 @@ export default function ScreenshotDiv({ title, desc, imgPath, reverse }) {
           width: { sm: '100%', md: '50%' },
           paddingLeft: { md: reverse ? 0 : 5 },
           paddingRight: { md: reverse ? 5 : 0 },
+          paddingTop: { xs: 2, md: 0 },
         }}
       >
         <Typography variant='h3' component={'h2'} sx={{ paddingBottom: 1.5 }}>
