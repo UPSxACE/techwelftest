@@ -1,10 +1,16 @@
 const themeConfig = {
   palette: {
     primary: {
-      main: '#ff3b3b', // red
-      components: '#44464c', // dark grey
+      main: '#336677', // OK1st color '#ff3b3b', // red
+      components: '#1a746c', // dark grey
       components2: '#ffffff', // white
-      special: '#ff4c4c', // red
+      components3: '#535353', // black
+      special1: '#284852', // dark green
+      special2: '#1a746c', // green
+      special3: '#ed7575', // red
+      //special: '#336677', // OK1st color //'#ff4c4c', // red
+      links: '#0072e5', // blue
+      gradientAngle: '139',
     },
     secondary: {
       main: '#3f51b5', // blue
@@ -14,7 +20,8 @@ const themeConfig = {
     text: {
       primary: '#ffffff', // white
       secondary: '#000000', // black
-      special: '#ff4c4c', // red
+      special: '#1a746c', //green
+      special_old: '#336677', //OK1st color '#ff4c4c', // red
     },
   },
 };

@@ -14,38 +14,49 @@ import {
   Typography,
 } from '@mui/material';
 import { motion, useMotionValueEvent } from 'framer-motion';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import PageLink from './page-link';
 import { useScroll } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import LanguageContext from '@/contexts/language-context';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import themeConfig from '@/theme-config';
 
-export default function TNavBar({ children, ...props }) {
+export default function TNavBar({
+  children,
+  transparentBar = false,
+  ...props
+}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [anchorElLanguage, setAnchorElLanguage] = useState(null);
-  const [color, setColor] = useState(false);
+  const [color, setColor] = useState(!transparentBar);
   const { t } = useTranslation();
 
   const { scrollYProgress } = useScroll();
   const { currentLanguage, setLanguage } = useContext(LanguageContext);
 
   useMotionValueEvent(scrollYProgress, 'change', (last) => {
-    last > 0.01 ? setColor(true) : setColor(false);
+    if (transparentBar) last > 0.01 ? setColor(true) : setColor(false);
   });
 
-  const languagesEnabled = Boolean(appConfig.languages.length > 1);
+  const languagesEnabled = Boolean(Object.keys(appConfig.languages).length > 1);
+  const router = useRouter();
 
   return (
     <AppBar
       position='sticky'
       sx={{
         fontSize: 0,
-        backgroundColor: color
+        background: color
+          ? `linear-gradient(${themeConfig.palette.primary.gradientAngle}deg, ${themeConfig.palette.primary.special1} 0%, ${themeConfig.palette.primary.special2} 100%)`
+          : 'transparent',
+        /*backgroundColor: color
           ? 'primary.components'
-          : 'rgba(0,0,0,0)' /*primary.components*/,
+          : 'rgba(0,0,0,0)' /*primary.components,*/
         boxShadow: 0,
       }}
     >
@@ -91,20 +102,32 @@ export default function TNavBar({ children, ...props }) {
             >
               {renderPagesMenu()}
             </Menu>
-            <a href='#page-start'>
-              <LogoDev
-                sx={{
-                  marginLeft: 'auto',
-                  marginRight:
-                    languagesEnabled || appConfig.userAccess
-                      ? 'auto'
-                      : 'initial',
-                  fontSize: 52,
-                  textDecoration: 'none',
-                  color: 'text.primary',
-                }}
-              />
-            </a>
+            <Link
+              href='/#page-start'
+              style={{
+                marginLeft: 'auto',
+                marginRight:
+                  languagesEnabled || appConfig.userAccess ? 'auto' : 'initial',
+              }}
+              scroll={false}
+            >
+              {appConfig.logo ? (
+                <Image
+                  width={125}
+                  height={52}
+                  alt='Company logo'
+                  src={appConfig.logo}
+                />
+              ) : (
+                <LogoDev
+                  sx={{
+                    fontSize: 52,
+                    textDecoration: 'none',
+                    color: 'text.primary',
+                  }}
+                />
+              )}
+            </Link>
             {languagesEnabled && (
               <Tooltip title='Change Language'>
                 <IconButton
@@ -146,11 +169,18 @@ export default function TNavBar({ children, ...props }) {
               onClose={handleCloseUserMenu}
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography color='text.secondary' textAlign='center'>
-                    {setting}
-                  </Typography>
-                </MenuItem>
+                <Link
+                  key={index}
+                  style={{ textDecoration: 'none' }}
+                  href={setting.route}
+                  onClick={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography color='text.secondary' textAlign='center'>
+                      {t(setting.name)}
+                    </Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -161,16 +191,26 @@ export default function TNavBar({ children, ...props }) {
               display: { xs: 'none', md: 'flex', alignItems: 'center' },
             }}
           >
-            <a href='#page-start'>
-              <LogoDev
-                sx={{
-                  mr: 2,
-                  fontSize: 52,
-                  textDecoration: 'none',
-                  color: 'text.primary',
-                }}
-              />
-            </a>
+            <Link href='/#page-start' scroll={false}>
+              {appConfig.logo ? (
+                <Image
+                  width={125}
+                  height={52}
+                  alt='Company logo'
+                  src={appConfig.logo}
+                  style={{ marginRight: 16 }}
+                />
+              ) : (
+                <LogoDev
+                  sx={{
+                    mr: 2,
+                    fontSize: 52,
+                    textDecoration: 'none',
+                    color: 'text.primary',
+                  }}
+                />
+              )}
+            </Link>
             {renderPages()}
             {languagesEnabled && (
               <Tooltip title='Change Language'>
@@ -202,11 +242,17 @@ export default function TNavBar({ children, ...props }) {
               open={Boolean(anchorElLanguage)}
               onClose={handleCloseLanguageMenu}
             >
-              {appConfig.languages.map((language) => (
-                <a
-                  key={language.id}
+              {Object.keys(appConfig.languages).map((language) => (
+                <Link
+                  locale={appConfig.languages[language].id}
+                  key={appConfig.languages[language].id}
+                  href={router.pathname}
                   onClick={() => {
-                    setLanguage(language.id);
+                    const setCookie = (locale) => {
+                      document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`;
+                    };
+                    setCookie(appConfig.languages[language].id);
+                    setLanguage(appConfig.languages[language].id);
                   }}
                 >
                   <MenuItem onClick={handleCloseLanguageMenu}>
@@ -215,14 +261,14 @@ export default function TNavBar({ children, ...props }) {
                         small
                         pressable
                         name='English'
-                        imgPath={language.flagPath}
+                        imgPath={appConfig.languages[language].flagPath}
                       />
                     </ListItemIcon>
                     <Typography color='text.secondary' textAlign='center'>
-                      {t(language.name)}
+                      {t(appConfig.languages[language].name)}
                     </Typography>
                   </MenuItem>
-                </a>
+                </Link>
               ))}
             </Menu>
             {/* User Icon/Avatar */}
@@ -260,11 +306,18 @@ export default function TNavBar({ children, ...props }) {
               onClose={handleCloseUserMenu}
             >
               {appConfig.usersOptionsMenu.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography color='text.secondary' textAlign='center'>
-                    {t(setting)}
-                  </Typography>
-                </MenuItem>
+                <Link
+                  key={index}
+                  style={{ textDecoration: 'none' }}
+                  href={setting.route}
+                  onClick={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography color='text.secondary' textAlign='center'>
+                      {t(setting.name)}
+                    </Typography>
+                  </MenuItem>{' '}
+                </Link>
               ))}
             </Menu>
           </Box>

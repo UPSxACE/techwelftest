@@ -1,30 +1,46 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTranslation } from 'next-i18next';
 import ColoredBox from '../colored-box';
+import Info from './info';
 
 const currentYear = new Date().getFullYear();
 
 export default function TFooter() {
+  const { t } = useTranslation();
   return (
     <ColoredBox
       component={motion.div}
       sx={{
         display: 'flex',
-        flexDirection: 'row',
-        paddingX: 4,
-        paddingY: 2,
+        flexDirection: 'column',
+        paddingX: '24px',
+        paddingY: 5,
         scrollSnapAlign: { md: 'end' },
         backgroundColor: 'primary.components',
+        alignItems: 'center',
       }}
     >
-      <Typography color='text.primary' variant='body2' component='span'>
-        © TechWelf {currentYear}. Todos os Direitos Reservados
-      </Typography>
-      <Box sx={{ marginLeft: 'auto' }}>
-        <Typography color='text.primary' variant='body2' component='span'>
-          Logos
-        </Typography>
+      <Box sx={{ width: '100%', maxWidth: 1536 }}>
+        <Info />
+        <Divider sx={{ borderColor: 'white', marginTop: 5, marginBottom: 5 }} />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography color='text.primary' variant='body2' component='span'>
+            © TechWelf {currentYear}. {t('all_rights')}
+          </Typography>
+          {/*<Box sx={{ marginLeft: 'auto' }}>
+          <Typography color='text.primary' variant='body2' component='span'>
+            Logos
+          </Typography>
+        </Box>*/}
+        </Box>
       </Box>
     </ColoredBox>
   );

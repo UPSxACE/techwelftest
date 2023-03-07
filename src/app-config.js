@@ -4,92 +4,103 @@
 import { faFaceAngry } from '@fortawesome/free-regular-svg-icons';
 import {
   faCode,
+  faDatabase,
   faGears,
+  faGlobe,
   faLayerGroup,
+  faListCheck,
   faLock,
   faMicrochip,
+  faShield,
   faTasks,
   faTelevision,
+  faUserGroup,
   faUsers,
   faWifi,
 } from '@fortawesome/free-solid-svg-icons';
 import gb from './locales/gb';
 import pt from './locales/pt';
-import bkImage from '../public/software-pic-1.jpg';
+import bkImage from '../public/software-pic-1.webp';
 
 const appConfig = {
-  // Available html anchors: #page-start #screenshots, #features
-  mainButtonTarget: '#screenshots',
-  backgroundImage: bkImage,
+  // Available html anchors: #page-start #screenshots, #features, #product
+  logo: '/logowhite.png', // Either a path to an image, or the value false
+  mainButtonTarget: '/#product',
+  backgroundImage: '/software-pic-1.webp',
   defaultLanguage: {
-    id: 'pt',
-    name: 'Portuguese',
-    flagPath: '/locales/pt.svg',
-    translationFile: pt,
+    id: 'gb',
+    name: 'English',
+    flagPath: '/locales-flags/gb.svg',
+    translationFile: gb,
   },
   easyTranslationLoader: true, // If this is enabled, it will add the languages to the i18init() function in _app.js for you
-  languages: [
+  languages: {
     // Don't forget to add a translation for each new language, with the same variable name as the nome in the key "name"
-    {
+    pt: {
       id: 'pt',
       name: 'Portuguese',
-      flagPath: '/locales/pt.svg',
+      flagPath: '/locales-flags/pt.svg',
       translationFile: pt,
     },
-    {
+    gb: {
       id: 'gb',
       name: 'English',
-      flagPath: '/locales/gb.svg',
+      flagPath: '/locales-flags/gb.svg',
       translationFile: gb,
     },
-  ],
+  },
   userAccess: false, // Allow common users to register and login
-  usersOptionsMenu: ['setting_a', 'setting_b'],
+  usersOptionsMenu: [
+    { name: 'Login', route: '/login' },
+    { name: 'Register', route: '/register' },
+  ],
   pages: [
+    /*
     {
       name: 'Home',
-      route: '#page-start',
+      route: '/#page-start',
     },
     {
       name: 'FeaturesTab',
-      route: '#features',
+      route: '/#product',
     },
     {
       name: 'Printscreens',
-      route: '#screenshots',
-    },
+      route: '/#features',
+    },*/
   ],
   features: [
     {
       name: 'feature1',
       desc: 'feature1desc',
-      icon: faLock,
+      icon: faListCheck,
     },
     {
       name: 'feature2',
       desc: 'feature2desc',
-      icon: faMicrochip,
+      icon: faDatabase,
+    },
+    ,
+    {
+      name: 'feature6',
+      desc: 'feature6desc',
+      icon: faShield,
     },
     {
       name: 'feature3',
       desc: 'feature3desc',
-      icon: faTelevision,
+      icon: faUserGroup,
     },
     {
       name: 'feature4',
       desc: 'feature4desc',
-      icon: faGears,
+      icon: faGlobe,
     },
     {
       name: 'feature5',
       desc: 'feature5desc',
       icon: faTasks,
-    },
-    {
-      name: 'feature6',
-      desc: 'feature6desc',
-      icon: faWifi,
-    },
+    } /*
     {
       name: 'feature7',
       desc: 'feature7desc',
@@ -104,31 +115,31 @@ const appConfig = {
       name: 'feature9',
       desc: 'feature9desc',
       icon: faLayerGroup,
-    },
+    },*/,
   ],
-  // Give preference to dark pictures as a contrast to the white section before the carousel
   screenshots: [
     {
       title: 'ScreenshotTitle1',
       desc: 'ScreenshotDesc1',
-      imgPath: '/web1.jpg',
+      imgPath: '/screenshot1.png',
     },
     {
       title: 'ScreenshotTitle2',
       desc: 'ScreenshotDesc2',
-      imgPath: '/web2.jpg',
+      imgPath: '/screenshot3.png',
     },
+    /*
     {
       title: 'ScreenshotTitle3',
       desc: 'ScreenshotDesc3',
-      imgPath: '/web3.jpg',
-    },
-    {
-      title: 'ScreenshotTitle4',
-      desc: 'ScreenshotDesc4',
-      imgPath: '/web4.jpg',
-    },
+      imgPath: '/screenshot4.png',
+    },*/
   ],
+  screenshotsMode: 'scroll', // options: scroll or carousel
+  // In case you choose "carousel", give preference to dark screenshots as a contrast to the white section before the carousel
+  wgyb: true, // set false to disable the WGYB section
+  transparentBarPaths: ['/'],
+  pcButtonTarget: '/register',
 };
 
 export default appConfig;

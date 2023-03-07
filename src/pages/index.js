@@ -1,25 +1,40 @@
 import Head from 'next/head';
 import { Inter } from '@next/font/google';
-import { useTranslation } from 'react-i18next';
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
+import { motion } from 'framer-motion';
 import TNavBar from '@/components/tnavbar';
 import { Box, Button, Typography } from '@mui/material';
-import Image from 'next/image';
-import { styled } from '@mui/system';
 import ColoredBox from '@/components/colored-box';
 import FeatureCard from '@/components/feature-card';
-import LockIcon from '@mui/icons-material/Lock';
-import { Memory, OfflineBoltOutlined } from '@mui/icons-material';
 import TFooter from '@/components/tfooter';
-import { useRef } from 'react';
 import ScreenshotCarousel from '@/components/screenshot-carousel';
-import image from '../../public/software-pic-1.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceAngry } from '@fortawesome/free-regular-svg-icons';
 import appConfig from '@/app-config';
 import themeConfig from '@/theme-config';
+import MainLayout from '@/layouts/main-layout';
+import Image from 'next/image';
+import { styled } from '@mui/system';
+import ScreenshotDiv from '@/components/screenshot-div';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
+
+// Full Width NextJS Image
+const FwImage = styled(Image)((props) => {
+  return {
+    //objectFit: 'cover',
+
+    height: 'auto',
+    width: '100%',
+    /*[props.theme.breakpoints.up('md')]: {
+      width: '50%',
+      paddingRight: 20,
+    },*/
+
+    //boxShadow: '2px 2px 5px grey',
+  };
+});
 
 export default function Home() {
   const { t } = useTranslation();
@@ -32,108 +47,124 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <TNavBar />
-      <a style={{ position: 'relative', top: -67 }} id='page-start' />
-      <motion.div
-        id='body'
-        style={{
-          marginTop: '-68px',
-          overscrollBehaviorY: 'contain',
-          //overflowY: 'auto',
-          width: '100vw',
-          maxWidth: '100%',
+      {/* Landing */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative',
+          height: 'calc(100vh)',
+          backgroundColor: 'primary.background1',
+          background: `linear-gradient(${themeConfig.palette.primary.gradientAngle}deg, ${themeConfig.palette.primary.special1} 0%, ${themeConfig.palette.primary.special2} 100%)`,
         }}
       >
+        {/*
+        Not the most effective way of adding images
         <Box
           sx={{
+            top: 0,
+            left: 0,
+            width: '100vw',
+            maxWidth: '100%',
+            height: '100vh',
+            position: 'absolute',
+            //backgroundImage: `url(${appConfig.backgroundImage.src})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            opacity: 0.1,
+          }}
+        ></Box>*/}
+        <Image
+          alt='Website Background Image'
+          src={appConfig.backgroundImage}
+          fill
+          style={{ opacity: 0.1, objectFit: 'cover', objectPosition: 'center' }}
+          priority
+        />
+        <Box
+          component={motion.div}
+          sx={{
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-            height: 'calc(100vh)',
-            backgroundColor: 'primary.components',
+            flexWrap: 'wrap',
+            paddingY: 4,
+            paddingX: 4,
+            maxWidth: { md: '1200px' },
+            zIndex: 1,
           }}
         >
-          <Box
-            sx={{
-              top: 0,
-              left: 0,
-              width: '100vw',
-              maxWidth: '100%',
-              height: '100vh',
-              position: 'absolute',
-              backgroundImage: `url(${appConfig.backgroundImage.src})`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              opacity: 0.1,
-            }}
-          ></Box>
           <Box
             component={motion.div}
             sx={{
               display: 'flex',
-              flexWrap: 'wrap',
-              paddingY: 4,
-              paddingX: 4,
-              maxWidth: { md: '1200px' },
-              zIndex: 1,
+              flexDirection: 'column',
+              width: {
+                xs: '100%',
+                md: '60%',
+              },
+              paddingRight: 4,
+              marginBottom: { xs: 4, md: 0 },
+              justifyContent: 'space-between',
             }}
           >
-            <Box
-              component={motion.div}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: {
-                  xs: '100%',
-                  md: '50%',
-                },
-                paddingRight: 4,
-                marginBottom: { xs: 4, md: 0 },
-                justifyContent: 'space-between',
+            <Typography
+              color='text.primary'
+              variant='h2'
+              component='h1'
+              sx={{ paddingBottom: 1 }}
+              dangerouslySetInnerHTML={{
+                __html: t('ProductName', {
+                  interpolation: { escapeValue: false },
+                }),
               }}
+            ></Typography>
+            <Typography
+              color='text.primary'
+              variant='body1'
+              sx={{ paddingBottom: 2 }}
             >
-              <Typography
-                color='text.special'
-                variant='h2'
-                component='h1'
-                sx={{ paddingBottom: 1 }}
-                dangerouslySetInnerHTML={{
-                  __html: t('ProductName', {
-                    interpolation: { escapeValue: false },
-                  }),
-                }}
-              ></Typography>
-              <Typography
-                color='text.primary'
-                variant='body1'
-                sx={{ paddingBottom: 2 }}
+              {t('ProductDesc1')}
+            </Typography>
+            <Box sx={{ paddingTop: 4 /* marginTop:"auto" */ }}>
+              <Link
+                style={{ textDecoration: 'none' }}
+                href={appConfig.mainButtonTarget}
+                scroll={false}
               >
-                {t('ProductDesc1')}
-              </Typography>
-              <Typography color='text.primary' variant='body1'>
-                {t('ProductDesc2')}
-              </Typography>
-              <Box sx={{ paddingTop: 4 /* marginTop:"auto" */ }}>
                 <Button
+                  variant='outlined'
                   sx={{
                     width: 'fit-content',
                     paddingX: 4,
                     paddingY: 1.5,
+                    //backgroundColor: 'white',
+                    color: 'white',
+                    borderColor: 'white',
+                    '&:hover': {
+                      backgroundColor: 'primary.special3',
+                      borderColor: 'primary.special3',
+                    },
+                    /*
+                  backgroundColor: 'primary.special3',
+                  borderColor: 'primary.special3',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    borderColor: 'white',
+                  },*/
                   }}
-                  variant='contained'
-                  href={appConfig.mainButtonTarget}
+                  //variant='contained'
                 >
-                  Click Me
+                  {t('cta_button')}
                 </Button>
-              </Box>
+              </Link>
             </Box>
-            {/*<Box
+          </Box>
+          {/*<Box
               component={motion.div}
               sx={{
                 width: {
                   xs: '100%',
-                  md: '50%',
+                  md: '40%',
                 },
               }}
             >
@@ -145,61 +176,262 @@ export default function Home() {
                 sizes='100vw'
               />
             </Box>*/}
-          </Box>
         </Box>
-        <a style={{ position: 'relative', top: -67 }} id='features' />
-        <ColoredBox
+      </Box>
+      {/* Screenshots / Product Presentation */}
+      <a style={{ position: 'relative', top: -67 }} id='product' />
+      {appConfig.screenshotsMode === 'scroll' && (
+        <Box
           component={motion.div}
           sx={{
             paddingX: 4,
-            paddingY: 6,
+            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
             minHeight: 'calc(100vh)',
             alignItems: 'center',
           }}
         >
-          <Box sx={{ maxWidth: 1200 }}>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              color='text.secondary'
+              variant='h4'
+              component={'h2'}
+              sx={{ textAlign: 'center', fontWeight: 500 }}
+              mb={3}
+            >
+              {t('made_easier')}
+            </Typography>
             <Typography
               color='text.secondary'
               variant='h6'
               component={'p'}
-              sx={{ textAlign: 'center', fontWeight: 500 }}
+              sx={{
+                textAlign: 'center',
+                fontWeight: 500,
+                mb: { xs: 5, sm: 6, md: 9, lg: 12 },
+                maxWidth: 1200,
+              }}
             >
               {t('ProductDesc3')}
             </Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingTop: 4 }}>
-              {appConfig.features.map((feature) => {
-                return (
-                  <FeatureCard
-                    key={feature.name}
-                    title={t(feature.name)}
-                    desc={t(feature.desc)}
-                    width={{
-                      xs: '100%',
-                      md: 'calc(100% / 2)',
-                      lg: 'calc(100% / 3)',
-                    }}
-                    icon={
-                      <Typography
-                        variant='inherit'
-                        sx={{ color: 'text.special', fontSize: '40px' }}
-                      >
-                        <FontAwesomeIcon icon={feature.icon} />
-                      </Typography>
-                    }
-                    sx={{
-                      marginBottom: { xs: 4, md: 0 },
+          </Box>
 
-                      display: { xs: 'flex', md: 'block' },
-                      alignItems: { xs: 'center' },
-                    }}
-                  />
-                );
-              })}
-            </Box>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {appConfig.screenshots.map((screenshot, index) => {
+              return (
+                <ScreenshotDiv
+                  key={index}
+                  title={t(screenshot.title)}
+                  desc={t(screenshot.desc)}
+                  imgPath={screenshot.imgPath}
+                  reverse={index % 2 !== 0}
+                />
+              );
+            })}
+          </Box>
+        </Box>
+      )}
+      {/* WGYB */}
+      {appConfig.wgyb && (
+        <ColoredBox
+          sx={{
+            paddingX: 4,
+            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: 'primary.special2',
+          }}
+        >
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: 1200,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              color={'text.primary'}
+              variant='h4'
+              component='h2'
+              mb={2}
+              textAlign={'center'}
+            >
+              {t('wgyb1')}
+            </Typography>
+            <Typography
+              color={'text.primary'}
+              variant='h5'
+              component='p'
+              textAlign={'center'}
+            >
+              {t('wgyb2')}
+            </Typography>
           </Box>
         </ColoredBox>
+      )}
+      {/* Features */}
+      <a style={{ position: 'relative', top: -67 }} id='features' />
+      <Box
+        component={motion.div}
+        sx={{
+          paddingX: 4,
+          paddingY: 9,
+          display: 'flex',
+          justifyContent: 'center',
+          minHeight: 'calc(100vh)',
+          alignItems: 'center',
+        }}
+      >
+        <Box sx={{ maxWidth: 1200 }}>
+          <Typography
+            color='text.secondary'
+            variant='h4'
+            component={'p'}
+            sx={{ textAlign: 'center', fontWeight: 500, mb: 2 }}
+          >
+            {t('FeaturesText1')}
+          </Typography>
+          <Typography
+            color='text.secondary'
+            variant='body1'
+            component={'p'}
+            sx={{ textAlign: 'center', fontWeight: 400, fontSize: 20 }}
+          >
+            {t('FeaturesText2')}
+          </Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingTop: 4 }}>
+            {appConfig.features.map((feature) => {
+              return (
+                <FeatureCard
+                  key={feature.name}
+                  title={t(feature.name)}
+                  desc={t(feature.desc)}
+                  width={{
+                    xs: '100%',
+                    md: 'calc(100% / 2)',
+                    lg: 'calc(100% / 3)',
+                  }}
+                  icon={
+                    <Typography
+                      variant='inherit'
+                      sx={{ color: 'text.special', fontSize: '40px' }}
+                    >
+                      <FontAwesomeIcon icon={feature.icon} />
+                    </Typography>
+                  }
+                  sx={{
+                    marginBottom: { xs: 4, md: 0 },
+                    display: { xs: 'flex', md: 'block' },
+                    alignItems: { xs: 'center' },
+                    paddingX: { xs: 1, sm: 2, md: 5 },
+                    ':nth-of-type(3n)': {
+                      lg: { alignItems: 'flex-end', paddingRight: 0 },
+                    },
+                    ':nth-of-type(3n-1)': {
+                      lg: { alignItems: 'center' },
+                    },
+                    ':nth-of-type(3n-2)': {
+                      lg: { alignItems: 'flex-start', paddingLeft: 0 },
+                    },
+                    ':nth-of-type(2n)': (theme) => ({
+                      [theme.breakpoints.between('md', 'lg')]: {
+                        paddingRight: 2,
+                      },
+                    }),
+                    ':nth-of-type(2n+1)': (theme) => ({
+                      [theme.breakpoints.between('md', 'lg')]: {
+                        paddingLeft: 2,
+                      },
+                    }),
+                  }}
+                  containerStyle={{}}
+                />
+              );
+            })}
+          </Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+            <Box sx={{ width: { xs: '100%', md: '50%' } }}>
+              <FwImage src='/pc.png' height={0} width={600} />
+            </Box>
+            {/* PC Section */}
+
+            <Box
+              sx={{
+                width: {
+                  xs: '100%',
+                  md: '50%',
+                },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: { xs: 'flex-start', md: 'center' },
+                pt: { xs: 9, md: 0 },
+              }}
+            >
+              <Typography
+                color='text.secondary'
+                variant='h4'
+                component={'h3'}
+                sx={{ textAlign: 'center', fontWeight: 500, mb: 2 }}
+              >
+                {t('IndexPcTitle')}
+              </Typography>
+              <Typography
+                color='text.secondary'
+                variant='body1'
+                component={'p'}
+                sx={{ textAlign: 'center', mb: 2 }}
+              >
+                {appConfig.userAccess ? t('IndexPcText') : t('IndexPcTextAlt')}
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.75 }}>
+                <Button
+                  variant='contained'
+                  sx={{
+                    width: 'fit-content',
+                    paddingX: 4,
+                    paddingY: 1.5,
+                    color: 'white',
+                    borderColor: 'white',
+                    '&:hover': {
+                      backgroundColor: 'primary.special3',
+                      borderColor: 'primary.special3',
+                    },
+                  }}
+                  href={
+                    appConfig.userAcess
+                      ? appConfig.pcButtonTarget
+                      : 'mailto:geral@techwelf.com'
+                  }
+                >
+                  {appConfig.userAccess
+                    ? t('IndexPcButton')
+                    : t('IndexPcButtonAlt')}
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      {appConfig.screenshotsMode === 'carousel' && (
         <Box
           component={motion.div}
           sx={{
@@ -267,8 +499,21 @@ export default function Home() {
             <ScreenshotCarousel />
           </Box>
         </Box>
-        <TFooter />
-      </motion.div>
+      )}
     </>
   );
+}
+
+Home.getLayout = function getLayout(page) {
+  return <MainLayout transparentBar>{page}</MainLayout>;
+};
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      // not compatible with getInitialProps
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
 }
