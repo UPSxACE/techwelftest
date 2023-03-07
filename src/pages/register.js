@@ -189,7 +189,7 @@ function Register() {
 }
 
 Register.getLayout = function getLayout(page) {
-  return <MainLayout>{page}</MainLayout>;
+  return <MainLayout title='Register'>{page}</MainLayout>;
 };
 
 export default onlyGuest(Register);

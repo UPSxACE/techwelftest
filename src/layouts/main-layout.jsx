@@ -1,10 +1,21 @@
 import TFooter from '@/components/tfooter';
 import TNavBar from '@/components/tnavbar';
 import { motion } from 'framer-motion';
+import Head from 'next/head';
 
-export default function MainLayout({ transparentBar = false, children }) {
+export default function MainLayout({
+  transparentBar = false,
+  children,
+  title = '',
+}) {
   return (
     <>
+      <Head>
+        <title>OK1st Part{title && ' - ' + title}</title>
+        <meta name='description' content='Techwelf sample' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       {transparentBar ? (
         <TNavBar key={0} transparentBar={true} />
       ) : (

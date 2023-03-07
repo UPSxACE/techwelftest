@@ -131,7 +131,7 @@ function Login() {
 }
 
 Login.getLayout = function getLayout(page) {
-  return <MainLayout>{page}</MainLayout>;
+  return <MainLayout title='Login'>{page}</MainLayout>;
 };
 
 export default onlyGuest(Login);
