@@ -15,7 +15,7 @@ export default function DashboardLayout({
   return (
     <>
       <Head>
-        <title>{title ? 'Dashboard' : 'Dashboard' + ' - ' + title}</title>
+        <title>{title ? 'Dashboard' + ' - ' + title : 'Dashboard'}</title>
         <meta
           name='description'
           content='OK1st Part Dashboard, powered by Techwelf'

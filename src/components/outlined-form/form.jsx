@@ -13,7 +13,8 @@ import { useTranslation } from 'next-i18next';
 import { styled } from '@mui/system';
 
 const StyledForm = styled('form')((props) => ({
-  maxWidth: 600,
+  maxWidth: props.fullWidth ? '100%' : 600,
+  width: props.fullWidth ? '100%' : 'auto',
   padding: 25,
   paddingTop: 25,
   paddingBottom: 25,
@@ -24,9 +25,16 @@ const StyledForm = styled('form')((props) => ({
   },
   border: '1px solid #dadce0',
   borderRadius: 10,
+  ...props.style,
 }));
 
-const Form = ({ formDataState, autoFinalize, children }) => {
+const Form = ({
+  formDataState,
+  autoFinalize,
+  fullWidth = false,
+  style = {},
+  children,
+}) => {
   const { formData, setFormData } = formDataState;
   const [initialized, setInitialized] = useState(false);
   const [formStatus, setFormStatus] = useState(null);
@@ -92,7 +100,7 @@ const Form = ({ formDataState, autoFinalize, children }) => {
 
   if (initialized && formStatus === null) {
     return (
-      <StyledForm>
+      <StyledForm fullWidth={fullWidth} style={style}>
         {Children.map(children, (child) => {
           if (isValidElement(child)) {
             return cloneElement(child, {
@@ -110,7 +118,7 @@ const Form = ({ formDataState, autoFinalize, children }) => {
 
   if (initialized && formStatus === true) {
     return (
-      <StyledForm>
+      <StyledForm fullWidth={fullWidth} style={style}>
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'
@@ -137,7 +145,7 @@ const Form = ({ formDataState, autoFinalize, children }) => {
   if (initialized) {
     // Error submitting form
     return (
-      <StyledForm>
+      <StyledForm fullWidth={fullWidth} style={style}>
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'

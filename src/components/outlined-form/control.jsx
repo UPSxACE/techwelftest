@@ -13,7 +13,7 @@ const Control = ({ field, label, required, formDataState, children }) => {
   return (
     <FormControl
       sx={{ width: '100%', marginBottom: 2 }}
-      error={formData[field]['error'] ? true : false}
+      error={formData[field] && formData[field]['error'] ? true : false}
     >
       {Children.map(children, (child) => {
         if (isValidElement(child)) {

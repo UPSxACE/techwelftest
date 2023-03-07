@@ -11,7 +11,7 @@ export default function MainLayout({
   return (
     <>
       <Head>
-        <title>{title ? 'OK1st Part' : 'OK1st Part' + ' - ' + title}</title>
+        <title>{title ? 'OK1st Part' + ' - ' + title : 'OK1st Part'}</title>
         <meta name='description' content='OK1st Part, powered by Techwelf' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />

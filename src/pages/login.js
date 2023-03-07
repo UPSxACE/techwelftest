@@ -68,7 +68,6 @@ function Login() {
             inputProps={{ type: 'password' }}
           />
           <OutlinedForm.HelperText />
-          <Box sx={{ display: 'flex' }}></Box>
         </OutlinedForm.Control>
 
         <OutlinedForm.Submit
