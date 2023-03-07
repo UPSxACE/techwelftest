@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import ColoredBox from '../colored-box';
 import Info from './info';
 

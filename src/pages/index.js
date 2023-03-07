@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Inter } from '@next/font/google';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { motion } from 'framer-motion';
 import TNavBar from '@/components/tnavbar';
 import { Box, Button, Typography } from '@mui/material';
@@ -15,6 +15,8 @@ import MainLayout from '@/layouts/main-layout';
 import Image from 'next/image';
 import { styled } from '@mui/system';
 import ScreenshotDiv from '@/components/screenshot-div';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -124,32 +126,37 @@ export default function Home() {
               {t('ProductDesc1')}
             </Typography>
             <Box sx={{ paddingTop: 4 /* marginTop:"auto" */ }}>
-              <Button
-                variant='outlined'
-                sx={{
-                  width: 'fit-content',
-                  paddingX: 4,
-                  paddingY: 1.5,
-                  //backgroundColor: 'white',
-                  color: 'white',
-                  borderColor: 'white',
-                  '&:hover': {
-                    backgroundColor: 'primary.special3',
-                    borderColor: 'primary.special3',
-                  },
-                  /*
+              <Link
+                style={{ textDecoration: 'none' }}
+                href={appConfig.mainButtonTarget}
+                scroll={false}
+              >
+                <Button
+                  variant='outlined'
+                  sx={{
+                    width: 'fit-content',
+                    paddingX: 4,
+                    paddingY: 1.5,
+                    //backgroundColor: 'white',
+                    color: 'white',
+                    borderColor: 'white',
+                    '&:hover': {
+                      backgroundColor: 'primary.special3',
+                      borderColor: 'primary.special3',
+                    },
+                    /*
                   backgroundColor: 'primary.special3',
                   borderColor: 'primary.special3',
                   '&:hover': {
                     backgroundColor: 'transparent',
                     borderColor: 'white',
                   },*/
-                }}
-                //variant='contained'
-                href={appConfig.mainButtonTarget}
-              >
-                {t('cta_button')}
-              </Button>
+                  }}
+                  //variant='contained'
+                >
+                  {t('cta_button')}
+                </Button>
+              </Link>
             </Box>
           </Box>
           {/*<Box
@@ -499,3 +506,13 @@ export default function Home() {
 Home.getLayout = function getLayout(page) {
   return <MainLayout transparentBar>{page}</MainLayout>;
 };
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      // not compatible with getInitialProps
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
+}

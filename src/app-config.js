@@ -25,7 +25,7 @@ const appConfig = {
   defaultLanguage: {
     id: 'gb',
     name: 'English',
-    flagPath: '/locales/gb.svg',
+    flagPath: '/locales-flags/gb.svg',
     translationFile: gb,
   },
   easyTranslationLoader: true, // If this is enabled, it will add the languages to the i18init() function in _app.js for you
@@ -34,17 +34,17 @@ const appConfig = {
     pt: {
       id: 'pt',
       name: 'Portuguese',
-      flagPath: '/locales/pt.svg',
+      flagPath: '/locales-flags/pt.svg',
       translationFile: pt,
     },
     gb: {
       id: 'gb',
       name: 'English',
-      flagPath: '/locales/gb.svg',
+      flagPath: '/locales-flags/gb.svg',
       translationFile: gb,
     },
   },
-  userAccess: false, // Allow common users to register and login
+  userAccess: true, // Allow common users to register and login
   usersOptionsMenu: [
     { name: 'Login', route: '/login' },
     { name: 'Register', route: '/register' },

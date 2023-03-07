@@ -3,7 +3,7 @@ import { Box, Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
 import ImageNext from 'next/image';
 import { styled } from '@mui/system';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 // Full Height and Width NextJS Image
 const LogoImage = styled(ImageNext)((props) => {
@@ -107,7 +107,7 @@ const ImageUploader = ({
               id='icon'
               width={62}
               height={62}
-              src={'./cloud_upload-24px.svg'}
+              src={'/cloud_upload-24px.svg'}
               style={{ opacity: 0.4 }}
             />
           </label>

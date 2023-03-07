@@ -18,7 +18,7 @@ import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import PageLink from './page-link';
 import { useScroll } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import LanguageContext from '@/contexts/language-context';
 import Link from 'next/link';
@@ -44,6 +44,7 @@ export default function TNavBar({
   });
 
   const languagesEnabled = Boolean(Object.keys(appConfig.languages).length > 1);
+  const router = useRouter();
 
   return (
     <AppBar
@@ -101,13 +102,14 @@ export default function TNavBar({
             >
               {renderPagesMenu()}
             </Menu>
-            <a
-              href='#page-start'
+            <Link
+              href='/#page-start'
               style={{
                 marginLeft: 'auto',
                 marginRight:
                   languagesEnabled || appConfig.userAccess ? 'auto' : 'initial',
               }}
+              scroll={false}
             >
               {appConfig.logo ? (
                 <Image
@@ -125,7 +127,7 @@ export default function TNavBar({
                   }}
                 />
               )}
-            </a>
+            </Link>
             {languagesEnabled && (
               <Tooltip title='Change Language'>
                 <IconButton
@@ -189,7 +191,7 @@ export default function TNavBar({
               display: { xs: 'none', md: 'flex', alignItems: 'center' },
             }}
           >
-            <a href='#page-start'>
+            <Link href='/#page-start' scroll={false}>
               {appConfig.logo ? (
                 <Image
                   width={125}
@@ -208,7 +210,7 @@ export default function TNavBar({
                   }}
                 />
               )}
-            </a>
+            </Link>
             {renderPages()}
             {languagesEnabled && (
               <Tooltip title='Change Language'>
@@ -241,14 +243,16 @@ export default function TNavBar({
               onClose={handleCloseLanguageMenu}
             >
               {Object.keys(appConfig.languages).map((language) => (
-                <a
+                <Link
+                  locale={appConfig.languages[language].id}
                   key={appConfig.languages[language].id}
+                  href={router.pathname}
                   onClick={() => {
                     const setCookie = (locale) => {
                       document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`;
                     };
                     setLanguage(appConfig.languages[language].id);
-                    //setCookie(appConfig.languages[language].id);
+                    setCookie(appConfig.languages[language].id);
                   }}
                 >
                   <MenuItem onClick={handleCloseLanguageMenu}>
@@ -264,7 +268,7 @@ export default function TNavBar({
                       {t(appConfig.languages[language].name)}
                     </Typography>
                   </MenuItem>
-                </a>
+                </Link>
               ))}
             </Menu>
             {/* User Icon/Avatar */}

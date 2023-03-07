@@ -3,7 +3,7 @@ import { Box, Tooltip, Typography } from '@mui/material';
 import { MaterialPicker } from 'react-color';
 import { styled } from '@mui/system';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const StyledMP = styled(MaterialPicker)({
   width: '100%!important',

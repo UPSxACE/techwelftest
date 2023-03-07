@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const CategoryLink = styled(Link)((props) => ({
   textDecoration: 'none',
@@ -83,7 +83,7 @@ function CategoryItem({ href, ext_href, children }) {
         sx={style}
       >
         <CategoryLink href={href} scroll={false}>
-          {children}{' '}
+          {children}
         </CategoryLink>
       </Typography>
     );
@@ -117,7 +117,7 @@ export default function Info() {
           src='/logowhite.png'
         />
       </Box>
-      <Box>
+      {/*<Box>
         <CategoryTitle>{t('Product')}</CategoryTitle>
         <CategoryList
           style={{
@@ -130,7 +130,7 @@ export default function Info() {
           <CategoryItem href={'/#product'}>{t('FeaturesTab')}</CategoryItem>
           <CategoryItem href={'/#features'}>{t('Printscreens')}</CategoryItem>
         </CategoryList>
-      </Box>
+      </Box>*/}
       <Box>
         <CategoryTitle>{t('Company')}</CategoryTitle>
         <CategoryList

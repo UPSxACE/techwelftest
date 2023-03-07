@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/system';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export default function PageLink({ route, pageName, secondary, ...props }) {
   const { t } = useTranslation();

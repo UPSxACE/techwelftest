@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const { i18n } = require('./next-i18next.config');
 const nextConfig = {
   modularizeImports: {
     lodash: {
@@ -15,10 +16,7 @@ const nextConfig = {
     },
   },
   reactStrictMode: true,
-  i18n: {
-    locales: ['gb', 'pt'],
-    defaultLocale: 'gb',
-  },
+  i18n,
 };
 
 module.exports = nextConfig;

@@ -12,9 +12,8 @@ import { useEffect, useState } from 'react';
 import authenticationContext from '@/contexts/authentication-context';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// import i18n (needs to be bundled ;))
-import '../i18n';
 import { useRouter } from 'next/router';
+import { appWithTranslation } from 'next-i18next';
 
 const AuthContext = authenticationContext;
 
@@ -22,12 +21,12 @@ config.autoAddCss = false;
 
 const theme = createTheme(themeConfig);
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   const router = useRouter();
 
   const [currentLanguage, _setLanguage] = useState(
-    //ERR!: appConfig.languages[router.locale]
-    appConfig.defaultLanguage
+    appConfig.languages[router.locale]
+    //appConfig.defaultLanguage
   );
 
   const [auth, setAuth] = useState({
@@ -37,20 +36,7 @@ export default function App({ Component, pageProps }) {
     //setXYZ: (XYZ) => {},
   });
 
-  const { i18n } = useTranslation();
-
-  /*
-  useEffect(() => {
-    i18n.changeLanguage(router.locale);
-  }, []);
-  */
-
   function setLanguage(language_id) {
-    i18n.changeLanguage(language_id, (err, t) => {
-      if (err) return console.log('Something went wrong loading', err);
-      t('key'); // -> same as i18next.t
-    });
-
     const newLanguage = appConfig.languages[language_id];
     if (newLanguage) {
       _setLanguage(newLanguage);
@@ -69,3 +55,5 @@ export default function App({ Component, pageProps }) {
     </LanguageContext.Provider>
   );
 }
+
+export default appWithTranslation(App);

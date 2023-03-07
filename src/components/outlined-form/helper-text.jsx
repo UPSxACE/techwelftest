@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { FormHelperText } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const HelperText = ({ field, formDataState, children }) => {
   const { formData, setFormData } = formDataState;

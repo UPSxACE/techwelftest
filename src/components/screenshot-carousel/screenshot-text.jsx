@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { styled } from '@mui/system';
 import Image from 'next/image';
 import { useMeasure } from 'react-use';
