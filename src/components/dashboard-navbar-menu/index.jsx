@@ -2,10 +2,14 @@ import { Box } from '@mui/material';
 import ColoredBox from '../colored-box';
 import appConfig from '@/app-config';
 import Image from 'next/image';
+import MenuCategory from './menu-category';
+import { Home } from '@mui/icons-material';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function DashboardNavbarMenu() {
   return (
-    <ColoredBox sx={{ width: 250 }}>
+    <ColoredBox sx={{ width: 300 }}>
       <Box
         sx={{
           display: 'flex',
@@ -22,6 +26,23 @@ export default function DashboardNavbarMenu() {
           src={appConfig.logo}
         />
       </Box>
+      <MenuCategory.Control>
+        <MenuCategory.Group title='Group Example'>
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+        </MenuCategory.Group>
+        <MenuCategory.Group title='Group Example'>
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+        </MenuCategory.Group>
+        <MenuCategory.Group title='Group Example'>
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+          <MenuCategory.Item faIcon={faHouse} title='Item Example' />
+        </MenuCategory.Group>
+      </MenuCategory.Control>
     </ColoredBox>
   );
 }
