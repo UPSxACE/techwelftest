@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-export default function Part({ title, id, switchState, grey }) {
+export default function Part({ title, id, switchState, grey, children }) {
   const { currentAccordion, setAccordion } = switchState;
   const handleChange = (panel) => {
     return (event, isExpanded) => {
@@ -28,6 +28,7 @@ export default function Part({ title, id, switchState, grey }) {
         boxShadow: 'none',
         borderBottom: '1px solid #0000001f',
         '&:before': {
+          display: 'none',
           opacity: 0,
         },
       }}
@@ -36,6 +37,12 @@ export default function Part({ title, id, switchState, grey }) {
         expandIcon={<ExpandMore />}
         aria-controls={id + 'bh-content'}
         id={id + 'bh-header'}
+        sx={{
+          backgroundColor: 'white',
+          '&.Mui-expanded': {
+            boxShadow: '0px 1px 2px #00000040',
+          },
+        }}
       >
         <Typography
           variant='h6'
@@ -46,8 +53,10 @@ export default function Part({ title, id, switchState, grey }) {
           {title}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails sx={{ borderTop: 1, borderColor: '#0000001f' }}>
-        asfasfaspigjapsogpaoskgpoasgkpsgao
+      <AccordionDetails
+        sx={{ borderTop: 1, borderColor: '#0000001f', padding: 0 }}
+      >
+        {children}
       </AccordionDetails>
     </Accordion>
   );

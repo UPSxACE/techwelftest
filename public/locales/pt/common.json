@@ -48,7 +48,7 @@
   "string_empty": "Este campo não pode estar vazio.",
   "string_email": "Por favor, digite um email válido.",
   "formExample": "Exemplo: ",
-  "submit": "Submiter",
+  "submit": "Submit",
   "CompanyName": "Nome da Empresa",
   "EmailAddress": "Endereço de email",
   "account_already": "Fazer login em vez disso",
@@ -73,5 +73,6 @@
   "Company": "Empresa",
   "SocialMedia": "Redes Sociais",
   "cta_button": "Saber mais",
-  "all_rights": "Todos os Direitos Reservados"
+  "all_rights": "Todos os Direitos Reservados",
+  "settings_accordionform_save": "Guardar"
 }

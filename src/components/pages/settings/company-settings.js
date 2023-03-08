@@ -7,6 +7,7 @@ import { Accordion, Box, Typography } from '@mui/material';
 import axios from 'axios';
 import Joi from 'joi';
 import AccordionForm from '@/components/accordion-form';
+import CompanySettingsForm from './forms/companysettingsform';
 
 export default function CompanySettings() {
   const [formData, setFormData] = useState({});
@@ -48,11 +49,14 @@ export default function CompanySettings() {
           borderRadius: 1,
           boxShadow:
             '0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%)',
+          overflow: 'hidden',
           //padding: 5,
         }}
       >
         <AccordionForm.Form>
-          <AccordionForm.Part title={t('CompanySettings')} id={1} />
+          <AccordionForm.Part title={t('CompanySettings')} id={1}>
+            <CompanySettingsForm />
+          </AccordionForm.Part>
           <AccordionForm.Part title={t('SettingsRoles')} id={2} />
           <AccordionForm.Part title={t('SettingsUsers')} id={3} />
           <AccordionForm.Part title={t('SettingsInvoicing')} id={4} />

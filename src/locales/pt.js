@@ -66,7 +66,7 @@ const pt = {
   string_empty: 'Este campo não pode estar vazio.',
   string_email: 'Por favor, digite um email válido.',
   formExample: 'Exemplo: ',
-  submit: 'Submiter',
+  submit: 'Submit',
   CompanyName: 'Nome da empresa',
   EmailAddress: 'Endereço de email',
   account_already: 'Fazer login em vez disso',

@@ -13,6 +13,7 @@ const Submit = ({
   onError,
   autoFinalize,
   containerStyle,
+  alignRight,
 }) => {
   const { formData, setFormData } = formDataState;
   const { formStatus, setFormStatus } = formStatusState;
@@ -92,11 +93,22 @@ const Submit = ({
   }
 
   return (
-    <Box sx={{ pt: 1, ...containerStyle }}>
+    <Box
+      sx={{
+        pt: 1,
+        display: 'flex',
+        justifyContent: alignRight ? 'flex-end' : 'center',
+        ...containerStyle,
+      }}
+    >
       <Button
         disabled={!validate()}
         variant='contained'
-        sx={{ height: 56, fontSize: '1rem' }}
+        sx={{
+          height: 56,
+          fontSize: '1rem',
+          width: alignRight ? 'auto' : '100%',
+        }}
         fullWidth
         onClick={() => {
           if (onSubmit) {
