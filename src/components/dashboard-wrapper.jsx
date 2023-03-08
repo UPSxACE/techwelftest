@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 
-export default function DashboardWrapper({ children }) {
+export default function DashboardWrapper({ notAligned, children }) {
   return (
     <Box
       sx={{
@@ -37,7 +37,7 @@ export default function DashboardWrapper({ children }) {
           <Box
             sx={{
               px: 4,
-              pt: 1.5,
+              pt: notAligned ? 4 : 1.5,
               pb: 4,
               display: 'flex',
               flexDirection: 'column',

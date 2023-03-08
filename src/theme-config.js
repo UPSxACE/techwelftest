@@ -12,6 +12,7 @@ const themeConfig = {
       //special: '#336677', // OK1st color //'#ff4c4c', // red
       links: '#0072e5', // blue
       gradientAngle: '139',
+      darkBorder: '#c6c6c6',
     },
     secondary: {
       main: '#3f51b5', // blue
