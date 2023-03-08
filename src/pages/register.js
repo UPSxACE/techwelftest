@@ -159,7 +159,7 @@ function Register() {
         </OutlinedForm.Control>*/}
 
         <OutlinedForm.Submit
-          title='submit'
+          title={t('submit')}
           validators={validators}
           onSubmit={async (formData) => {
             // Test endpoint

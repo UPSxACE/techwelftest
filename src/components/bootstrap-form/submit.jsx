@@ -22,7 +22,8 @@ const Submit = ({
   function getFormDataValues() {
     const MultiFormData = new FormData();
     Object.keys(formData).map((field) => {
-      if (field[0] !== '_') MultiFormData.append(field, formData[field].value);
+      if (validators[field] && field[0] !== '_')
+        MultiFormData.append(field, formData[field].value);
     });
 
     return MultiFormData;
@@ -43,10 +44,6 @@ const Submit = ({
                   .allow(null)
                   .validate(formData[field]['value']);
           } else {
-          }
-
-          if (test_result.error) {
-            valid = false;
           }
 
           if (valid) {
@@ -82,6 +79,10 @@ const Submit = ({
 
             if (extraValidation) {
             }
+          }
+
+          if (test_result.error) {
+            valid = false;
           }
         }
       });

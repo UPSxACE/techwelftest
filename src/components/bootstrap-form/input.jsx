@@ -13,7 +13,6 @@ const Input = ({
   inputProps,
   required = false,
   readOnly = false,
-  defaultValue = '',
 }) => {
   const { formData, setFormData } = formDataState;
   const { t } = useTranslation();
@@ -151,9 +150,7 @@ const Input = ({
       }
       {...inputProps}
       defaultValue={
-        readOnly
-          ? defaultValue
-          : formData[field] && formData[field]['value']
+        formData[field] && formData[field]['value']
           ? formData[field]['value']
           : null
       }

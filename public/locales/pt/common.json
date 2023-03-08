@@ -49,7 +49,7 @@
   "string_email": "Por favor, digite um email válido.",
   "formExample": "Exemplo: ",
   "submit": "Submiter",
-  "CompanyName": "Nome da empresa",
+  "CompanyName": "Nome da Empresa",
   "EmailAddress": "Endereço de email",
   "account_already": "Fazer login em vez disso",
   "err_string_min": "O tamanho mínimo deste campo é de {{size}} caracteres.",

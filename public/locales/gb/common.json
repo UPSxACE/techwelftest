@@ -49,7 +49,7 @@
   "string_email": "Please enter a valid email.",
   "formExample": "Example:",
   "submit": "Submit",
-  "CompanyName": "Company name",
+  "CompanyName": "Company Name",
   "EmailAddress": "Email address",
   "account_already": "Log in if already registered",
   "err_string_min": "The minimum size of this field is {{size}} characters.",

@@ -44,10 +44,6 @@ const Submit = ({
           } else {
           }
 
-          if (test_result.error) {
-            valid = false;
-          }
-
           if (valid) {
             if (formData[field].matches) {
               if (
@@ -81,6 +77,10 @@ const Submit = ({
 
             if (extraValidation) {
             }
+          }
+
+          if (test_result.error) {
+            valid = false;
           }
         }
       });

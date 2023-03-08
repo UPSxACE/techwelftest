@@ -27,6 +27,18 @@ const StyledForm = styled('form')((props) => ({
   borderRadius: 10,
   display: 'flex',
   flexDirection: 'column',
+  '&.success': {
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  '&.error': {
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
   ...props.style,
 }));
 
@@ -35,6 +47,7 @@ const Form = ({
   autoFinalize,
   fullWidth = false,
   style = {},
+  defaultValues = {},
   children,
 }) => {
   const { formData, setFormData } = formDataState;
@@ -69,7 +82,7 @@ const Form = ({
           if (!formData[field]) {
             const newObject = {};
             newObject[field] = {
-              value: null,
+              value: defaultValues[field] ? defaultValues[field] : null, // Check if a default value was specified
               error: null,
               required: formControl.props.required ? true : false,
               matches: formControl.props.matches
@@ -120,7 +133,7 @@ const Form = ({
 
   if (initialized && formStatus === true) {
     return (
-      <StyledForm fullWidth={fullWidth} style={style}>
+      <StyledForm className='success' fullWidth={fullWidth} style={style}>
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'
@@ -147,7 +160,7 @@ const Form = ({
   if (initialized) {
     // Error submitting form
     return (
-      <StyledForm fullWidth={fullWidth} style={style}>
+      <StyledForm className='error' fullWidth={fullWidth} style={style}>
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'
