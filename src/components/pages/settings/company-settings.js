@@ -48,14 +48,15 @@ export default function CompanySettings() {
           borderRadius: 1,
           boxShadow:
             '0 0 5px 0 rgb(43 43 43 / 10%), 0 11px 6px -7px rgb(43 43 43 / 10%)',
-          padding: 5,
+          //padding: 5,
         }}
       >
         <AccordionForm.Form>
           <AccordionForm.Part title={t('CompanySettings')} id={1} />
           <AccordionForm.Part title={t('SettingsRoles')} id={2} />
-          <AccordionForm.Part title={t('SettingsInvoicing')} id={3} />
-          <AccordionForm.Part title={t('AdvancedSettings')} id={4} />
+          <AccordionForm.Part title={t('SettingsUsers')} id={3} />
+          <AccordionForm.Part title={t('SettingsInvoicing')} id={4} />
+          <AccordionForm.Part title={t('AdvancedSettings')} id={5} />
         </AccordionForm.Form>
       </Box>
     </Box>

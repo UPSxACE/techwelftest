@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-export default function Part({ title, id, switchState }) {
+export default function Part({ title, id, switchState, grey }) {
   const { currentAccordion, setAccordion } = switchState;
   const handleChange = (panel) => {
     return (event, isExpanded) => {
@@ -21,7 +21,15 @@ export default function Part({ title, id, switchState }) {
       onChange={handleChange(id)}
       sx={{
         color: 'black',
-        backgroundColor: '#f2f2f2',
+        backgroundColor: grey ? '#f2f2f2' : 'transparent',
+        borderTop: 0,
+        borderBottom: 0,
+        margin: '0!important',
+        boxShadow: 'none',
+        borderBottom: '1px solid #0000001f',
+        '&:before': {
+          opacity: 0,
+        },
       }}
     >
       <AccordionSummary
@@ -38,9 +46,7 @@ export default function Part({ title, id, switchState }) {
           {title}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails
-        sx={{ borderTop: 1, borderColor: 'primary.darkBorder' }}
-      >
+      <AccordionDetails sx={{ borderTop: 1, borderColor: '#0000001f' }}>
         asfasfaspigjapsogpaoskgpoasgkpsgao
       </AccordionDetails>
     </Accordion>
