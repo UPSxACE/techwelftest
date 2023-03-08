@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
 const Submit = ({
@@ -91,34 +91,36 @@ const Submit = ({
   }
 
   return (
-    <Button
-      disabled={!validate()}
-      variant='contained'
-      sx={{ height: 56, fontSize: '1rem', ...containerStyle }}
-      fullWidth
-      onClick={() => {
-        if (onSubmit) {
-          async function handleSubmit() {
-            await onSubmit(getFormDataValues());
-          }
+    <Box sx={{ pt: 1, ...containerStyle }}>
+      <Button
+        disabled={!validate()}
+        variant='contained'
+        sx={{ height: 56, fontSize: '1rem' }}
+        fullWidth
+        onClick={() => {
+          if (onSubmit) {
+            async function handleSubmit() {
+              await onSubmit(getFormDataValues());
+            }
 
-          setFormLoading(true);
-          handleSubmit()
-            .then((result) => {
-              if (onSuccess) onSuccess(result, setFormStatus);
-              if (autoFinalize) setFormStatus(true);
-              setFormLoading(false);
-            })
-            .catch((error) => {
-              if (onError) onError(error, setFormStatus);
-              if (autoFinalize) setFormStatus(error);
-              setFormLoading(false);
-            });
-        }
-      }}
-    >
-      {t(title)}
-    </Button>
+            setFormLoading(true);
+            handleSubmit()
+              .then((result) => {
+                if (onSuccess) onSuccess(result, setFormStatus);
+                if (autoFinalize) setFormStatus(true);
+                setFormLoading(false);
+              })
+              .catch((error) => {
+                if (onError) onError(error, setFormStatus);
+                if (autoFinalize) setFormStatus(error);
+                setFormLoading(false);
+              });
+          }
+        }}
+      >
+        {t(title)}
+      </Button>
+    </Box>
   );
 };
 
