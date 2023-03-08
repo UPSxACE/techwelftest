@@ -5,8 +5,8 @@ import Input from './input';
 import Submit from './submit';
 import ColorPicker from './color-picker';
 import ImageUploader from './image-uploader';
-
-const { FormGroup, InputLabel, Typography } = require('@mui/material');
+import { Box, FormGroup, InputLabel, Typography } from '@mui/material';
+import TwoHalfs from './two-halfs';
 
 const Header = ({ children }) => <>{children}</>;
 const Footer = ({ children }) => <>{children}</>;
@@ -14,16 +14,28 @@ const Footer = ({ children }) => <>{children}</>;
 const Group = ({ children }) => <FormGroup>{children}</FormGroup>;
 
 const Label = ({ field, label, required, children }) => (
-  <InputLabel color='info' htmlFor={field}>
+  <InputLabel
+    shrink
+    color='info'
+    htmlFor={field}
+    sx={{
+      '&': {
+        position: 'initial',
+        transform: 'none',
+      },
+    }}
+  >
     {required ? label + ' *' : label}
   </InputLabel>
 );
 
-const Text = ({ label, formDataState, field, children }) => {
+const Text = ({ label, formDataState, field, containerStyle, children }) => {
   return (
-    <Typography variant='body1' component='span' sx={{ mb: 1 }}>
-      {children}
-    </Typography>
+    <Box sx={{ ...containerStyle }}>
+      <Typography variant='body1' component='span' sx={{ mb: 1 }}>
+        {children}
+      </Typography>
+    </Box>
   );
 };
 
@@ -38,7 +50,7 @@ const SectionHeader = ({ title, children }) => (
   </Typography>
 );
 
-const OutlinedForm = {
+const BootstrapForm = {
   Form,
   Control,
   Group,
@@ -52,6 +64,7 @@ const OutlinedForm = {
   Footer,
   Text,
   SectionHeader,
+  TwoHalfs,
 };
 
-export default OutlinedForm;
+export default BootstrapForm;

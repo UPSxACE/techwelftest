@@ -1,13 +1,17 @@
+import BootstrapForm from '@/components/bootstrap-form';
 import DashboardPageHeader from '@/components/dashboard-page-header';
 import DashboardWrapper from '@/components/dashboard-wrapper';
 import OutlinedForm from '@/components/outlined-form';
 import DashboardLayout from '@/layouts/dashboard-layout';
+import themeConfig from '@/theme-config';
 import { Box } from '@mui/material';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Settings() {
   const [formData, setFormData] = useState({});
+  const { t } = useTranslation();
 
   return (
     <DashboardWrapper>
@@ -16,7 +20,7 @@ export default function Settings() {
         rightText={'Dashboard / Settings'}
       />
 
-      <OutlinedForm.Form
+      <BootstrapForm.Form
         formDataState={{ formData, setFormData }}
         fullWidth
         style={{
@@ -25,47 +29,80 @@ export default function Settings() {
           borderRadius: 0,
         }}
       >
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-        <OutlinedForm.Control label='Name' field='one'>
-          <OutlinedForm.Label />
-          <OutlinedForm.Input />
-        </OutlinedForm.Control>
-      </OutlinedForm.Form>
+        <BootstrapForm.SectionHeader title={t('CompanySettings')} />
+        <BootstrapForm.Control label={t('CompanyName')} field='companySettings'>
+          <BootstrapForm.Label />
+          <BootstrapForm.Input defaultValue={'Test'} readOnly />
+        </BootstrapForm.Control>
+        <BootstrapForm.Control label={t('CompanyID')} field='companyId'>
+          <BootstrapForm.Label />
+          <BootstrapForm.Input defaultValue={'000'} readOnly />
+        </BootstrapForm.Control>
+        <BootstrapForm.Control label={t('email')} field='email'>
+          <BootstrapForm.Label />
+          <BootstrapForm.Input />
+        </BootstrapForm.Control>
+        <BootstrapForm.Control label={t('newPassword')} field='newPassword'>
+          <BootstrapForm.Label />
+          <BootstrapForm.Input />
+        </BootstrapForm.Control>
+        <BootstrapForm.Control
+          label={t('confirmNewPassword')}
+          field='newPasswordConfirm'
+        >
+          <BootstrapForm.Label />
+          <BootstrapForm.Input />
+        </BootstrapForm.Control>
+
+        <BootstrapForm.TwoHalfs>
+          <BootstrapForm.Control
+            half
+            required
+            label={t('websiteColor')}
+            field='websiteColor'
+          >
+            <BootstrapForm.ColorPicker
+              defaultColor={themeConfig.palette.primary.special1}
+              tooltip={{
+                tip: t('tooltip_tip_websiteColor'),
+              }}
+              containerStyle={{ paddingRight: 2 }}
+            />
+          </BootstrapForm.Control>
+
+          <BootstrapForm.Control
+            half
+            required
+            label={t('websiteLogo')}
+            field='websiteLogo'
+          >
+            <BootstrapForm.ImageUploader
+              backgroundSwitcher
+              defaultImage={true}
+              tooltip={{
+                tip: t('tooltip_tip_websiteLogo'),
+              }}
+              description={
+                <>
+                  {formData['websiteLogo'] &&
+                    formData['websiteLogo']['value'] && (
+                      <BootstrapForm.Text containerStyle={{ mt: 1 }}>
+                        {t('register_if_image_white')}
+                      </BootstrapForm.Text>
+                    )}
+                </>
+              }
+              containerStyle={{ paddingLeft: 2 }}
+            />
+            <BootstrapForm.HelperText />
+          </BootstrapForm.Control>
+        </BootstrapForm.TwoHalfs>
+        <BootstrapForm.Submit
+          title='Submit'
+          validators={{}}
+          containerStyle={{ marginTop: 'auto' }}
+        />
+      </BootstrapForm.Form>
     </DashboardWrapper>
   );
 }

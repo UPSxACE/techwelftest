@@ -29,9 +29,25 @@ export default function DashboardWrapper({ children }) {
             width: '100%',
             height: '100%',
             overflow: 'auto',
+            flex: 1,
+            display: 'flex',
+            minHeight: '100%',
           }}
         >
-          <Box sx={{ px: 4, pt: 1.5, pb: 4 }}>{children}</Box>
+          <Box
+            sx={{
+              px: 4,
+              pt: 1.5,
+              pb: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'absolute',
+              minHeight: '100%',
+              width: '100%',
+            }}
+          >
+            {children}
+          </Box>
         </Box>
       </Box>
     </Box>

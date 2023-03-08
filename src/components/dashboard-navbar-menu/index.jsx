@@ -13,7 +13,7 @@ export default function DashboardNavbarMenu() {
       <Box
         sx={{
           display: 'flex',
-          boxShadow: '0px 1px 3px #00000040;',
+          //boxShadow: '0px 1px 3px #00000040;',
           height: 70,
           alignItems: 'center',
           paddingLeft: 1,

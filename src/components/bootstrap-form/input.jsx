@@ -2,6 +2,7 @@ import { InfoOutlined } from '@mui/icons-material';
 import { OutlinedInput, Tooltip } from '@mui/material';
 import { useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
+import BootstrapInput from './bootstrap-input';
 
 const Input = ({
   JOIValidator,
@@ -12,6 +13,7 @@ const Input = ({
   inputProps,
   required = false,
   readOnly = false,
+  defaultValue = '',
 }) => {
   const { formData, setFormData } = formDataState;
   const { t } = useTranslation();
@@ -54,7 +56,17 @@ const Input = ({
   }, [formData]);
 
   return (
-    <OutlinedInput
+    <BootstrapInput
+      sx={{
+        '&.MuiInputBase-root': {
+          mt: 0,
+        },
+        '& .MuiInputBase-input': {
+          backgroundColor: readOnly ? '#e7e7e7' : 'transparent',
+          width: '100%',
+        },
+        color: 'black',
+      }}
       readOnly={readOnly}
       color='info'
       label={required ? label + ' *' : label}
@@ -108,17 +120,6 @@ const Input = ({
         obj['_filledFields'][field] = newValue ? true : null;
         setFormData({ ...obj });
       }}
-      sx={{
-        color: 'black',
-        '&:hover:not(:focus):not(:focus-visible):not(:focus-within) .MuiOutlinedInput-notchedOutline:not(:focus):not(:focus-visible)':
-          {
-            borderColor: 'black!important',
-          },
-        /*
-      '& .MuiOutlinedInput-notchedOutline:hover': {
-        borderColor: 'black!important',
-      },*/
-      }}
       required
       endAdornment={
         <Tooltip
@@ -144,13 +145,15 @@ const Input = ({
           }
         >
           <InfoOutlined
-            sx={{ color: 'primary.components3', cursor: 'pointer' }}
+            sx={{ color: 'primary.components3', cursor: 'pointer', ml: 1 }}
           />
         </Tooltip>
       }
       {...inputProps}
       defaultValue={
-        formData[field] && formData[field]['value']
+        readOnly
+          ? defaultValue
+          : formData[field] && formData[field]['value']
           ? formData[field]['value']
           : null
       }
