@@ -11,6 +11,7 @@ import CompanySettingsForm from '@/components/pages/settings/forms/companysettin
 import UsersTable from '@/components/pages/settings/tables/userstable';
 import RolesTable from '@/components/pages/settings/tables/rolestable';
 import InvoicingForm from '@/components/pages/settings/forms/invoicingform';
+import AdvancedSettingsForm from '@/components/pages/settings/forms/advancedsettingsform';
 
 export default function Settings() {
   const [formData, setFormData] = useState({});
@@ -70,7 +71,9 @@ export default function Settings() {
             <AccordionForm.Part title={t('SettingsInvoicing')} id={4}>
               <InvoicingForm />
             </AccordionForm.Part>
-            <AccordionForm.Part title={t('AdvancedSettings')} id={5} />
+            <AccordionForm.Part title={t('AdvancedSettings')} id={5}>
+              <AdvancedSettingsForm />
+            </AccordionForm.Part>
           </AccordionForm.Form>
         </Box>
       </Box>

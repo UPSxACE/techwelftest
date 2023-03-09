@@ -23,6 +23,13 @@ const themeConfig = {
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          color: 'black',
+        },
+      },
+    },
     MuiInput: {
       styleOverrides: {
         root: {
