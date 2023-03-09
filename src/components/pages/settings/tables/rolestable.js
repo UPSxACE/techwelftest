@@ -123,6 +123,7 @@ export default function RolesTable() {
         Cell: ({ cell, row }) => {
           return (
             <Checkbox
+              disableRipple
               //inputProps={{ 'aria-label': 'controlled' }}
               checked={cell.getValue()}
               onChange={(event) => {
@@ -132,18 +133,22 @@ export default function RolesTable() {
             />
           );
         },
-        readOnly: true,
-        Edit: ({ cell, row, onChange }) => {
+        Edit: ({ cell, column, row, onChange }) => {
           const [checked, setChecked] = useState(cell.getValue());
 
           return (
             <Checkbox
-              inputProps={{ 'aria-label': 'controlled' }}
+              inputProps={{
+                'aria-label': 'controlled',
+                disabled: column.columnDef.readOnly,
+              }}
               checked={checked}
               onChange={(event) => {
-                setChecked(event.target.checked);
-                handleNewCellEdit(cell, event.target.checked);
-                //console.log('ROW', row.original.role);
+                if (!column.columnDef.readOnly) {
+                  setChecked(event.target.checked);
+                  handleNewCellEdit(cell, event.target.checked);
+                  //console.log('ROW', row.original.role);
+                }
               }}
             />
           );
@@ -152,17 +157,21 @@ export default function RolesTable() {
       {
         accessorKey: 'approval', //access nested data with dot notation
         header: 'Approval',
-        Edit: ({ cell }) => {
+        Edit: ({ cell, column }) => {
           const [value, setValue] = useState(cell.getValue());
 
+          console.log('XCOL', column);
           const handleChange = (event) => {
-            setValue(event.target.value);
-            handleNewCellEdit(cell, event.target.value);
+            if (!column.columnDef.readOnly) {
+              setValue(event.target.value);
+              handleNewCellEdit(cell, event.target.value);
+            }
           };
           return (
             <Select
               labelId='approval-select-label'
               id='approval-select'
+              disabled={column.columnDef.readOnly}
               value={value}
               label='Age'
               onChange={handleChange}
@@ -207,17 +216,25 @@ export default function RolesTable() {
           sx: { color: 'text.secondary' },
           rowsPerPageOptions: [5, 10, 15, 20],
         }}
-        muiTableBodyCellEditTextFieldProps={({ cell }) => ({
-          onChange: (event) => {
-            handleNewCellEdit(cell, event.target.value);
-          },
-        })}
+        muiTableBodyCellEditTextFieldProps={({ cell }) => {
+          return {
+            disabled: cell.column.columnDef.readOnly,
+            onChange: (event) => {
+              if (!cell.column.columnDef.readOnly) {
+                handleNewCellEdit(cell, event.target.value);
+              }
+            },
+          };
+        }}
         data={data}
         columns={columns}
         editingMode='row'
         enableEditing={(rowData) => rowData.editable !== false}
         onEditingRowSave={({ row, exitEditingMode }) => {
           saveEdits(row.index, exitEditingMode);
+        }}
+        onEditingRowCancel={() => {
+          setDataChanges(data);
         }}
       />
     </>
