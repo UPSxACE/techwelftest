@@ -84,6 +84,7 @@ export default function UsersTable() {
       /*renderTopToolbarCustomActions={({ table }) => {
           return <Button variant='contained'>TEST</Button>;
         }}*/
+      initialState={{ pagination: { pageSize: 5 } }}
       muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
       muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
       muiTablePaginationProps={{

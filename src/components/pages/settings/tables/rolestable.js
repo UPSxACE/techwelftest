@@ -211,6 +211,7 @@ export default function RolesTable() {
         </Box>
       </Modal>
       <MaterialReactTable
+        initialState={{ pagination: { pageSize: 5 } }}
         muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
         muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
         muiTablePaginationProps={{
