@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
+import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -90,12 +91,24 @@ export default function RolesTable() {
     // ...
 
     // send request
-    setTimeout(() => {
-      // if successeful close
-      exitEditMode();
-      // set WAIT modal false
-      handleClose();
-    }, 1000);
+
+    const sendRequest = async () => {
+      await axios.post('http://localhost:9000/test/formdata', data[row_index], {
+        //headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    };
+
+    sendRequest()
+      .then(() => {
+        setTimeout(() => {
+          // if successeful close edit mode
+          exitEditMode();
+        }, 1000);
+      })
+      .finally(() => {
+        // set WAIT modal false
+        handleClose();
+      });
   }
 
   const columns = useMemo(
