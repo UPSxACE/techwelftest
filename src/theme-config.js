@@ -1,4 +1,45 @@
 const themeConfig = {
+  components: {
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          color: 'black',
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#284852',
+          },
+          '&:focus .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#284852',
+          },
+          '&:focus-visible .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#284852',
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: 'black',
+        },
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          transition: 'border-bottom-color 200ms!important',
+          transitionTimingFunction: 'none!important',
+          '&:hover:before': {
+            borderBottom: '1px solid black!important',
+            transition: 'border-bottom-color 200ms!important',
+            transitionTimingFunction: 'none!important',
+          },
+        },
+        input: {
+          color: 'black',
+        },
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#336677', // OK1st color '#ff3b3b', // red

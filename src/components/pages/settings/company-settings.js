@@ -8,6 +8,8 @@ import axios from 'axios';
 import Joi from 'joi';
 import AccordionForm from '@/components/accordion-form';
 import CompanySettingsForm from './forms/companysettingsform';
+import UsersTable from './tables/userstable';
+import RolesTable from './tables/rolestable';
 
 export default function CompanySettings() {
   const [formData, setFormData] = useState({});
@@ -57,8 +59,12 @@ export default function CompanySettings() {
           <AccordionForm.Part title={t('CompanySettings')} id={1}>
             <CompanySettingsForm />
           </AccordionForm.Part>
-          <AccordionForm.Part title={t('SettingsRoles')} id={2} />
-          <AccordionForm.Part title={t('SettingsUsers')} id={3} />
+          <AccordionForm.Part title={t('SettingsUsers')} id={2}>
+            <UsersTable />
+          </AccordionForm.Part>
+          <AccordionForm.Part title={t('SettingsRoles')} id={3}>
+            <RolesTable />
+          </AccordionForm.Part>
           <AccordionForm.Part title={t('SettingsInvoicing')} id={4} />
           <AccordionForm.Part title={t('AdvancedSettings')} id={5} />
         </AccordionForm.Form>
