@@ -116,6 +116,7 @@ export default function RolesTable() {
       {
         accessorKey: 'role', //access nested data with dot notation
         header: 'Role',
+        readOnly: true,
       },
       {
         accessorKey: 'user_backend', //access nested data with dot notation

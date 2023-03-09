@@ -1,6 +1,6 @@
 import Box, { Button } from '@mui/material';
 import MaterialReactTable from 'material-react-table';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 export default function UsersTable() {
   const data = [
