@@ -49,6 +49,8 @@ const Form = ({
   style = {},
   defaultValues = {},
   children,
+  renderLoading,
+  onErrorConfirm = false,
 }) => {
   const { formData, setFormData } = formDataState;
   const [initialized, setInitialized] = useState(false);
@@ -110,6 +112,9 @@ const Form = ({
   }, []);
 
   if (formLoading) {
+    if (renderLoading) {
+      return <>{renderLoading}</>;
+    }
     return <StyledForm>LOADING...</StyledForm>;
   }
 
@@ -184,6 +189,7 @@ const Form = ({
           href='#'
           onClick={() => {
             setFormStatus(null);
+            if (onErrorConfirm) onErrorConfirm();
           }}
           style={{
             display: 'flex',

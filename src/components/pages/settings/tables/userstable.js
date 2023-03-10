@@ -1,8 +1,17 @@
-import Box, { Button } from '@mui/material';
+import { Box, Button, Modal } from '@mui/material';
 import MaterialReactTable from 'material-react-table';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import NewUserFormModal from '../forms/newuserformmodal';
 
 export default function UsersTable() {
+  const [open, setOpen] = useState(false);
+  const [closeable, setCloseable] = useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const { t } = useTranslation();
+
   const data = [
     { id: 1, name: 'Snow', email: 'Jon@ad.com', role: 'Operator' },
     { id: 2, name: 'Lannister', email: 'Cersei@ab.com', role: 'Worker' },
@@ -80,18 +89,30 @@ export default function UsersTable() {
   );
 
   return (
-    <MaterialReactTable
-      /*renderTopToolbarCustomActions={({ table }) => {
-          return <Button variant='contained'>TEST</Button>;
-        }}*/
-      initialState={{ pagination: { pageSize: 5 } }}
-      muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
-      muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
-      muiTablePaginationProps={{
-        sx: { color: 'text.secondary' },
-      }}
-      data={data}
-      columns={columns}
-    />
+    <>
+      <NewUserFormModal
+        open={open}
+        handleClose={handleClose}
+        closeable={closeable}
+        setCloseable={setCloseable}
+      />
+      <MaterialReactTable
+        renderTopToolbarCustomActions={({ table }) => {
+          return (
+            <Button variant='contained' onClick={() => handleOpen()}>
+              {t('Add_User')}
+            </Button>
+          );
+        }}
+        initialState={{ pagination: { pageSize: 5 } }}
+        muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
+        muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
+        muiTablePaginationProps={{
+          sx: { color: 'text.secondary' },
+        }}
+        data={data}
+        columns={columns}
+      />
+    </>
   );
 }

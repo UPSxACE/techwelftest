@@ -1,4 +1,5 @@
 import LoaderPrimary from '@/components/loader-primary';
+import LoadingModalWrapper from '@/components/loading-modal-wrapper';
 import {
   Button,
   Box,
@@ -11,22 +12,6 @@ import {
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
 import { useEffect, useMemo, useState } from 'react';
-
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 150,
-  height: 150,
-  bgcolor: 'white',
-  boxShadow: 24,
-  p: 4,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: 3,
-};
 
 export default function RolesTable() {
   const [open, setOpen] = useState(false);
@@ -100,10 +85,8 @@ export default function RolesTable() {
 
     sendRequest()
       .then(() => {
-        setTimeout(() => {
-          // if successeful close edit mode
-          exitEditMode();
-        }, 1000);
+        // if successeful close edit mode
+        exitEditMode();
       })
       .finally(() => {
         // set WAIT modal false
@@ -199,17 +182,7 @@ export default function RolesTable() {
   );
 
   return (
-    <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-      >
-        <Box sx={modalStyle}>
-          <LoaderPrimary />
-        </Box>
-      </Modal>
+    <LoadingModalWrapper open={open}>
       <MaterialReactTable
         initialState={{ pagination: { pageSize: 5 } }}
         muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
@@ -239,6 +212,6 @@ export default function RolesTable() {
           setDataChanges(data);
         }}
       />
-    </>
+    </LoadingModalWrapper>
   );
 }

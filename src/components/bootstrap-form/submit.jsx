@@ -26,6 +26,7 @@ const Submit = ({
       if (validators[field] && field[0] !== '_')
         MultiFormData.append(field, formData[field].value);
     });
+    // Debug: MultiFormData.forEach((e) => console.log(e));
 
     return MultiFormData;
   }
@@ -122,8 +123,10 @@ const Submit = ({
                 if (onSuccess) onSuccess(result, setFormStatus);
                 if (autoFinalize) setFormStatus(true);
                 setFormLoading(false);
+                setFormData({});
               })
               .catch((error) => {
+                // Debug: console.log(error);
                 if (onError) onError(error, setFormStatus);
                 if (autoFinalize) setFormStatus(error);
                 setFormLoading(false);
