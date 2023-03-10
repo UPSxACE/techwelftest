@@ -9,7 +9,7 @@ const HelperText = ({ field, formDataState, children }) => {
   if (formData[field])
     if (formData[field]['error']) {
       return (
-        <FormHelperText id={'helper-' + field}>
+        <FormHelperText sx={{ mx: 0 }} id={'helper-' + field}>
           {Object.prototype.toString.call(
             formData[field]['error']['message']
           ) === '[object Array]'

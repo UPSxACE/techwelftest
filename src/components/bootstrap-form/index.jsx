@@ -7,6 +7,7 @@ import ColorPicker from './color-picker';
 import ImageUploader from './image-uploader';
 import { Box, FormGroup, InputLabel, Typography } from '@mui/material';
 import TwoHalfs from './two-halfs';
+import BootstrapFillInput from './bootstrap-fill-input';
 
 const Header = ({ children }) => <>{children}</>;
 const Footer = ({ children }) => <>{children}</>;
@@ -65,6 +66,7 @@ const BootstrapForm = {
   Text,
   SectionHeader,
   TwoHalfs,
+  BootstrapFillInput,
 };
 
 export default BootstrapForm;

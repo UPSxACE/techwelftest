@@ -20,6 +20,7 @@ export default function CompanySettingsForm() {
     email: Joi.string().email({ tlds: { allow: false } }),
     newPassword: Joi.string().min(9),
     newPasswordConfirm: Joi.string(),
+    domain: Joi.string().max(32),
   };
 
   useEffect(() => {
@@ -125,6 +126,14 @@ export default function CompanySettingsForm() {
           <BootstrapForm.HelperText />
         </BootstrapForm.Control>
       </BootstrapForm.TwoHalfs>
+      <BootstrapForm.Control label={t('Domain')} field='domain' required>
+        <BootstrapForm.Label />
+        <BootstrapForm.BootstrapFillInput
+          text={'.ok1st.com'}
+          JOIValidator={validators.domain}
+        />
+        <BootstrapForm.HelperText />
+      </BootstrapForm.Control>
       <BootstrapForm.Submit
         alignRight
         title={t('settings_accordionform_save')}

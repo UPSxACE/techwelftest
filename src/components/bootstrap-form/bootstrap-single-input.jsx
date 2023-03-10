@@ -81,6 +81,8 @@ export default function BootstrapSingleInput({
           }}
           fullWidth
           onClick={() => {
+            /*
+            LOGIC YET TO BE IMPLEMENTED HERE 
             if (onSubmit) {
               async function handleSubmit() {
                 await onSubmit(getFormDataValues());
@@ -98,7 +100,7 @@ export default function BootstrapSingleInput({
                   if (autoFinalize) setFormStatus(error);
                   setFormLoading(false);
                 });
-            }
+            }*/
           }}
         >
           Save

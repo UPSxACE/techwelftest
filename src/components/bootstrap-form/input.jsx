@@ -3,6 +3,7 @@ import { OutlinedInput, Tooltip } from '@mui/material';
 import { useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
 import BootstrapInput from './bootstrap-input';
+import generateMessage from '@/utils/forms/generateMessage';
 
 const Input = ({
   JOIValidator,
@@ -157,25 +158,5 @@ const Input = ({
     />
   );
 };
-
-// Functions
-function generateMessage(error) {
-  // Most useful: error.context, error.type
-
-  switch (error.type) {
-    case 'string.empty':
-      return 'string_empty';
-    case 'string.email':
-      return 'string_email';
-    case 'string.min':
-      return ['err_string_min', { size: error.context.limit }];
-    case 'number.base':
-      return 'err_number_base';
-    case 'does_not_match_password':
-      return 'does_not_match_password';
-    default:
-      return null;
-  }
-}
 
 export default Input;
