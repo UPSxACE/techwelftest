@@ -174,7 +174,29 @@ export default function RolesTable() {
           );
         },
       },
-
+      {
+        header: 'Actions',
+        Cell: ({ cell }) => (
+          <>
+            <Button
+              variant='contained'
+              color='success'
+              key={0}
+              sx={{ height: 30, mr: 1 }}
+            >
+              S
+            </Button>
+            <Button
+              variant='contained'
+              color='error'
+              key={1}
+              sx={{ height: 30, ms: 1 }}
+            >
+              X
+            </Button>
+          </>
+        ),
+      },
       /*valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,*/
     ],
