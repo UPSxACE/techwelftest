@@ -12,11 +12,18 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import NewIpFormModal from './forms/newipformmodal';
 
 export default function AdvancedSettings({ ipList }) {
   const { t } = useTranslation();
   const [confirmModal, setConfirmModal] = useState(false);
   const [ipToDelete, setIpToDelete] = useState('');
+
+  // New Ip Form
+  const [open, setOpen] = useState(false);
+  const [closeable, setCloseable] = useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   function deleteIp(ip) {
     // send request to delete IP
@@ -25,7 +32,13 @@ export default function AdvancedSettings({ ipList }) {
   }
 
   return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper', padding: 4 }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.paper', padding: '50px' }}>
+      <NewIpFormModal
+        open={open}
+        handleClose={handleClose}
+        closeable={closeable}
+        setCloseable={setCloseable}
+      />
       <ConfirmModal
         state={{ open: confirmModal, setOpen: setConfirmModal }}
         onConfirm={() => {
@@ -48,6 +61,7 @@ export default function AdvancedSettings({ ipList }) {
                 color='success'
                 onClick={() => {
                   console.log('SUCCESS');
+                  handleOpen();
                 }}
               />
             </ListItemIcon>
