@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function DashboardNavbarMenu() {
   return (
-    <ColoredBox sx={{ width: 300 }}>
+    <Box sx={{ width: 300, backgroundColor: 'primary.special2' }}>
       <Box
         sx={{
           display: 'flex',
@@ -48,6 +48,6 @@ export default function DashboardNavbarMenu() {
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
         </MenuCategory.Group>
       </MenuCategory.Control>
-    </ColoredBox>
+    </Box>
   );
 }

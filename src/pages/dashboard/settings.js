@@ -17,6 +17,15 @@ export default function Settings() {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
 
+  const [ipList, setIpList] = useState(null); // please set to null initially (before data arrives)
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('Testing ipList...');
+      setIpList(['127.0.0.1', '128.5.14.3', '192.165.21.42']);
+    }, 5000);
+  }, []);
+
   const defaultValues = {
     companyId: '000',
     companyName: 'Test',
@@ -72,7 +81,7 @@ export default function Settings() {
               <InvoicingForm />
             </AccordionForm.Part>
             <AccordionForm.Part title={t('AdvancedSettings')} id={5}>
-              <AdvancedSettings />
+              <AdvancedSettings ipState={{ ipList, setIpList }} />
             </AccordionForm.Part>
           </AccordionForm.Form>
         </Box>

@@ -1,8 +1,9 @@
 // Please set names in english
 // Find icon names in: https://fontawesome.com/search?o=r&m=free
 // Find flags in: https://flagicons.lipis.dev/
-import { faFaceAngry } from '@fortawesome/free-regular-svg-icons';
 import {
+  faFaceAngry,
+  faBell,
   faCode,
   faDatabase,
   faGears,
@@ -104,12 +105,12 @@ const appConfig = {
       name: 'feature5',
       desc: 'feature5desc',
       icon: faTasks,
-    } /*
+    },
     {
       name: 'feature7',
       desc: 'feature7desc',
-      icon: faUsers,
-    },
+      icon: faBell,
+    } /*
     {
       name: 'feature8',
       desc: 'feature8desc',
@@ -120,24 +121,24 @@ const appConfig = {
       desc: 'feature9desc',
       icon: faLayerGroup,
     },*/,
+    ,
   ],
   screenshots: [
     {
       title: 'ScreenshotTitle1',
       desc: 'ScreenshotDesc1',
-      imgPath: '/screenshot1.png',
+      imgPath: '/screenshot1e.png',
     },
     {
       title: 'ScreenshotTitle2',
       desc: 'ScreenshotDesc2',
-      imgPath: '/screenshot3.png',
+      imgPath: '/screenshot2e.png',
     },
-    /*
     {
       title: 'ScreenshotTitle3',
       desc: 'ScreenshotDesc3',
-      imgPath: '/screenshot4.png',
-    },*/
+      imgPath: '/screenshot3e.png',
+    },
   ],
   screenshotsMode: 'scroll', // options: scroll or carousel
   // In case you choose "carousel", give preference to dark screenshots as a contrast to the white section before the carousel

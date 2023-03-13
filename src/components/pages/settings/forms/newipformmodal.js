@@ -28,6 +28,7 @@ export default function NewIpFormModal({
   handleClose = () => {},
   closeable,
   setCloseable,
+  addIp,
 }) {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
@@ -91,7 +92,9 @@ export default function NewIpFormModal({
               );
             }}
             onSuccess={() => {
+              addIp(formData.newip.value);
               setCloseable(true);
+              handleClose();
             }}
           />
         </BootstrapForm.Form>
