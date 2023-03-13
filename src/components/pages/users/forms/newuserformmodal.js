@@ -32,10 +32,6 @@ export default function NewUserFormModal({
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
 
-  useEffect(() => {
-    console.log('ff:', formData);
-  }, [formData]);
-
   const defaultValues = {};
 
   const validators = {
@@ -120,7 +116,7 @@ export default function NewUserFormModal({
             validators={validators}
             onSubmit={async (formData) => {
               setCloseable(false);
-              console.log(formData);
+
               // Test endpoint
               await axios.post(
                 'http://localhost:9000/test/formdata',

@@ -6,10 +6,6 @@ const HelperText = ({ field, formDataState, children }) => {
   const { formData, setFormData } = formDataState;
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (formData[field]['error']) console.log(t('Register'));
-  });
-
   if (formData[field])
     if (formData[field]['error']) {
       return (

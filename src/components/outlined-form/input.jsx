@@ -79,7 +79,6 @@ const Input = ({
             // If that kind of error was already predicted, exchange the default error message by one that was manually set.
             if (error_message) {
               obj[field]['error']['message'] = error_message;
-              console.log('erroooor', error_message);
             }
           }
         }

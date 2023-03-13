@@ -6,7 +6,7 @@ import themeConfig from '@/theme-config';
 import axios from 'axios';
 import Joi from 'joi';
 
-export default function InvoicingForm() {
+export default function InvoicingForm({ shadow }) {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
 
@@ -20,10 +20,6 @@ export default function InvoicingForm() {
     country: Joi.string(),
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <BootstrapForm.Form
       autoFinalize
@@ -35,6 +31,9 @@ export default function InvoicingForm() {
         backgroundColor: 'white',
         borderRadius: 0,
         border: 0,
+        boxShadow: shadow
+          ? themeConfig.palette.primary.dashboardShadow
+          : 'none',
       }}
     >
       <BootstrapForm.Control label={t('VatNumber')} field='vatNumber'>

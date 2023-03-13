@@ -55,13 +55,9 @@ export default function RolesTable() {
 
   const [dataChanges, setDataChanges] = useState(incomingData);
 
-  useEffect(() => {
-    console.log(dataChanges);
-  }, [dataChanges]);
-
   function handleNewCellEdit(cell, value) {
     //cell.column.id = the name of the field that is being edited
-    console.log(cell.column.id);
+
     const updateDataChanges = [...dataChanges];
     updateDataChanges[cell.row.index][cell.column.id] = value;
     setDataChanges([...updateDataChanges]);
@@ -111,7 +107,6 @@ export default function RolesTable() {
               //inputProps={{ 'aria-label': 'controlled' }}
               checked={cell.getValue()}
               onChange={(event) => {
-                console.log('ROW', row.original.role);
                 const newValue = event.target.checked;
               }}
             />
@@ -144,7 +139,6 @@ export default function RolesTable() {
         Edit: ({ cell, column }) => {
           const [value, setValue] = useState(cell.getValue());
 
-          console.log('XCOL', column);
           const handleChange = (event) => {
             if (!column.columnDef.readOnly) {
               setValue(event.target.value);

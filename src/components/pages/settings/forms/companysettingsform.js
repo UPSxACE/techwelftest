@@ -23,10 +23,6 @@ export default function CompanySettingsForm() {
     domain: Joi.string().max(32),
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <BootstrapForm.Form
       autoFinalize

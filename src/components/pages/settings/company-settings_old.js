@@ -23,10 +23,6 @@ export default function CompanySettings() {
     newPasswordConfirm: Joi.string(),
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <>
       <DashboardPageHeader

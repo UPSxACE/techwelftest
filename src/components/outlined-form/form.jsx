@@ -33,6 +33,7 @@ const Form = ({
   autoFinalize,
   fullWidth = false,
   style = {},
+  defaultValues = {},
   children,
 }) => {
   const { formData, setFormData } = formDataState;
@@ -64,10 +65,11 @@ const Form = ({
         // If it has the prop field defined, proceed to checking if its initialized
         if (field) {
           // If that field wasn't initialized yet, initialize it
+
           if (!formData[field]) {
             const newObject = {};
             newObject[field] = {
-              value: null,
+              value: defaultValues[field] ? defaultValues[field] : null, // Check if a default value was specified
               error: null,
               required: formControl.props.required ? true : false,
               matches: formControl.props.matches

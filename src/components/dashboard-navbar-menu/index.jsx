@@ -36,14 +36,23 @@ export default function DashboardNavbarMenu({ state }) {
       >
         <MenuCategory.Group title='Group Example'>
           <MenuCategory.Item faIcon={faHouse} route='/dashboard' title='Home' />
-          <MenuCategory.Item faIcon={faUsers} title='Users' />
-          <MenuCategory.Item faIcon={faReceipt} title='Invoicing' />
+          <MenuCategory.Item
+            faIcon={faUsers}
+            route='/dashboard/users'
+            title='Users'
+          />
+          <MenuCategory.Item
+            faIcon={faReceipt}
+            route='/dashboard/invoicing'
+            title='Invoicing'
+          />
           <MenuCategory.Item
             faIcon={faGear}
             route='/dashboard/settings'
             title='Settings'
           />
         </MenuCategory.Group>
+        {/*
         <MenuCategory.Group title='Group Example'>
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
@@ -52,7 +61,7 @@ export default function DashboardNavbarMenu({ state }) {
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
-        </MenuCategory.Group>
+        </MenuCategory.Group>*/}
       </MenuCategory.Control>
     </Box>
   );

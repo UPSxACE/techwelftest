@@ -104,11 +104,13 @@ export default function UsersTable() {
             </Button>
           );
         }}
-        initialState={{ pagination: { pageSize: 5 } }}
+        initialState={{ pagination: { pageSize: 7 } }}
+        muiTablePaperProps={{ style: { borderRadius: 4, overflow: 'hidden' } }}
         muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
         muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
         muiTablePaginationProps={{
           sx: { color: 'text.secondary' },
+          rowsPerPageOptions: [7, 10, 15, 20, 50, 75, 100],
         }}
         data={data}
         columns={columns}

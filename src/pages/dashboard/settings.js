@@ -8,9 +8,9 @@ import { Box } from '@mui/material';
 import Joi from 'joi';
 import AccordionForm from '@/components/accordion-form';
 import CompanySettingsForm from '@/components/pages/settings/forms/companysettingsform';
-import UsersTable from '@/components/pages/settings/tables/userstable';
+import UsersTable from '@/components/pages/users/tables/userstable';
 import RolesTable from '@/components/pages/settings/tables/rolestable';
-import InvoicingForm from '@/components/pages/settings/forms/invoicingform';
+import InvoicingForm from '@/components/pages/invoicing/forms/invoicingform';
 import AdvancedSettings from '@/components/pages/settings/advancedsettings';
 
 export default function Settings() {
@@ -21,7 +21,7 @@ export default function Settings() {
 
   useEffect(() => {
     setTimeout(() => {
-      console.log('Testing ipList...');
+      // Debug: console.log('Testing ipList...');
       setIpList(['127.0.0.1', '128.5.14.3', '192.165.21.42']);
     }, 5000);
   }, []);
@@ -43,7 +43,7 @@ export default function Settings() {
   }, [formData]);
 
   return (
-    <DashboardWrapper notAligned>
+    <DashboardWrapper>
       <Box
         sx={{
           flex: 1,
@@ -71,15 +71,11 @@ export default function Settings() {
             <AccordionForm.Part title={t('CompanySettings')} id={1}>
               <CompanySettingsForm />
             </AccordionForm.Part>
-            <AccordionForm.Part title={t('SettingsUsers')} id={2}>
-              <UsersTable />
-            </AccordionForm.Part>
+
             <AccordionForm.Part title={t('SettingsRoles')} id={3}>
               <RolesTable />
             </AccordionForm.Part>
-            <AccordionForm.Part title={t('SettingsInvoicing')} id={4}>
-              <InvoicingForm />
-            </AccordionForm.Part>
+
             <AccordionForm.Part title={t('AdvancedSettings')} id={5}>
               <AdvancedSettings ipState={{ ipList, setIpList }} />
             </AccordionForm.Part>
