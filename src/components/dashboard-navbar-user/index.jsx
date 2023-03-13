@@ -12,6 +12,7 @@ import UserAvatar from '../user-avatar';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 
 export default function DashboardNavbarUser() {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -40,6 +41,22 @@ export default function DashboardNavbarUser() {
         zIndex: 10,
       }}
     >
+      <Box
+        sx={{
+          display: 'flex',
+          //boxShadow: '0px 1px 3px #00000040;',
+          height: 70,
+          alignItems: 'center',
+          paddingLeft: 1,
+        }}
+      >
+        <Image
+          width={125}
+          height={52}
+          alt='Company Logo'
+          src={appConfig.logo_colored}
+        />
+      </Box>
       {appConfig.dashboardSearch && <Search sx={{ fontSize: 40 }} />}
       <Typography
         variant='h4'

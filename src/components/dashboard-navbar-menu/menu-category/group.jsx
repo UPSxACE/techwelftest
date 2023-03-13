@@ -1,19 +1,27 @@
-import { Box, Typography } from '@mui/material';
+import { Box, List, Typography } from '@mui/material';
+import { Children, cloneElement, isValidElement } from 'react';
 
-export default function Group({ title, children }) {
+export default function Group({ title, children, open }) {
   return (
-    <Box
+    <List
       sx={{
-        p: 1.5,
+        py: 0,
         ':not(:first-of-type)': {
           paddingTop: 0,
         },
       }}
     >
-      <Typography color={'text.primary'} variant={'h6'} component='h1'>
+      {/*<Typography color={'text.primary'} variant={'h6'} component='h1'>
         {title}
-      </Typography>
-      {children}
-    </Box>
+      </Typography>*/}
+      {Children.map(children, (child) => {
+        if (isValidElement(child)) {
+          return cloneElement(child, {
+            open: open,
+          });
+        }
+        return child;
+      })}
+    </List>
   );
 }

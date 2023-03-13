@@ -1,42 +1,48 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Typography } from '@mui/material';
+import { Box, ListItem, ListItemButton, Typography } from '@mui/material';
 import Link from 'next/link';
 
-export default function Item({ title, route = '#', faIcon, children }) {
+export default function Item({ title, route = '#', faIcon, open }) {
   return (
     <Link style={{ textDecoration: 'none' }} href={route}>
-      <Box
+      <ListItem
         sx={{
           display: 'flex',
           alignItems: 'center',
-          py: 1,
-          pl: 1,
+
           opacity: 0.85,
           '&:hover': {
             opacity: 1,
             cursor: 'pointer',
           },
+          height: 50,
+          alignItems: 'center',
         }}
+        disablePadding
       >
-        <Typography
-          sx={{ width: 20, display: 'flex', justifyContent: 'center' }}
-          color={'text.primary'}
-          variant={'h6'}
-          component='i'
-        >
-          <FontAwesomeIcon icon={faIcon} />
-        </Typography>
+        <ListItemButton sx={{ p: 0, height: '100%', px: 1.5 }}>
+          <Box sx={{ width: 40, display: 'flex', justifyContent: 'center' }}>
+            <Typography
+              sx={{ width: 40, display: 'flex', justifyContent: 'center' }}
+              color={'text.primary'}
+              variant={'h4'}
+              component='i'
+            >
+              <FontAwesomeIcon icon={faIcon} />
+            </Typography>
+          </Box>
 
-        <Typography
-          color={'text.primary'}
-          variant={'body1'}
-          component='h2'
-          ml={1}
-        >
-          {title}
-        </Typography>
-        {children}
-      </Box>
+          <Typography
+            color={'text.primary'}
+            variant={'h6'}
+            component='h2'
+            ml={1.5}
+            sx={{ whiteSpace: open ? 'initial' : 'nowrap' }}
+          >
+            {title}
+          </Typography>
+        </ListItemButton>
+      </ListItem>
     </Link>
   );
 }

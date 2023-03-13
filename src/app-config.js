@@ -26,6 +26,7 @@ import bkImage from '../public/software-pic-1.webp';
 const appConfig = {
   // Available html anchors: #page-start #screenshots, #features, #product
   logo: '/logowhite.png', // Either a path to an image, or the value false
+  logo_colored: '/logo.png',
   mainButtonTarget: '/#product',
   backgroundImage: '/software-pic-1.webp',
   defaultLanguage: {
@@ -145,7 +146,7 @@ const appConfig = {
   wgyb: true, // set false to disable the WGYB section
   transparentBarPaths: ['/'],
   pcButtonTarget: '/register',
-  dashboardSearch: true,
+  dashboardSearch: false,
 };
 
 export default appConfig;

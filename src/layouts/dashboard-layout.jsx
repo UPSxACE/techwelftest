@@ -6,12 +6,15 @@ import TNavBar from '@/components/tnavbar';
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
+import { useState } from 'react';
 
 export default function DashboardLayout({
   transparentBar = false,
   children,
   title,
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <Head>
@@ -34,9 +37,9 @@ export default function DashboardLayout({
         }}
       >
         <Box component={motion.div} sx={{ display: 'flex' }}>
-          <DashboardNavbarMenu />
+          <DashboardNavbarMenu state={{ open, setOpen }} />
           <Box sx={{ width: '100%' }}>
-            <DashboardNavbarUser />
+            <DashboardNavbarUser state={{ open, setOpen }} />
             {children}
           </Box>
         </Box>
