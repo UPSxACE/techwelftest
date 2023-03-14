@@ -1,5 +1,6 @@
 import LoaderPrimary from '@/components/loader-primary';
 import LoadingModalWrapper from '@/components/loading-modal-wrapper';
+import { Cancel, Edit, Save } from '@mui/icons-material';
 import {
   Button,
   Box,
@@ -8,10 +9,11 @@ import {
   Typography,
   Select,
   MenuItem,
+  IconButton,
 } from '@mui/material';
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function RolesTable() {
   const [open, setOpen] = useState(false);
@@ -54,6 +56,8 @@ export default function RolesTable() {
   const [data, setData] = useState(incomingData);
 
   const [dataChanges, setDataChanges] = useState(incomingData);
+
+  const tableRef = useRef(null);
 
   function handleNewCellEdit(cell, value) {
     //cell.column.id = the name of the field that is being edited
@@ -168,29 +172,7 @@ export default function RolesTable() {
           );
         },
       },
-      {
-        header: 'Actions',
-        Cell: ({ cell }) => (
-          <>
-            <Button
-              variant='contained'
-              color='success'
-              key={0}
-              sx={{ height: 30, mr: 1 }}
-            >
-              S
-            </Button>
-            <Button
-              variant='contained'
-              color='error'
-              key={1}
-              sx={{ height: 30, ms: 1 }}
-            >
-              X
-            </Button>
-          </>
-        ),
-      },
+
       /*valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,*/
     ],
@@ -200,12 +182,23 @@ export default function RolesTable() {
   return (
     <LoadingModalWrapper open={open}>
       <MaterialReactTable
+        autoResetPageIndex={false} // must keep an eye on this
         initialState={{ pagination: { pageSize: 5 } }}
         muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
-        muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
+        muiTableBodyCellProps={{
+          sx: {
+            color: 'text.secondary',
+            '& .MuiIconButton-root': {
+              margin: 0,
+            },
+            '& .MuiBox-root': {
+              gap: 0,
+            },
+          },
+        }}
         muiTablePaginationProps={{
           sx: { color: 'text.secondary' },
-          rowsPerPageOptions: [5, 10, 15, 20],
+          rowsPerPageOptions: [7, 10, 15, 20, 50, 75, 100],
         }}
         muiTableBodyCellEditTextFieldProps={({ cell }) => {
           return {
@@ -227,6 +220,52 @@ export default function RolesTable() {
         onEditingRowCancel={() => {
           setDataChanges(data);
         }}
+        displayColumnDefOptions={{
+          'mrt-row-actions': {
+            header: 'Actions',
+            Cell: ({ row, table }) => {
+              //console.log(table.getState().editingRow.original);
+              //console.log(table.getState().editingRow.index);
+
+              const row_index = row.index;
+
+              if (
+                tableRef.current.getState().editingRow &&
+                tableRef.current.getState().editingRow.index === row_index
+              ) {
+                console.log(tableRef.current.getState().editingRow.original);
+                return (
+                  <>
+                    <IconButton
+                      onClick={() =>
+                        saveEdits(row_index, () => {
+                          table.setEditingRow(null);
+                        })
+                      }
+                    >
+                      <Save />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => {
+                        setDataChanges(data);
+                        table.setEditingRow(null);
+                      }}
+                    >
+                      <Cancel />
+                    </IconButton>
+                  </>
+                );
+              }
+
+              return (
+                <IconButton onClick={() => table.setEditingRow(row)}>
+                  <Edit />
+                </IconButton>
+              );
+            },
+          },
+        }}
+        tableInstanceRef={tableRef}
       />
     </LoadingModalWrapper>
   );
