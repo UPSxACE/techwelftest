@@ -74,24 +74,20 @@ const Form = ({
       if (!newFormData['_filledFields']) newFormData['_filledFields'] = {};
 
       // Check if every field was initialized already
-      Children.map(children, (formControl) => {
-        // Check if children(that is supposed to be a Form Control component) has the prop field
-        const field = formControl.props && formControl.props.field;
-
-        // If it has the prop field defined, proceed to checking if its initialized
-        if (field) {
+      Children.map(children, (formChild) => {
+        function initializeField(field, formControlComponent) {
           // If that field wasn't initialized yet, initialize it
           if (!formData[field]) {
             const newObject = {};
             newObject[field] = {
               value: defaultValues[field] ? defaultValues[field] : null, // Check if a default value was specified
               error: null,
-              required: formControl.props.required ? true : false,
-              matches: formControl.props.matches
-                ? formControl.props.matches
+              required: formControlComponent.props.required ? true : false,
+              matches: formControlComponent.props.matches
+                ? formControlComponent.props.matches
                 : null,
-              matchesPassword: formControl.props.matchesPassword
-                ? formControl.props.matchesPassword
+              matchesPassword: formControlComponent.props.matchesPassword
+                ? formControlComponent.props.matchesPassword
                 : null,
             };
 
@@ -103,6 +99,29 @@ const Form = ({
             newFormData['_filledFields'][field] = newFormData[field]['value']
               ? true
               : null;
+        }
+
+        // Check if children has the prop fields (in that case, it's a TwoHalfs component)
+        const fields = formChild.props && formChild.props.fields;
+
+        if (fields) {
+          Children.map(formChild.props.children, (twoHalfsChild) => {
+            // Check if children(that is supposed to be a Form Control component) has the prop field
+            const field = twoHalfsChild.props && twoHalfsChild.props.field;
+
+            // If it has the prop field defined, proceed to checking if its initialized
+            if (field) {
+              initializeField(field, twoHalfsChild);
+            }
+          });
+        } else {
+          // Check if children(that is supposed to be a Form Control component) has the prop field
+          const field = formChild.props && formChild.props.field;
+
+          // If it has the prop field defined, proceed to checking if its initialized
+          if (field) {
+            initializeField(field, formChild);
+          }
         }
       });
 

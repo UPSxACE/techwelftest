@@ -183,7 +183,7 @@ export default function RolesTable() {
     <LoadingModalWrapper open={open}>
       <MaterialReactTable
         autoResetPageIndex={false} // must keep an eye on this
-        initialState={{ pagination: { pageSize: 5 } }}
+        initialState={{ pagination: { pageSize: 7 } }}
         muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
         muiTableBodyCellProps={{
           sx: {

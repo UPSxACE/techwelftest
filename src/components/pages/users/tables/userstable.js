@@ -3,7 +3,7 @@ import { Cancel, Edit, Save } from '@mui/icons-material';
 import { Box, Button, IconButton, Modal } from '@mui/material';
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import NewUserFormModal from '../forms/newuserformmodal';
 

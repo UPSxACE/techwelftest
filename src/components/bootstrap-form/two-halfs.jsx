@@ -6,7 +6,7 @@ export default function TwoHalfs(props) {
     <Box sx={{ display: 'flex' }}>
       {Children.map(props.children, (child) => {
         if (isValidElement(child)) {
-          const childProps = { ...props };
+          const childProps = { ...child.props, ...props };
           // Remove `children` prop to avoid passing it down
           delete childProps.children;
           return cloneElement(child, childProps);

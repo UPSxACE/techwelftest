@@ -7,7 +7,7 @@ import { Inter } from '@next/font/google';
 import axios from 'axios';
 import Joi from 'joi';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -25,6 +25,10 @@ function Register() {
     websiteColor: Joi.any(),
     websiteLogo: Joi.any(),
   };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   return (
     <Box

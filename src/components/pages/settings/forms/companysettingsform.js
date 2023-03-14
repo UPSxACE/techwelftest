@@ -10,6 +10,10 @@ export default function CompanySettingsForm() {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
 
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   const defaultValues = {
     companyId: '000',
     companyName: 'Test',
@@ -21,6 +25,8 @@ export default function CompanySettingsForm() {
     newPassword: Joi.string().min(9),
     newPasswordConfirm: Joi.string(),
     domain: Joi.string().max(32),
+    websiteColor: Joi.any(),
+    websiteLogo: Joi.any(),
   };
 
   return (
@@ -79,7 +85,7 @@ export default function CompanySettingsForm() {
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
 
-      <BootstrapForm.TwoHalfs>
+      <BootstrapForm.TwoHalfs fields={['websiteColor', 'websiteLogo']}>
         <BootstrapForm.Control
           half
           required
