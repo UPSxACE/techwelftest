@@ -10,10 +10,6 @@ export default function CompanySettingsForm() {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   const defaultValues = {
     companyId: '000',
     companyName: 'Test',

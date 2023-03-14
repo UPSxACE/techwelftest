@@ -26,10 +26,6 @@ function Register() {
     websiteLogo: Joi.any(),
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <Box
       sx={{

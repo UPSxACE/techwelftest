@@ -38,10 +38,6 @@ export default function Settings() {
     newPasswordConfirm: Joi.string(),
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   return (
     <DashboardWrapper>
       <Box

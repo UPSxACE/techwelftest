@@ -233,7 +233,7 @@ export default function RolesTable() {
                 tableRef.current.getState().editingRow &&
                 tableRef.current.getState().editingRow.index === row_index
               ) {
-                console.log(tableRef.current.getState().editingRow.original);
+                // Debug: console.log(tableRef.current.getState().editingRow.original);
                 return (
                   <>
                     <IconButton
