@@ -11,6 +11,7 @@ import appConfig from '@/app-config';
 import { useEffect, useState } from 'react';
 import authenticationContext from '@/contexts/authentication-context';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import 'yet-another-react-lightbox/styles.css';
 
 import { useRouter } from 'next/router';
 import { appWithTranslation } from 'next-i18next';

@@ -12,9 +12,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import Lightbox from 'yet-another-react-lightbox';
 
 export default function DashboardNavbarMenu({ state }) {
   const { open, setOpen } = state;
+  const [qrCodeZoom, setQrCodeZoom] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -62,6 +64,38 @@ export default function DashboardNavbarMenu({ state }) {
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />
         </MenuCategory.Group>*/}
+        <MenuCategory.Footer
+          style={{
+            width: '100%',
+            marginTop: 'auto',
+          }}
+        >
+          <Box
+            sx={{
+              maxWidth: 150,
+              '& img': { position: 'relative!important', padding: 1 },
+            }}
+            onClick={() => {
+              setQrCodeZoom(true);
+            }}
+          >
+            <Image
+              src={'/qr-code.png'}
+              fill
+              style={{ objectFit: 'contain' }}
+              alt='Techwelf Qrcode'
+            />
+            <Lightbox
+              open={qrCodeZoom}
+              close={() => {
+                setQrCodeZoom(false);
+              }}
+              slides={[{ src: '/qr-code.png', width: 1000, height: 1000 }]}
+              controller={{ closeOnBackdropClick: true }}
+              styles={{ container: { backgroundColor: '#000000ba' } }}
+            />
+          </Box>
+        </MenuCategory.Footer>
       </MenuCategory.Control>
     </Box>
   );
