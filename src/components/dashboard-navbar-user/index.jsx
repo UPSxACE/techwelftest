@@ -10,12 +10,23 @@ import {
 import appConfig from '@/app-config';
 import UserAvatar from '../user-avatar';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
+import LanguagePicker, { LanguageMenu } from '../language-picker';
+import useLanguagePicker from '@/hooks/language-picker';
 
 export default function DashboardNavbarUser() {
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const {
+    anchorElLanguage,
+    currentLanguage,
+    setLanguage,
+    languagesEnabled,
+    handleOpenLanguageMenu,
+    handleCloseLanguageMenu,
+  } = useLanguagePicker();
 
   function handleOpenUserMenu(event) {
     setAnchorElUser(event.currentTarget);
@@ -64,7 +75,19 @@ export default function DashboardNavbarUser() {
         style={{ fontSize: 40 }}
         component={'span'}
       ></Typography>
-      <Box sx={{ marginLeft: 'auto' }}>
+      {languagesEnabled && (
+        <LanguagePicker
+          state={{ currentLanguage, setLanguage }}
+          onClick={handleOpenLanguageMenu}
+          iconButtonStyle={{ marginLeft: 'auto' }}
+        />
+      )}
+      <LanguageMenu
+        anchorElLanguage={anchorElLanguage}
+        handleCloseLanguageMenu={handleCloseLanguageMenu}
+        setLanguage={setLanguage}
+      />
+      <Box sx={{ marginLeft: languagesEnabled ? 0 : 'auto' }}>
         <Tooltip title='User Options'>
           <IconButton
             onClick={handleOpenUserMenu}

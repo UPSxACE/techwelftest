@@ -25,6 +25,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import themeConfig from '@/theme-config';
 import UserAvatar from '../user-avatar';
+import LanguagePicker, { LanguageIcon, LanguageMenu } from '../language-picker';
+import useLanguagePicker from '@/hooks/language-picker';
 
 export default function TNavBar({
   children,
@@ -33,19 +35,26 @@ export default function TNavBar({
 }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [anchorElLanguage, setAnchorElLanguage] = useState(null);
+
   const [color, setColor] = useState(!transparentBar);
   const { t } = useTranslation();
 
   const { scrollYProgress } = useScroll();
-  const { currentLanguage, setLanguage } = useContext(LanguageContext);
 
   useMotionValueEvent(scrollYProgress, 'change', (last) => {
     if (transparentBar) last > 0.01 ? setColor(true) : setColor(false);
   });
 
-  const languagesEnabled = Boolean(Object.keys(appConfig.languages).length > 1);
   const router = useRouter();
+
+  const {
+    anchorElLanguage,
+    currentLanguage,
+    setLanguage,
+    languagesEnabled,
+    handleOpenLanguageMenu,
+    handleCloseLanguageMenu,
+  } = useLanguagePicker();
 
   return (
     <AppBar
@@ -130,17 +139,10 @@ export default function TNavBar({
               )}
             </Link>
             {languagesEnabled && (
-              <Tooltip title='Change Language'>
-                <IconButton
-                  onClick={handleOpenLanguageMenu}
-                  sx={{ p: 0, height: 52, width: 52 }}
-                >
-                  <LanguageIcon
-                    name={currentLanguage.id}
-                    imgPath={currentLanguage.flagPath}
-                  />
-                </IconButton>
-              </Tooltip>
+              <LanguagePicker
+                state={{ currentLanguage, setLanguage }}
+                onClick={handleOpenLanguageMenu}
+              />
             )}
             {appConfig.userAccess && (
               <Tooltip title='User Options'>
@@ -152,38 +154,11 @@ export default function TNavBar({
                 </IconButton>
               </Tooltip>
             )}
-            <Menu
-              disableScrollLock={true}
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {appConfig.usersOptionsMenu.map((setting, index) => (
-                <Link
-                  key={index}
-                  style={{ textDecoration: 'none' }}
-                  href={setting.route}
-                  onClick={handleCloseUserMenu}
-                >
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography color='text.secondary' textAlign='center'>
-                      {t(setting.name)}
-                    </Typography>
-                  </MenuItem>
-                </Link>
-              ))}
-            </Menu>
+            <LanguageMenu
+              anchorElLanguage={anchorElLanguage}
+              handleCloseLanguageMenu={handleCloseLanguageMenu}
+              setLanguage={setLanguage}
+            />
           </Box>
           {/* Menu Options MD */}
           <Box
@@ -214,64 +189,17 @@ export default function TNavBar({
             </Link>
             {renderPages()}
             {languagesEnabled && (
-              <Tooltip title='Change Language'>
-                <IconButton
-                  onClick={handleOpenLanguageMenu}
-                  sx={{ p: 0, height: 52, width: 52, marginLeft: 'auto' }}
-                >
-                  <LanguageIcon
-                    name={currentLanguage.id}
-                    imgPath={currentLanguage.flagPath}
-                  />
-                </IconButton>
-              </Tooltip>
+              <LanguagePicker
+                state={{ currentLanguage, setLanguage }}
+                onClick={handleOpenLanguageMenu}
+                iconButtonStyle={{ marginLeft: 'auto' }}
+              />
             )}
-            <Menu
-              disableScrollLock={true}
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
-              anchorEl={anchorElLanguage}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElLanguage)}
-              onClose={handleCloseLanguageMenu}
-            >
-              {Object.keys(appConfig.languages).map((language) => (
-                <Link
-                  locale={appConfig.languages[language].id}
-                  key={appConfig.languages[language].id}
-                  href={router.pathname}
-                  onClick={() => {
-                    const setCookie = (locale) => {
-                      document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`;
-                    };
-                    setCookie(appConfig.languages[language].id);
-                    setLanguage(appConfig.languages[language].id);
-                  }}
-                >
-                  <MenuItem onClick={handleCloseLanguageMenu}>
-                    <ListItemIcon>
-                      <LanguageIcon
-                        small
-                        pressable
-                        name='English'
-                        imgPath={appConfig.languages[language].flagPath}
-                      />
-                    </ListItemIcon>
-                    <Typography color='text.secondary' textAlign='center'>
-                      {t(appConfig.languages[language].name)}
-                    </Typography>
-                  </MenuItem>
-                </Link>
-              ))}
-            </Menu>
+            <LanguageMenu
+              anchorElLanguage={anchorElLanguage}
+              handleCloseLanguageMenu={handleCloseLanguageMenu}
+              setLanguage={setLanguage}
+            />
             {/* User Icon/Avatar */}
             {appConfig.userAccess && (
               <Tooltip title='User Options'>
@@ -343,14 +271,6 @@ export default function TNavBar({
     setAnchorElUser(null);
   }
 
-  function handleOpenLanguageMenu(event) {
-    setAnchorElLanguage(event.currentTarget);
-  }
-
-  function handleCloseLanguageMenu() {
-    setAnchorElLanguage(null);
-  }
-
   function renderPages() {
     return appConfig.pages.map((page, index) => (
       <PageLink route={page.route} pageName={page.name} key={index} />
@@ -363,19 +283,5 @@ export default function TNavBar({
         <PageLink secondary route={page.route} pageName={page.name} />
       </MenuItem>
     ));
-  }
-
-  function LanguageIcon({ name, imgPath, small = false }) {
-    return (
-      <Avatar
-        sx={{
-          color: 'text.primary',
-          height: small ? 25 : 40,
-          width: small ? 25 : 40,
-        }}
-        alt={name + ' flag'}
-        src={imgPath}
-      />
-    );
   }
 }
