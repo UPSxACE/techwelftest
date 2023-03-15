@@ -64,8 +64,9 @@ export default function DashboardNavbarUser() {
         <Image
           width={125}
           height={52}
-          alt='Company Logo'
+          alt='OK1Part Logo'
           src={appConfig.logo_colored}
+          priority
         />
       </Box>
       {appConfig.dashboardSearch && <Search sx={{ fontSize: 40 }} />}

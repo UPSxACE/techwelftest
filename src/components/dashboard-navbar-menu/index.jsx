@@ -74,17 +74,32 @@ export default function DashboardNavbarMenu({ state }) {
             sx={{
               maxWidth: 150,
               '& img': { position: 'relative!important', padding: 1 },
+              '&:hover': {
+                cursor: 'pointer',
+              },
             }}
             onClick={() => {
               setQrCodeZoom(true);
             }}
           >
-            <Image
-              src={'/qr-code.png'}
-              fill
-              style={{ objectFit: 'contain' }}
-              alt='Techwelf Qrcode'
-            />
+            <div
+              style={{ position: 'relative', width: '100%', height: '100%' }}
+            >
+              <Image
+                src={'/qr-code.png'}
+                fill
+                style={{
+                  objectFit: 'contain',
+                }}
+                alt='Techwelf Qrcode'
+                sizes='(max-width: 600px) 100vw,
+                (max-width: 900px) 33vw,
+                (max-width: 1200px) 22vw,
+                (max-width: 1536px) 17vw,
+                (mix-width: 1536px) 14vw,
+              100vw'
+              />
+            </div>
             <Lightbox
               open={qrCodeZoom}
               close={() => {
