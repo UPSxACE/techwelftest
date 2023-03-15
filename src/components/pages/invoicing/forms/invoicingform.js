@@ -8,6 +8,33 @@ import Joi from 'joi';
 
 export default function InvoicingForm({ shadow }) {
   const [formData, setFormData] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [selectInitialized, setSelectInitialized] = useState(false);
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    axios
+      .get('https://restcountries.com/v3.1/all?fields=name', {
+        cancelToken: source.token,
+      })
+      .then((response) => {
+        setCountries(response.data);
+        setSelectInitialized(true);
+      })
+      .catch((error) => {
+        if (axios.isCancel(error)) {
+          // Request was cancelled
+        } else {
+          // Handle error
+        }
+      });
+
+    return () => {
+      source.cancel('Component unmounted');
+    };
+  }, []);
+
   const { t } = useTranslation();
 
   const defaultValues = {};
@@ -62,7 +89,12 @@ export default function InvoicingForm({ shadow }) {
 
       <BootstrapForm.Control label={t('country')} field='country'>
         <BootstrapForm.Label />
-        <BootstrapForm.Input />
+        <BootstrapForm.Select
+          nestedProperty={'name.common'}
+          options={countries}
+          initialized={selectInitialized}
+          orderData
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
 
