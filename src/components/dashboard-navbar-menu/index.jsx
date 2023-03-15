@@ -37,21 +37,29 @@ export default function DashboardNavbarMenu({ state }) {
         handleDrawerToggle={handleDrawerToggle}
       >
         <MenuCategory.Group title='Group Example'>
-          <MenuCategory.Item faIcon={faHouse} route='/dashboard' title='Home' />
+          <MenuCategory.Item
+            faIcon={faHouse}
+            route='/dashboard'
+            title='Home'
+            permissionNeeded={32}
+          />
           <MenuCategory.Item
             faIcon={faUsers}
             route='/dashboard/users'
             title='Users'
+            permissionNeeded={32}
           />
           <MenuCategory.Item
             faIcon={faReceipt}
             route='/dashboard/invoicing'
             title='Invoicing'
+            permissionNeeded={32}
           />
           <MenuCategory.Item
             faIcon={faGear}
             route='/dashboard/settings'
             title='Settings'
+            permissionNeeded={32}
           />
         </MenuCategory.Group>
         {/*
