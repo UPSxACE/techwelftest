@@ -12,7 +12,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import NewIpFormModal from './forms/newipformmodal';
 
 export default function AdvancedSettings({ ipState }) {

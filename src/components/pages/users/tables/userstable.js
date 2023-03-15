@@ -4,7 +4,7 @@ import { Box, Button, IconButton, Modal } from '@mui/material';
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import NewUserFormModal from '../forms/newuserformmodal';
 
 const incomingData = [
@@ -125,7 +125,7 @@ export default function UsersTable() {
         renderTopToolbarCustomActions={({ table }) => {
           return (
             <Button variant='contained' onClick={() => handleOpen()}>
-              {t('Add_User')}
+              {t('users_table_add_user')}
             </Button>
           );
         }}

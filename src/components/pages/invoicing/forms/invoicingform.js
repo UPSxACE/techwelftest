@@ -1,7 +1,7 @@
 import BootstrapForm from '@/components/bootstrap-form';
 import DashboardPageHeader from '@/components/dashboard-page-header';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import themeConfig from '@/theme-config';
 import axios from 'axios';
 import Joi from 'joi';
@@ -65,31 +65,56 @@ export default function InvoicingForm({ shadow }) {
     >
       <BootstrapForm.Control label={t('VatNumber')} field='vatNumber'>
         <BootstrapForm.Label />
-        <BootstrapForm.Input JOIValidator={validators.vatNumber} />
+        <BootstrapForm.Input
+          JOIValidator={validators.vatNumber}
+          tooltip={{
+            tip: t('invoicing_tooltip_tip_vatnumber'),
+            example: t('invoicing_tooltip_example_vatnumber'),
+          }}
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
 
       <BootstrapForm.Control label={t('Street1')} field='street1'>
         <BootstrapForm.Label />
-        <BootstrapForm.Input />
+        <BootstrapForm.Input
+          tooltip={{
+            tip: t('invoicing_tooltip_tip_street1'),
+            example: t('invoicing_tooltip_example_street1'),
+          }}
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
 
       <BootstrapForm.Control label={t('Street2')} field='street2'>
         <BootstrapForm.Label />
-        <BootstrapForm.Input />
+        <BootstrapForm.Input
+          tooltip={{
+            tip: t('invoicing_tooltip_tip_street2'),
+            example: t('invoicing_tooltip_example_street2'),
+          }}
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
 
       <BootstrapForm.Control label={t('PostalCode')} field='postalCode'>
         <BootstrapForm.Label />
-        <BootstrapForm.Input />
+        <BootstrapForm.Input
+          tooltip={{
+            tip: t('invoicing_tooltip_tip_postalcode'),
+            example: t('invoicing_tooltip_example_postalcode'),
+          }}
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
 
       <BootstrapForm.Control label={t('country')} field='country'>
         <BootstrapForm.Label />
         <BootstrapForm.Select
+          tooltip={{
+            tip: t('invoicing_tooltip_tip_country'),
+            example: t('invoicing_tooltip_example_country'),
+          }}
           nestedProperty={'name.common'}
           options={countries}
           initialized={selectInitialized}

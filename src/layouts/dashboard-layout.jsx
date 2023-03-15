@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 export default function DashboardLayout({
   transparentBar = false,
@@ -14,11 +15,12 @@ export default function DashboardLayout({
   title,
 }) {
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
       <Head>
-        <title>{title ? 'Dashboard' + ' - ' + title : 'Dashboard'}</title>
+        <title>{title ? 'Dashboard' + ' - ' + t(title) : 'Dashboard'}</title>
         <meta
           name='description'
           content='OK1st Part Dashboard, powered by Techwelf'

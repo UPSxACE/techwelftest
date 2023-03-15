@@ -1,7 +1,7 @@
 import BootstrapForm from '@/components/bootstrap-form';
 import DashboardPageHeader from '@/components/dashboard-page-header';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import themeConfig from '@/theme-config';
 import { Box } from '@mui/material';
 import axios from 'axios';
@@ -57,16 +57,13 @@ export default function CompanySettings() {
           <BootstrapForm.Input JOIValidator={validators.email} />
           <BootstrapForm.HelperText />
         </BootstrapForm.Control>
-        <BootstrapForm.Control
-          label={t('newPassword')}
-          field='newPassword'
-          tooltip={{
-            tip: t('tooltip_tip_password'),
-            example: 'VerySafeP4ssw0rd##',
-          }}
-        >
+        <BootstrapForm.Control label={t('newPassword')} field='newPassword'>
           <BootstrapForm.Label />
           <BootstrapForm.Input
+            tooltip={{
+              tip: t('tooltip_tip_password'),
+              example: 'VerySafeP4ssw0rd##',
+            }}
             JOIValidator={validators.newPassword}
             inputProps={{ type: 'password' }}
           />

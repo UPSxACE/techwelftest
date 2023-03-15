@@ -2,7 +2,7 @@ import { Box, Button, Modal } from '@mui/material';
 import LoaderPrimary from '@/components/loader-primary';
 import BootstrapForm from '@/components/bootstrap-form';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Joi from 'joi';
 import axios from 'axios';
 
@@ -68,25 +68,41 @@ export default function NewUserFormModal({
         >
           <BootstrapForm.Control label={t('name')} field='name'>
             <BootstrapForm.Label />
-            <BootstrapForm.Input JOIValidator={validators.name} />
+            <BootstrapForm.Input
+              JOIValidator={validators.name}
+              tooltip={{
+                tip: t('adduserform_tooltip_tip_name'),
+                example: t('adduserform_tooltip_example_name'),
+              }}
+            />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
-          <BootstrapForm.Control label={t('email')} field='email' required>
+          <BootstrapForm.Control
+            label={t('EmailAddress')}
+            field='email'
+            required
+          >
             <BootstrapForm.Label />
-            <BootstrapForm.Input JOIValidator={validators.email} />
+            <BootstrapForm.Input
+              JOIValidator={validators.email}
+              tooltip={{
+                tip: t('adduserform_tooltip_tip_email'),
+                example: t('adduserform_tooltip_example_email'),
+              }}
+            />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
           <BootstrapForm.Control
             label={t('password')}
             field='password'
-            tooltip={{
-              tip: t('tooltip_tip_password'),
-              example: 'VerySafeP4ssw0rd##',
-            }}
             required
           >
             <BootstrapForm.Label />
             <BootstrapForm.Input
+              tooltip={{
+                tip: t('tooltip_tip_password'),
+                example: 'VerySafeP4ssw0rd##',
+              }}
               JOIValidator={validators.password}
               inputProps={{ type: 'password' }}
             />
@@ -102,13 +118,23 @@ export default function NewUserFormModal({
             <BootstrapForm.Input
               JOIValidator={validators.passwordConfirm}
               inputProps={{ type: 'password' }}
+              tooltip={{
+                tip: t('adduserform_tooltip_tip_confirmpassword'),
+                example: t('adduserform_tooltip_example_confirmpassword'),
+              }}
             />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
 
           <BootstrapForm.Control label={t('role')} field='role' required>
             <BootstrapForm.Label />
-            <BootstrapForm.Input JOIValidator={validators.role} />
+            <BootstrapForm.Input
+              JOIValidator={validators.role}
+              tooltip={{
+                tip: t('adduserform_tooltip_tip_role'),
+                example: t('adduserform_tooltip_example_role'),
+              }}
+            />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
           <BootstrapForm.Submit

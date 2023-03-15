@@ -4,11 +4,16 @@ import UsersTable from '@/components/pages/users/tables/userstable';
 import DashboardLayout from '@/layouts/dashboard-layout';
 import { Box } from '@mui/material';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 export default function Users() {
+  const { t } = useTranslation();
   return (
     <DashboardWrapper>
-      <DashboardPageHeader title='Users' rightText={'Dashboard / Users'} />
+      <DashboardPageHeader
+        title={t('users_pagename')}
+        rightText={`Dashboard / ${t('users_pagename')}`}
+      />
       <Box
         sx={{
           flex: 1,
@@ -23,7 +28,7 @@ export default function Users() {
 }
 
 Users.getLayout = function getLayout(page) {
-  return <DashboardLayout>{page}</DashboardLayout>;
+  return <DashboardLayout title={'users_pagename'}>{page}</DashboardLayout>;
 };
 
 //export default withAuth(Users);

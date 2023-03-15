@@ -3,7 +3,7 @@ import DashboardLayout from '@/layouts/dashboard-layout';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DashboardPageHeader from '@/components/dashboard-page-header';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { Box } from '@mui/material';
 import Joi from 'joi';
 import AccordionForm from '@/components/accordion-form';
@@ -48,8 +48,8 @@ export default function Settings() {
         }}
       >
         <DashboardPageHeader
-          title='Settings'
-          rightText={'Dashboard / Settings'}
+          title={t('Settings')}
+          rightText={`Dashboard / ${t('Settings')}`}
         />
         <Box
           sx={{
@@ -83,7 +83,7 @@ export default function Settings() {
 }
 
 Settings.getLayout = function getLayout(page) {
-  return <DashboardLayout>{page}</DashboardLayout>;
+  return <DashboardLayout title={'Settings'}>{page}</DashboardLayout>;
 };
 
 //export default withAuth(Settings);

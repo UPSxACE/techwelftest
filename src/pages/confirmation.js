@@ -4,7 +4,7 @@ import onlyGuest from '@/utils/onlyGuest';
 import { Box, Typography } from '@mui/material';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import Joi from 'joi';
 import LoaderPrimary from '@/components/loader-primary';

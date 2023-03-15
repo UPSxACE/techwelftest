@@ -1,7 +1,7 @@
 import appConfig from '@/app-config';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 // Make sure you use this component together with the hook "useLanguagePicker" to make your life easier
 

@@ -2,7 +2,7 @@ import objectGetter from '@/utils/object-getter';
 import { InfoOutlined } from '@mui/icons-material';
 import { Box, MenuItem, Select as MuiSelect, Tooltip } from '@mui/material';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const Select = ({
   JOIValidator,

@@ -11,7 +11,7 @@ import appConfig from '@/app-config';
 import UserAvatar from '../user-avatar';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import LanguagePicker, { LanguageMenu } from '../language-picker';
 import useLanguagePicker from '@/hooks/language-picker';

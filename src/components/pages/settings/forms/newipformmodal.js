@@ -2,7 +2,7 @@ import { Box, Button, Modal } from '@mui/material';
 import LoaderPrimary from '@/components/loader-primary';
 import BootstrapForm from '@/components/bootstrap-form';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Joi from 'joi';
 import axios from 'axios';
 
