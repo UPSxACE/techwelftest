@@ -364,7 +364,12 @@ export default function Home() {
           </Box>
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <Box sx={{ width: { xs: '100%', md: '50%' } }}>
-              <FwImage src='/pc.png' height={0} width={600} />
+              <FwImage
+                alt='Laptop with OK1Part'
+                src='/pc.png'
+                height={0}
+                width={600}
+              />
             </Box>
             {/* PC Section */}
 

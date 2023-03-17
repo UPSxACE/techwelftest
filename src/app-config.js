@@ -58,7 +58,11 @@ const appConfig = {
   ],
   userDashboardMenu: [
     { name: 'Help', route: '/' },
-    { name: 'Logout', route: '/' },
+    { name: 'Logout', route: '/logout' },
+  ],
+  userOptionsMenuLoggedIn: [
+    { name: 'Dashboard', route: '/dashboard' },
+    { name: 'Logout', route: '/logout' },
   ],
   pages: [
     /*

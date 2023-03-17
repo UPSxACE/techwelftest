@@ -2,7 +2,7 @@ import OutlinedForm from '@/components/outlined-form';
 import authenticationContext from '@/contexts/authentication-context';
 import MainLayout from '@/layouts/main-layout';
 import onlyGuest from '@/utils/onlyGuest';
-import { Box, Typography } from '@mui/material';
+import { Alert, Box, Typography } from '@mui/material';
 import { Inter } from '@next/font/google';
 import axios from 'axios';
 import Joi from 'joi';
@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import api from '@/api';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,7 @@ function Login() {
   const { t } = useTranslation();
   const router = useRouter();
   const { auth, setAuth } = useContext(authenticationContext);
+  const [alert, setAlert] = useState(null);
 
   const validators = {
     username: Joi.string(),
@@ -49,11 +51,22 @@ function Login() {
               <Typography variant='body1'>{t('login_with_account')}</Typography>
             </Box>
           </Box>
+          {alert && (
+            <Alert severity='error' sx={{ marginBottom: 2 }}>
+              {alert}
+            </Alert>
+          )}
         </OutlinedForm.Header>
 
         <OutlinedForm.Control required label={t('Username')} field='username'>
           <OutlinedForm.Label />
-          <OutlinedForm.Input JOIValidator={validators.username} />
+          <OutlinedForm.Input
+            JOIValidator={validators.username}
+            tooltip={{
+              tip: t('tooltip_tip_username'),
+              example: t('tooltip_example_username'),
+            }}
+          />
           <OutlinedForm.HelperText />
         </OutlinedForm.Control>
 
@@ -73,16 +86,44 @@ function Login() {
         <OutlinedForm.Submit
           title='submit'
           validators={validators}
-          onSubmit={async (formData) => {
-            // Test endpoint
-            await axios.post('http://localhost:9000/test/formdata', formData, {
-              headers: { 'Content-Type': 'multipart/form-data' },
-            });
-            setAuth({ ...auth, authenticated: true });
+          onSubmit={async () => {
+            await api
+              .login({
+                login: formData.username.value,
+                password: formData.password.value,
+              })
+              .then((response) => {
+                const accessToken = response?.data?.accessToken;
+                localStorage.setItem('accessToken', accessToken);
+                router.push('/');
+                //setAuth({ ...auth, authenticated: true });
+              });
+
             //router.push('/');
           }}
           onError={async (error, setStatus) => {
-            setStatus(error);
+            console.log('ERR', error);
+            if (error?.code === 'ERR_NETWORK') {
+              setStatus(t('NETWORK_ERROR_DESCRIPTION'));
+              return;
+            }
+
+            if (error?.response?.status) {
+              const error_code = error?.response?.status;
+              const error_data = error?.response?.data;
+
+              // HANDLE ERROR CODES HERE
+              if (error_code === 400) {
+                const error_description = error_data?.errors?.[0];
+                if (error_description === 'usernameOrPassword') {
+                  setAlert(t('login_wrongcredentials_error'));
+                  return;
+                }
+              }
+            }
+
+            // Show unhandled error screen in case the function didn't return yet (error wasn't handled)
+            setStatus(false);
           }}
         />
 

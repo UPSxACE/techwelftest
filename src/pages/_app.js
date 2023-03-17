@@ -15,12 +15,17 @@ import 'yet-another-react-lightbox/styles.css';
 
 import { useRouter } from 'next/router';
 import { appWithTranslation } from 'next-i18next';
+import axios from 'axios';
+import api from '@/api';
 
 const AuthContext = authenticationContext;
 
 config.autoAddCss = false;
 
 const theme = createTheme(themeConfig);
+
+// Initialize the interceptor that adds the accessToken to all the requests
+api.initInterceptor();
 
 function App({ Component, pageProps }) {
   const router = useRouter();
@@ -32,7 +37,7 @@ function App({ Component, pageProps }) {
 
   const [auth, setAuth] = useState({
     authToken: null,
-    authenticated: null,
+    authenticated: false,
     role: null, // admin, guest...?
     //setXYZ: (XYZ) => {},
   });

@@ -5,14 +5,18 @@ import { useTranslation } from 'next-i18next';
 import themeConfig from '@/theme-config';
 import axios from 'axios';
 import Joi from 'joi';
+import useClientSide from '@/hooks/client-side';
+import { Alert } from '@mui/material';
+import api from '@/api';
 
 export default function CompanySettingsForm() {
   const [formData, setFormData] = useState({});
+  const [alert, setAlert] = useState(null);
   const { t } = useTranslation();
 
   const defaultValues = {
     companyId: '000',
-    companyName: 'Test',
+    companyName: 'Test Company',
     email: 'data_from@backend.com',
   };
 
@@ -25,9 +29,14 @@ export default function CompanySettingsForm() {
     websiteLogo: Joi.any(),
   };
 
+  const { serverIsDone } = useClientSide();
+
+  if (!serverIsDone) {
+    return;
+  }
+
   return (
     <BootstrapForm.Form
-      autoFinalize
       defaultValues={defaultValues}
       formDataState={{ formData, setFormData }}
       fullWidth
@@ -38,27 +47,52 @@ export default function CompanySettingsForm() {
         border: 0,
       }}
     >
+      <BootstrapForm.Header>
+        {alert && (
+          <Alert severity='success' sx={{ marginBottom: 2 }}>
+            {alert}
+          </Alert>
+        )}
+      </BootstrapForm.Header>
       <BootstrapForm.Control label={t('CompanyName')} field='companyName'>
         <BootstrapForm.Label />
-        <BootstrapForm.Input readOnly />
+        <BootstrapForm.Input
+          readOnly
+          tooltip={{
+            tip: t('companysettings_tooltip_tip_companyname'),
+            example: 'companysettings_tooltip_example_companyname',
+          }}
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
       <BootstrapForm.Control label={t('CompanyID')} field='companyId'>
         <BootstrapForm.Label />
-        <BootstrapForm.Input readOnly />
+        <BootstrapForm.Input
+          readOnly
+          tooltip={{
+            tip: t('companysettings_tooltip_tip_companyid'),
+            example: 'companysettings_tooltip_example_companyid',
+          }}
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
-      <BootstrapForm.Control label={t('email')} field='email' required>
+      <BootstrapForm.Control label={t('EmailAddress')} field='email' required>
         <BootstrapForm.Label />
-        <BootstrapForm.Input JOIValidator={validators.email} />
+        <BootstrapForm.Input
+          JOIValidator={validators.email}
+          tooltip={{
+            tip: t('companysettings_tooltip_tip_email'),
+            example: 'companysettings_tooltip_example_email',
+          }}
+        />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
       <BootstrapForm.Control label={t('newPassword')} field='newPassword'>
         <BootstrapForm.Label />
         <BootstrapForm.Input
           tooltip={{
-            tip: t('tooltip_tip_password'),
-            example: 'VerySafeP4ssw0rd##',
+            tip: t('tooltip_tip_newPassword'),
+            example: t('tooltip_example_newPassword'),
           }}
           JOIValidator={validators.newPassword}
           inputProps={{ type: 'password' }}
@@ -74,6 +108,10 @@ export default function CompanySettingsForm() {
         <BootstrapForm.Input
           JOIValidator={validators.newPasswordConfirm}
           inputProps={{ type: 'password' }}
+          tooltip={{
+            tip: t('tooltip_tip_confirmNewPassword'),
+            example: t('tooltip_example_confirmNewPassword'),
+          }}
         />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
@@ -88,7 +126,7 @@ export default function CompanySettingsForm() {
           <BootstrapForm.ColorPicker
             defaultColor={themeConfig.palette.primary.special1}
             tooltip={{
-              tip: t('tooltip_tip_websiteColor'),
+              tip: t('companysettings_tooltip_tip_websiteColor'),
             }}
             containerStyle={{ paddingRight: 2 }}
           />
@@ -104,7 +142,7 @@ export default function CompanySettingsForm() {
             backgroundSwitcher
             defaultImage={true}
             tooltip={{
-              tip: t('tooltip_tip_websiteLogo'),
+              tip: t('companysettings_tooltip_tip_websiteLogo'),
             }}
             description={
               <>
@@ -126,6 +164,10 @@ export default function CompanySettingsForm() {
         <BootstrapForm.BootstrapFillInput
           text={'.ok1st.com'}
           JOIValidator={validators.domain}
+          tooltip={{
+            tip: t('companysettings_tooltip_tip_domain'),
+            example: t('companysettings_tooltip_example_domain'),
+          }}
         />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
@@ -134,11 +176,20 @@ export default function CompanySettingsForm() {
         title={t('settings_accordionform_save')}
         validators={validators}
         containerStyle={{ marginTop: 'auto' }}
-        onSubmit={async (formData) => {
+        onSubmit={async () => {
           // Test endpoint
-          await axios.post('http://localhost:9000/test/formdata', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          });
+          await api
+            .updateCompanySettings({
+              designation: formData.companyName.value,
+              domain: formData.domain.value,
+              color: formData.websiteColor.value,
+              password: formData.password.value,
+              email: formData.email.value,
+            })
+            .then((response) => {
+              console.log(response);
+              setAlert('TEST UPDATE SUCCESS');
+            });
         }}
       />
     </BootstrapForm.Form>

@@ -18,6 +18,9 @@ const StyledForm = styled('form')((props) => ({
   padding: 25,
   paddingTop: 25,
   paddingBottom: 25,
+  [props.theme.breakpoints.up('sm')]: {
+    minWidth: 500,
+  },
   [props.theme.breakpoints.up('md')]: {
     padding: 50,
     paddingTop: 50,
@@ -197,13 +200,24 @@ const Form = ({
           <Error sx={{ fontSize: 150, color: 'error.main' }} />
         </Box>
 
-        <Typography
-          sx={{ textAlign: 'center', mb: 2 }}
-          variant='body'
-          component='p'
-        >
-          {t('register_submit_error')}
-        </Typography>
+        {typeof formStatus === 'string' ? (
+          <Typography
+            sx={{ textAlign: 'center', mb: 2 }}
+            variant='body'
+            component='p'
+          >
+            {formStatus}
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ textAlign: 'center', mb: 2 }}
+            variant='body'
+            component='p'
+          >
+            {t('UNHANDLED_ERROR_DESCRIPTION')}
+          </Typography>
+        )}
+
         <Link
           href='#'
           onClick={() => {

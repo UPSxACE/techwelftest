@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
+import useClientSide from '@/hooks/client-side';
 
 export default function DashboardNavbarMenu({ state }) {
   const { open, setOpen } = state;
@@ -30,38 +31,42 @@ export default function DashboardNavbarMenu({ state }) {
     setOpen((open) => !open);
   };
 
+  const { serverIsDone } = useClientSide();
+
   return (
     <Box>
       <MenuCategory.Control
         state={{ open, setOpen }}
         handleDrawerToggle={handleDrawerToggle}
       >
-        <MenuCategory.Group title='Group Example'>
-          <MenuCategory.Item
-            faIcon={faHouse}
-            route='/dashboard'
-            title='Home'
-            permissionNeeded={32}
-          />
-          <MenuCategory.Item
-            faIcon={faUsers}
-            route='/dashboard/users'
-            title='Users'
-            permissionNeeded={32}
-          />
-          <MenuCategory.Item
-            faIcon={faReceipt}
-            route='/dashboard/invoicing'
-            title='Invoicing'
-            permissionNeeded={32}
-          />
-          <MenuCategory.Item
-            faIcon={faGear}
-            route='/dashboard/settings'
-            title='Settings'
-            permissionNeeded={32}
-          />
-        </MenuCategory.Group>
+        {serverIsDone && (
+          <MenuCategory.Group title='Group Example'>
+            <MenuCategory.Item
+              faIcon={faHouse}
+              route='/dashboard'
+              title='Home'
+              permissionNeeded={32}
+            />
+            <MenuCategory.Item
+              faIcon={faUsers}
+              route='/dashboard/users'
+              title='Users'
+              permissionNeeded={32}
+            />
+            <MenuCategory.Item
+              faIcon={faReceipt}
+              route='/dashboard/invoicing'
+              title='Invoicing'
+              permissionNeeded={32}
+            />
+            <MenuCategory.Item
+              faIcon={faGear}
+              route='/dashboard/settings'
+              title='Settings'
+              permissionNeeded={32}
+            />
+          </MenuCategory.Group>
+        )}
         {/*
         <MenuCategory.Group title='Group Example'>
           <MenuCategory.Item faIcon={faHouse} title='Item Example' />

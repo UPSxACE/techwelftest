@@ -15,9 +15,12 @@ import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import LanguagePicker, { LanguageMenu } from '../language-picker';
 import useLanguagePicker from '@/hooks/language-picker';
+import useClientSide from '@/hooks/client-side';
 
 export default function DashboardNavbarUser() {
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const { serverIsDone } = useClientSide();
 
   const {
     anchorElLanguage,
@@ -115,20 +118,21 @@ export default function DashboardNavbarUser() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {appConfig.userDashboardMenu.map((setting, index) => (
-          <Link
-            key={index}
-            style={{ textDecoration: 'none' }}
-            href={setting.route}
-            onClick={handleCloseUserMenu}
-          >
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography color='text.secondary' textAlign='center'>
-                {t(setting.name)}
-              </Typography>
-            </MenuItem>
-          </Link>
-        ))}
+        {serverIsDone &&
+          appConfig.userDashboardMenu.map((setting, index) => (
+            <Link
+              key={index}
+              style={{ textDecoration: 'none' }}
+              href={setting.route}
+              onClick={handleCloseUserMenu}
+            >
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography color='text.secondary' textAlign='center'>
+                  {t(setting.name)}
+                </Typography>
+              </MenuItem>
+            </Link>
+          ))}
       </Menu>
     </Box>
   );

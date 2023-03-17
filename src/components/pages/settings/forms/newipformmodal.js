@@ -64,12 +64,18 @@ export default function NewIpFormModal({
           }}
         >
           <BootstrapForm.Control
-            label={t('new_ip_to_whitelist')}
+            label={t('advancedsettings_newip_whitelist')}
             field='newip'
             required
           >
             <BootstrapForm.Label />
-            <BootstrapForm.Input JOIValidator={validators.newip} />
+            <BootstrapForm.Input
+              JOIValidator={validators.newip}
+              tooltip={{
+                tip: t('advancedsettings_tooltip_tip_newip_whitelist'),
+                example: t('advancedsettings_tooltip_example_newip_whitelist'),
+              }}
+            />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
           <BootstrapForm.Submit

@@ -27,14 +27,16 @@ import themeConfig from '@/theme-config';
 import UserAvatar from '../user-avatar';
 import LanguagePicker, { LanguageIcon, LanguageMenu } from '../language-picker';
 import useLanguagePicker from '@/hooks/language-picker';
+import useUserOptions from '@/hooks/user-options';
+import useClientSide from '@/hooks/client-side';
 
 export default function TNavBar({
   children,
   transparentBar = false,
   ...props
 }) {
+  const { serverIsDone } = useClientSide();
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const [color, setColor] = useState(!transparentBar);
   const { t } = useTranslation();
@@ -55,6 +57,9 @@ export default function TNavBar({
     handleOpenLanguageMenu,
     handleCloseLanguageMenu,
   } = useLanguagePicker();
+
+  const { anchorElUser, handleOpenUserMenu, handleCloseUserMenu, userAccess } =
+    useUserOptions();
 
   return (
     <AppBar
@@ -117,7 +122,7 @@ export default function TNavBar({
               style={{
                 marginLeft: 'auto',
                 marginRight:
-                  languagesEnabled || appConfig.userAccess ? 'auto' : 'initial',
+                  languagesEnabled || userAccess ? 'auto' : 'initial',
               }}
               scroll={false}
             >
@@ -144,7 +149,7 @@ export default function TNavBar({
                 onClick={handleOpenLanguageMenu}
               />
             )}
-            {appConfig.userAccess && (
+            {userAccess && (
               <Tooltip title='User Options'>
                 <IconButton
                   onClick={handleOpenUserMenu}
@@ -201,7 +206,7 @@ export default function TNavBar({
               setLanguage={setLanguage}
             />
             {/* User Icon/Avatar */}
-            {appConfig.userAccess && (
+            {userAccess && (
               <Tooltip title='User Options'>
                 <IconButton
                   onClick={handleOpenUserMenu}
@@ -234,20 +239,21 @@ export default function TNavBar({
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {appConfig.usersOptionsMenu.map((setting, index) => (
-                <Link
-                  key={index}
-                  style={{ textDecoration: 'none' }}
-                  href={setting.route}
-                  onClick={handleCloseUserMenu}
-                >
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography color='text.secondary' textAlign='center'>
-                      {t(setting.name)}
-                    </Typography>
-                  </MenuItem>{' '}
-                </Link>
-              ))}
+              {serverIsDone &&
+                generateUserOptions().map((page, index) => (
+                  <Link
+                    key={index}
+                    style={{ textDecoration: 'none' }}
+                    href={page.route}
+                    onClick={handleCloseUserMenu}
+                  >
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography color='text.secondary' textAlign='center'>
+                        {t(page.name)}
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
             </Menu>
           </Box>
         </Toolbar>
@@ -263,14 +269,6 @@ export default function TNavBar({
     setAnchorElNav(null);
   }
 
-  function handleOpenUserMenu(event) {
-    setAnchorElUser(event.currentTarget);
-  }
-
-  function handleCloseUserMenu() {
-    setAnchorElUser(null);
-  }
-
   function renderPages() {
     return appConfig.pages.map((page, index) => (
       <PageLink route={page.route} pageName={page.name} key={index} />
@@ -283,5 +281,13 @@ export default function TNavBar({
         <PageLink secondary route={page.route} pageName={page.name} />
       </MenuItem>
     ));
+  }
+
+  function generateUserOptions() {
+    if (localStorage.getItem('accessToken')) {
+      return appConfig.userOptionsMenuLoggedIn;
+    } else {
+      return appConfig.usersOptionsMenu;
+    }
   }
 }
