@@ -40,7 +40,6 @@ export default function ScreenshotDiv({ title, desc, imgPath, reverse }) {
           paddingLeft: { md: reverse ? 5 : 0 },
           paddingRight: { md: reverse ? 0 : 5 },
           width: { xs: '100%', md: '50%' },
-          backgroundCOlor: 'black',
         }}
       >
         <FwImage
@@ -58,7 +57,11 @@ export default function ScreenshotDiv({ title, desc, imgPath, reverse }) {
           paddingTop: { xs: 2, md: 0 },
         }}
       >
-        <Typography variant='h3' component={'h2'} sx={{ paddingBottom: 1.5 }}>
+        <Typography
+          variant='h3'
+          component={'h2'}
+          sx={{ paddingBottom: 1.5, color: 'text.special' }}
+        >
           {title}
         </Typography>
         <Typography variant='body1' component={'p'}>

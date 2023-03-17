@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: 'http://172.20.159.7:18080',
-  timeout: 500,
+  //timeout: 3000, no timeout for now
 });
 
 const api = {
@@ -16,11 +16,29 @@ const api = {
         return response;
       }),
   updateCompanySettings: (newSettings) =>
-    instance.post('/admin_client/ClientsAPI/update').then((response) => {
-      // DEBUG: console.log('RESPONSE DATA');
-      // DEBUG: console.log(response.data);
-      return response;
-    }),
+    instance
+      .post('/admin_client/ClientsAPI/update', newSettings)
+      .then((response) => {
+        console.log('UPDATE');
+        // DEBUG: console.log('RESPONSE DATA');
+        // DEBUG: console.log(response.data);
+        return response;
+      }),
+  updateRole: (newRoleData) =>
+    instance
+      .post('/admin_client/ClientsRolesUserAPI/update', newRoleData)
+      .then((response) => {
+        console.log('UPDATE');
+        // DEBUG: console.log('RESPONSE DATA');
+        // DEBUG: console.log(response.data);
+        return response;
+      }),
+  register: (userData) => {
+    console.log('UD', userData);
+    return instance
+      .post('/ClientsAPIPublic/create', userData)
+      .then((response) => response);
+  },
 };
 
 export default api;

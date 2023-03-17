@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import api from '@/api';
 
 const inter = Inter({ subsets: ['latin'] });
 function Register() {
@@ -161,11 +162,25 @@ function Register() {
         <OutlinedForm.Submit
           title={t('submit')}
           validators={validators}
-          onSubmit={async (formData) => {
-            // Test endpoint
-            await axios.post('http://localhost:9000/test/formdata', formData, {
-              headers: { 'Content-Type': 'multipart/form-data' },
-            });
+          onSubmit={async () => {
+            await api
+              .register({
+                id: Number(formData.cid.value),
+                companyIdentifier: formData.cname.value, // convert to number
+                email: formData.email.value,
+                designation: formData.cname.value,
+                password: formData.password.value,
+                color: '#AAAA',
+                logoPath: 'Aaa',
+              })
+              .then((response) => {
+                console.log('RES', response);
+              });
+
+            //router.push('/');
+          }}
+          onError={(err) => {
+            console.log(err);
           }}
         />
 

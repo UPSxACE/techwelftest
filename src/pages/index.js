@@ -172,116 +172,6 @@ export default function Home() {
             </Box>*/}
         </Box>
       </Box>
-      {/* Screenshots / Product Presentation */}
-      <a style={{ position: 'relative', top: -67 }} id='product' />
-      {appConfig.screenshotsMode === 'scroll' && (
-        <Box
-          component={motion.div}
-          sx={{
-            paddingX: 4,
-            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            minHeight: 'calc(100vh)',
-            alignItems: 'center',
-          }}
-        >
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography
-              color='text.secondary'
-              variant='h4'
-              component={'h2'}
-              sx={{ textAlign: 'center', fontWeight: 500 }}
-              mb={3}
-            >
-              {t('made_easier')}
-            </Typography>
-            <Typography
-              color='text.secondary'
-              variant='h6'
-              component={'p'}
-              sx={{
-                textAlign: 'center',
-                fontWeight: 500,
-                mb: { xs: 5, sm: 6, md: 9, lg: 12 },
-                maxWidth: 1200,
-              }}
-            >
-              {t('ProductDesc3')}
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            {appConfig.screenshots.map((screenshot, index) => {
-              return (
-                <ScreenshotDiv
-                  key={index}
-                  title={t(screenshot.title)}
-                  desc={t(screenshot.desc)}
-                  imgPath={screenshot.imgPath}
-                  reverse={index % 2 !== 0}
-                />
-              );
-            })}
-          </Box>
-        </Box>
-      )}
-      {/* WGYB */}
-      {appConfig.wgyb && (
-        <ColoredBox
-          sx={{
-            paddingX: 4,
-            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            backgroundColor: 'primary.special2',
-          }}
-        >
-          <Box
-            sx={{
-              width: '100%',
-              maxWidth: 1200,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Typography
-              color={'text.primary'}
-              variant='h4'
-              component='h2'
-              mb={2}
-              textAlign={'center'}
-            >
-              {t('wgyb1')}
-            </Typography>
-            <Typography
-              color={'text.primary'}
-              variant='h5'
-              component='p'
-              textAlign={'center'}
-            >
-              {t('wgyb2')}
-            </Typography>
-          </Box>
-        </ColoredBox>
-      )}
       {/* Features */}
       <a style={{ position: 'relative', top: -67 }} id='features' />
       <Box
@@ -291,13 +181,13 @@ export default function Home() {
           paddingY: 9,
           display: 'flex',
           justifyContent: 'center',
-          minHeight: 'calc(100vh)',
+          minHeight: 'calc(100vh - 68px)',
           alignItems: 'center',
         }}
       >
         <Box sx={{ maxWidth: 1200 }}>
           <Typography
-            color='text.secondary'
+            color='text.special'
             variant='h4'
             component={'p'}
             sx={{ textAlign: 'center', fontWeight: 500, mb: 2 }}
@@ -362,6 +252,167 @@ export default function Home() {
               );
             })}
           </Box>
+        </Box>
+      </Box>
+      {/* Made Easier */}
+      <ColoredBox
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          py: 12,
+          px: 4,
+        }}
+      >
+        <Typography
+          color='text.primary'
+          variant='h4'
+          component={'h2'}
+          sx={{ textAlign: 'center', fontWeight: 500, pb: 2 }}
+          //mb={3}
+        >
+          {t('made_easier')}
+        </Typography>
+        <Typography
+          color='text.primary'
+          variant='h6'
+          component={'p'}
+          sx={{
+            textAlign: 'center',
+            fontWeight: 500,
+            // mb: { xs: 5, sm: 6, md: 9, lg: 12 },
+            maxWidth: 1200,
+          }}
+        >
+          {t('ProductDesc3')}
+        </Typography>
+      </ColoredBox>
+      {/* Screenshots / Product Presentation */}
+      <a style={{ position: 'relative', top: -67 }} id='product' />
+      {appConfig.screenshotsMode === 'scroll' && (
+        <Box
+          component={motion.div}
+          sx={{
+            paddingX: 4,
+            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            minHeight: 'calc(100vh - 68px)',
+            alignItems: 'center',
+          }}
+        >
+          {/*<Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              color='text.secondary'
+              variant='h4'
+              component={'h2'}
+              sx={{ textAlign: 'center', fontWeight: 500 }}
+              mb={3}
+            >
+              {t('made_easier')}
+            </Typography>
+            <Typography
+              color='text.secondary'
+              variant='h6'
+              component={'p'}
+              sx={{
+                textAlign: 'center',
+                fontWeight: 500,
+                mb: { xs: 5, sm: 6, md: 9, lg: 12 },
+                maxWidth: 1200,
+              }}
+            >
+              {t('ProductDesc3')}
+            </Typography>
+          </Box>*/}
+
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {appConfig.screenshots.map((screenshot, index) => {
+              return (
+                <ScreenshotDiv
+                  key={index}
+                  title={t(screenshot.title)}
+                  desc={t(screenshot.desc)}
+                  imgPath={screenshot.imgPath}
+                  reverse={index % 2 !== 0}
+                />
+              );
+            })}
+          </Box>
+        </Box>
+      )}
+      {/* WGYB */}
+      {appConfig.wgyb && (
+        <ColoredBox
+          sx={{
+            paddingX: 4,
+            paddingY: { xs: 5, sm: 6, md: 9, lg: 12 },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: 'primary.special2',
+          }}
+        >
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: 1200,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              color={'text.primary'}
+              variant='h4'
+              component='h2'
+              mb={2}
+              textAlign={'center'}
+            >
+              {t('wgyb1')}
+            </Typography>
+            <Typography
+              color={'text.primary'}
+              variant='h5'
+              component='p'
+              textAlign={'center'}
+            >
+              {t('wgyb2')}
+            </Typography>
+          </Box>
+        </ColoredBox>
+      )}
+      {/* PC */}
+      <Box
+        component={motion.div}
+        sx={{
+          paddingX: 4,
+          paddingY: 9,
+          display: 'flex',
+          justifyContent: 'center',
+          minHeight: 'calc(100vh - 68px);',
+          alignItems: 'center',
+        }}
+      >
+        <Box sx={{ maxWidth: 1200 }}>
+          {' '}
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <Box sx={{ width: { xs: '100%', md: '50%' } }}>
               <FwImage

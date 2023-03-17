@@ -1,3 +1,4 @@
+import api from '@/api';
 import LoaderPrimary from '@/components/loader-primary';
 import LoadingModalWrapper from '@/components/loading-modal-wrapper';
 import { Cancel, Edit, Save } from '@mui/icons-material';
@@ -78,9 +79,17 @@ export default function RolesTable() {
     // send request
 
     const sendRequest = async () => {
-      await axios.post('http://localhost:9000/test/formdata', data[row_index], {
-        //headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      await api.updateRole(
+        {
+          id: data[row_index].id,
+          name: data[row_index].role,
+          positionapprovation: data[row_index].approval,
+          caneditforms: data[row_index].user_backend,
+        },
+        {
+          //headers: { 'Content-Type': 'multipart/form-data' },
+        }
+      );
     };
 
     sendRequest()

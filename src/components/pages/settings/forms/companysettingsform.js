@@ -178,18 +178,25 @@ export default function CompanySettingsForm() {
         containerStyle={{ marginTop: 'auto' }}
         onSubmit={async () => {
           // Test endpoint
+          console.log('ZZZ');
           await api
             .updateCompanySettings({
               designation: formData.companyName.value,
               domain: formData.domain.value,
               color: formData.websiteColor.value,
-              password: formData.password.value,
+              //password: formData.password.value,
               email: formData.email.value,
             })
             .then((response) => {
               console.log(response);
               setAlert('TEST UPDATE SUCCESS');
-            });
+            })
+            .catch((err) => console.log(err));
+
+          console.log('AAA');
+        }}
+        onError={(err) => {
+          console.log(err);
         }}
       />
     </BootstrapForm.Form>
