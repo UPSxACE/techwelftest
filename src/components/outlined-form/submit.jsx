@@ -95,6 +95,7 @@ const Submit = ({
       variant='contained'
       sx={{ height: 56, fontSize: '1rem' }}
       fullWidth
+      type='submit'
       onClick={() => {
         if (onSubmit) {
           async function handleSubmit() {

@@ -57,6 +57,7 @@ const Input = ({
 
   return (
     <BootstrapInput
+      name={field}
       sx={{
         '&.MuiInputBase-root': {
           mt: 0,

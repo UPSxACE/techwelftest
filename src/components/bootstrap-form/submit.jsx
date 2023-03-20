@@ -111,6 +111,7 @@ const Submit = ({
           width: alignRight ? 'auto' : '100%',
         }}
         fullWidth
+        type='submit'
         onClick={() => {
           if (onSubmit) {
             async function handleSubmit() {
