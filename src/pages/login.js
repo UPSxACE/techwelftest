@@ -101,8 +101,8 @@ function Login() {
 
             //router.push('/');
           }}
-          onError={async (error, setStatus) => {
-            console.log('ERR', error);
+          onError={(error, setStatus) => {
+            // Debug: console.log('ERR', error);
             if (error?.code === 'ERR_NETWORK') {
               setStatus(t('NETWORK_ERROR_DESCRIPTION'));
               return;

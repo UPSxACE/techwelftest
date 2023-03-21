@@ -27,7 +27,7 @@ const appConfig = {
   // Available html anchors: #page-start #screenshots, #features, #product
   logo: '/logowhite.png', // Either a path to an image, or the value false
   logo_colored: '/logo.png',
-  mainButtonTarget: '/#product',
+  mainButtonTarget: 'mailto:geral@techwelf.com', //'/#product',
   backgroundImage: '/software-pic-1.webp',
   defaultLanguage: {
     id: 'gb',
@@ -51,7 +51,7 @@ const appConfig = {
       translationFile: gb,
     },
   },
-  userAccess: false, // Allow common users to register and login
+  userAccess: true, // Allow common users to register and login
   usersOptionsMenu: [
     { name: 'Login', route: '/login' },
     { name: 'Register', route: '/register' },

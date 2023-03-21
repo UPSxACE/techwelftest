@@ -2,7 +2,7 @@ import OutlinedForm from '@/components/outlined-form';
 import MainLayout from '@/layouts/main-layout';
 import themeConfig from '@/theme-config';
 import onlyGuest from '@/utils/onlyGuest';
-import { Box, Typography } from '@mui/material';
+import { Alert, Box, Typography } from '@mui/material';
 import { Inter } from '@next/font/google';
 import axios from 'axios';
 import Joi from 'joi';
@@ -16,6 +16,7 @@ const inter = Inter({ subsets: ['latin'] });
 function Register() {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({});
+  const [alert, setAlert] = useState(null);
 
   const validators = {
     cname: Joi.string().min(3),
@@ -53,6 +54,11 @@ function Register() {
               </Typography>
             </Box>
           </Box>
+          {alert && (
+            <Alert severity='error' sx={{ marginBottom: 2 }}>
+              {alert}
+            </Alert>
+          )}
         </OutlinedForm.Header>
 
         <OutlinedForm.Control required label={t('CompanyName')} field='cname'>
@@ -179,8 +185,30 @@ function Register() {
 
             //router.push('/');
           }}
-          onError={(err) => {
-            console.log(err);
+          onError={(error, setStatus) => {
+            // Debug:
+            console.log('ERR', error);
+            if (error?.code === 'ERR_NETWORK') {
+              setStatus(t('NETWORK_ERROR_DESCRIPTION'));
+              return;
+            }
+
+            if (error?.response?.status) {
+              const error_code = error?.response?.status;
+              const error_data = error?.response?.data;
+
+              // HANDLE ERROR CODES HERE
+              if (error_code === 400) {
+                const error_description = error_data?.errors?.[0];
+                if (error_description === 'usernameOrPassword') {
+                  setAlert(t('login_wrongcredentials_error'));
+                  return;
+                }
+              }
+            }
+
+            // Show unhandled error screen in case the function didn't return yet (error wasn't handled)
+            setStatus(false);
           }}
         />
 

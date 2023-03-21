@@ -2,7 +2,7 @@ import { InfoOutlined } from '@mui/icons-material';
 import { Box, Tooltip, Typography } from '@mui/material';
 import { MaterialPicker } from 'react-color';
 import { styled } from '@mui/system';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 const StyledMP = styled(MaterialPicker)({
@@ -18,9 +18,17 @@ const ColorPicker = ({
   tooltip,
   containerStyle = {},
 }) => {
-  const [color, setColor] = useState(defaultColor);
   const { formData, setFormData } = formDataState;
+  const [color, setColor] = useState(
+    formData?.[field]?.value ? formData[field].value : defaultColor
+  );
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (formData?.[field]) {
+      formData[field].value = color;
+    }
+  }, []);
 
   return (
     <Box sx={{ ...containerStyle }}>

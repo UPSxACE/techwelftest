@@ -18,6 +18,7 @@ export default function CompanySettingsForm() {
     companyId: '000',
     companyName: 'Test Company',
     email: 'data_from@backend.com',
+    //websiteColor: '#E5E300',
   };
 
   const validators = {
@@ -189,11 +190,9 @@ export default function CompanySettingsForm() {
             })
             .then((response) => {
               console.log(response);
-              setAlert('TEST UPDATE SUCCESS');
+              setAlert(t('company_settings_updated'));
             })
             .catch((err) => console.log(err));
-
-          console.log('AAA');
         }}
         onError={(err) => {
           console.log(err);
