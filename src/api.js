@@ -15,26 +15,29 @@ const api = {
         // DEBUG: console.log(response.data);
         return response;
       }),
-  updateCompanySettings: (newSettings) =>
-    instance
+  getCompanySettings: () =>
+    instance.get('/admin_client/ClientsAPI/find').then((response) => response),
+  updateCompanySettings: (newSettings) => {
+    // Debug: console.log('NS', newSettings);
+
+    return instance
       .post('/admin_client/ClientsAPI/update', newSettings)
       .then((response) => {
-        console.log('UPDATE');
         // DEBUG: console.log('RESPONSE DATA');
         // DEBUG: console.log(response.data);
         return response;
-      }),
+      });
+  },
   updateRole: (newRoleData) =>
     instance
       .post('/admin_client/ClientsRolesUserAPI/update', newRoleData)
       .then((response) => {
-        console.log('UPDATE');
         // DEBUG: console.log('RESPONSE DATA');
         // DEBUG: console.log(response.data);
         return response;
       }),
   register: (userData) => {
-    console.log('UD', userData);
+    // Debug: console.log('UD', userData);
     return instance
       .post('/ClientsAPIPublic/create', userData)
       .then((response) => response);

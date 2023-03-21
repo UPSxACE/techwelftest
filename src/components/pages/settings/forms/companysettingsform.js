@@ -6,28 +6,48 @@ import themeConfig from '@/theme-config';
 import axios from 'axios';
 import Joi from 'joi';
 import useClientSide from '@/hooks/client-side';
-import { Alert } from '@mui/material';
+import { Alert, Box } from '@mui/material';
 import api from '@/api';
+import LoaderPrimary from '@/components/loader-primary';
 
 export default function CompanySettingsForm() {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState(null);
   const { t } = useTranslation();
+  const [defaultValues, setDefaultValues] = useState(false); // false means the data needed didn't arrive yet
+  const [dataArrived, setDataArrived] = useState(false);
 
-  const defaultValues = {
-    companyId: '000',
-    companyName: 'Test Company',
-    email: 'data_from@backend.com',
-    //websiteColor: '#E5E300',
-  };
+  useEffect(() => {
+    const sendRequest = async () => {
+      await api
+        .getCompanySettings()
+        .then((response) => {
+          const data = response?.data;
+          if (data) {
+            setDefaultValues(data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    sendRequest();
+  }, []);
+
+  useEffect(() => {
+    if (defaultValues !== false) {
+      setDataArrived(true);
+    }
+  }, [defaultValues]);
 
   const validators = {
     email: Joi.string().email({ tlds: { allow: false } }),
-    newPassword: Joi.string().min(9),
+    password: Joi.string().min(9),
     newPasswordConfirm: Joi.string(),
     domain: Joi.string().max(32),
-    websiteColor: Joi.any(),
-    websiteLogo: Joi.any(),
+    color: Joi.any(),
+    logoPath: Joi.any(),
   };
 
   const { serverIsDone } = useClientSide();
@@ -36,8 +56,24 @@ export default function CompanySettingsForm() {
     return;
   }
 
+  if (!dataArrived) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: 2,
+        }}
+      >
+        <LoaderPrimary />
+      </Box>
+    );
+  }
+
   return (
     <BootstrapForm.Form
+      key={dataArrived}
       defaultValues={defaultValues}
       formDataState={{ formData, setFormData }}
       fullWidth
@@ -55,7 +91,7 @@ export default function CompanySettingsForm() {
           </Alert>
         )}
       </BootstrapForm.Header>
-      <BootstrapForm.Control label={t('CompanyName')} field='companyName'>
+      <BootstrapForm.Control label={t('CompanyName')} field='designation'>
         <BootstrapForm.Label />
         <BootstrapForm.Input
           readOnly
@@ -66,6 +102,7 @@ export default function CompanySettingsForm() {
         />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
+      {/*
       <BootstrapForm.Control label={t('CompanyID')} field='companyId'>
         <BootstrapForm.Label />
         <BootstrapForm.Input
@@ -76,7 +113,8 @@ export default function CompanySettingsForm() {
           }}
         />
         <BootstrapForm.HelperText />
-      </BootstrapForm.Control>
+      </BootstrapForm.Control> 
+      */}
       <BootstrapForm.Control label={t('EmailAddress')} field='email' required>
         <BootstrapForm.Label />
         <BootstrapForm.Input
@@ -88,14 +126,14 @@ export default function CompanySettingsForm() {
         />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
-      <BootstrapForm.Control label={t('newPassword')} field='newPassword'>
+      <BootstrapForm.Control label={t('newPassword')} field='password'>
         <BootstrapForm.Label />
         <BootstrapForm.Input
           tooltip={{
             tip: t('tooltip_tip_newPassword'),
             example: t('tooltip_example_newPassword'),
           }}
-          JOIValidator={validators.newPassword}
+          JOIValidator={validators.password}
           inputProps={{ type: 'password' }}
         />
         <BootstrapForm.HelperText />
@@ -103,7 +141,7 @@ export default function CompanySettingsForm() {
       <BootstrapForm.Control
         label={t('confirmNewPassword')}
         field='newPasswordConfirm'
-        matchesPassword={'newPassword'}
+        matchesPassword={'password'}
       >
         <BootstrapForm.Label />
         <BootstrapForm.Input
@@ -117,12 +155,12 @@ export default function CompanySettingsForm() {
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
 
-      <BootstrapForm.TwoHalfs fields={['websiteColor', 'websiteLogo']}>
+      <BootstrapForm.TwoHalfs fields={['color', 'logoPath']}>
         <BootstrapForm.Control
           half
           required
           label={t('websiteColor')}
-          field='websiteColor'
+          field='color'
         >
           <BootstrapForm.ColorPicker
             defaultColor={themeConfig.palette.primary.special1}
@@ -137,7 +175,7 @@ export default function CompanySettingsForm() {
           half
           required
           label={t('websiteLogo')}
-          field='websiteLogo'
+          field='logoPath'
         >
           <BootstrapForm.ImageUploader
             backgroundSwitcher
@@ -147,12 +185,11 @@ export default function CompanySettingsForm() {
             }}
             description={
               <>
-                {formData['websiteLogo'] &&
-                  formData['websiteLogo']['value'] && (
-                    <BootstrapForm.Text containerStyle={{ mt: 1 }}>
-                      {t('register_if_image_white')}
-                    </BootstrapForm.Text>
-                  )}
+                {formData['logoPath'] && formData['logoPath']['value'] && (
+                  <BootstrapForm.Text containerStyle={{ mt: 1 }}>
+                    {t('register_if_image_white')}
+                  </BootstrapForm.Text>
+                )}
               </>
             }
             containerStyle={{ paddingLeft: 2 }}
@@ -178,18 +215,15 @@ export default function CompanySettingsForm() {
         validators={validators}
         containerStyle={{ marginTop: 'auto' }}
         onSubmit={async () => {
-          // Test endpoint
-          console.log('ZZZ');
           await api
             .updateCompanySettings({
-              designation: formData.companyName.value,
+              designation: formData.designation.value,
               domain: formData.domain.value,
-              color: formData.websiteColor.value,
-              //password: formData.password.value,
+              color: formData.color.value,
+              password: formData.password?.value || null,
               email: formData.email.value,
             })
             .then((response) => {
-              console.log(response);
               setAlert(t('company_settings_updated'));
             })
             .catch((err) => console.log(err));

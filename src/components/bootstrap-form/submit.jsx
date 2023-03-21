@@ -124,7 +124,7 @@ const Submit = ({
                 if (onSuccess) onSuccess(result, setFormStatus);
                 if (autoFinalize) setFormStatus(true);
                 setFormLoading(false);
-                setFormData({});
+                //setFormData({}); this is probably not good
               })
               .catch((error) => {
                 // Debug: console.log(error);

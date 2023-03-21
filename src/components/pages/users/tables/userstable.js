@@ -170,7 +170,7 @@ export default function UsersTable() {
                 tableRef.current.getState().editingRow &&
                 tableRef.current.getState().editingRow.index === row_index
               ) {
-                console.log(tableRef.current.getState().editingRow.original);
+                //console.log(tableRef.current.getState().editingRow.original);
                 return (
                   <>
                     <IconButton
