@@ -105,13 +105,15 @@ export default function Home() {
               color='text.primary'
               variant='h2'
               component='h1'
-              sx={{ paddingBottom: 1 }}
-              dangerouslySetInnerHTML={{
-                __html: t('ProductName', {
-                  interpolation: { escapeValue: false },
-                }),
-              }}
-            ></Typography>
+              sx={{ paddingBottom: 1, fontWeight: 500, fontSize: '2.2rem' }}
+              //dangerouslySetInnerHTML={{
+              //  __html: "",
+              //}}
+            >
+              {t('ProductName', {
+                interpolation: { escapeValue: false },
+              })}
+            </Typography>
             <Typography
               color='text.primary'
               variant='body1'
