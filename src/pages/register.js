@@ -21,7 +21,7 @@ function Register() {
   const validators = {
     cname: Joi.string().min(3),
     email: Joi.string().email({ tlds: { allow: false } }),
-    cid: Joi.number(),
+    //cid: Joi.number(),
     password: Joi.string().min(9),
     cpassword: Joi.string(),
     websiteColor: Joi.any(),
@@ -84,6 +84,7 @@ function Register() {
           <OutlinedForm.HelperText />
         </OutlinedForm.Control>
 
+        {/*
         <OutlinedForm.Control required label={t('companyID')} field='cid'>
           <OutlinedForm.Label />
           <OutlinedForm.Input
@@ -95,6 +96,7 @@ function Register() {
           />
           <OutlinedForm.HelperText />
         </OutlinedForm.Control>
+        */}
         <OutlinedForm.Control required label={t('password')} field='password'>
           <OutlinedForm.Label />
           <OutlinedForm.Input
@@ -171,8 +173,8 @@ function Register() {
           onSubmit={async () => {
             await api
               .register({
-                id: Number(formData.cid.value),
-                companyIdentifier: formData.cname.value, // convert to number
+                //id: Number(formData.cid.value),
+                //companyIdentifier: formData.cname.value, // convert to number
                 email: formData.email.value,
                 designation: formData.cname.value,
                 password: formData.password.value,
