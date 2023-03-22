@@ -18,6 +18,9 @@ import { useTranslation } from 'next-i18next';
 import NewUserFormModal from '../forms/newuserformmodal';
 import MySvg from '@/../public/add-permission.svg';
 import Image from 'next/image';
+import useHandle403 from '@/utils/handle-403';
+import api from '@/api';
+import LoaderPrimary from '@/components/loader-primary';
 
 const incomingData = [
   { id: 1, name: 'Snow', email: 'Jon@ad.com', role: 'Operator' },
@@ -66,9 +69,48 @@ export default function UsersTable() {
 
   const { t } = useTranslation();
 
-  const [data, setData] = useState(incomingData);
+  const [data, setData] = useState(false); // false means the data needed didn't arrive yet
 
   const [dataChanges, setDataChanges] = useState(incomingData);
+
+  const [dataArrived, setDataArrived] = useState(false);
+
+  const handle403 = useHandle403();
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const sendRequest = async () => {
+      await api
+        .getUsers({
+          cancelToken: source.token,
+        })
+        .then((response) => {
+          const data = response?.data;
+          if (data) {
+            setData(data);
+          }
+        })
+        .catch((error) => {
+          if (error?.response?.data?.errors?.[0] === 'Records not found') {
+            setData({});
+          }
+          if (error?.response?.status === 403) handle403();
+        });
+    };
+
+    sendRequest();
+
+    return () => {
+      source.cancel('Component Unmounted', { silent: 'true' }); // Component Unmounted
+    };
+  }, []);
+
+  useEffect(() => {
+    if (data !== false) {
+      setDataArrived(true);
+    }
+  }, [data]);
 
   function handleNewCellEdit(cell, value) {
     //cell.column.id = the name of the field that is being edited
@@ -136,6 +178,21 @@ export default function UsersTable() {
     }
   }, [rowSelection]);
 
+  if (!dataArrived) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: 2,
+        }}
+      >
+        <LoaderPrimary />
+      </Box>
+    );
+  }
+
   return (
     <LoadingModalWrapper open={openWaiting}>
       <NewUserFormModal
@@ -145,6 +202,7 @@ export default function UsersTable() {
         setCloseable={setCloseable}
       />
       <MaterialReactTable
+        key={dataArrived}
         // Row selection code
         enableRowSelection
         onRowSelectionChange={setRowSelection}

@@ -48,6 +48,10 @@ const api = {
       .post('/ClientsAPIPublic/create', userData)
       .then((response) => response);
   },
+  getUsers: (CancelToken) =>
+    instance
+      .get('/admin_client/ClientsUserAPI/findAll', CancelToken)
+      .then((response) => response),
 };
 
 export default api;

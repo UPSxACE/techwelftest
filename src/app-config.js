@@ -51,7 +51,7 @@ const appConfig = {
       translationFile: gb,
     },
   },
-  userAccess: false, // Allow common users to register and login
+  userAccess: true, // Allow common users to register and login
   usersOptionsMenu: [
     { name: 'Login', route: '/login' },
     { name: 'Register', route: '/register' },
