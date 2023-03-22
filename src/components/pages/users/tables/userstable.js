@@ -1,11 +1,23 @@
 import LoadingModalWrapper from '@/components/loading-modal-wrapper';
-import { Cancel, Edit, Save } from '@mui/icons-material';
-import { Box, Button, IconButton, Modal } from '@mui/material';
+import {
+  Cancel,
+  ControlPoint,
+  Edit,
+  GroupAdd,
+  GroupRemove,
+  PersonAdd,
+  RemoveCircle,
+  RemoveCircleOutline,
+  Save,
+} from '@mui/icons-material';
+import { Box, Button, Icon, IconButton, Modal, SvgIcon } from '@mui/material';
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import NewUserFormModal from '../forms/newuserformmodal';
+import MySvg from '@/../public/add-permission.svg';
+import Image from 'next/image';
 
 const incomingData = [
   { id: 1, name: 'Snow', email: 'Jon@ad.com', role: 'Operator' },
@@ -113,6 +125,17 @@ export default function UsersTable() {
     []
   );
 
+  const [rowSelection, setRowSelection] = useState({});
+  const [secondaryButtonsEnabled, setSecondaryButtonsEnabled] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(rowSelection).length > 0) {
+      setSecondaryButtonsEnabled(true);
+    } else {
+      if (secondaryButtonsEnabled) setSecondaryButtonsEnabled(false);
+    }
+  }, [rowSelection]);
+
   return (
     <LoadingModalWrapper open={openWaiting}>
       <NewUserFormModal
@@ -122,8 +145,65 @@ export default function UsersTable() {
         setCloseable={setCloseable}
       />
       <MaterialReactTable
+        // Row selection code
+        enableRowSelection
+        onRowSelectionChange={setRowSelection}
+        state={{ rowSelection }}
+        //
         autoResetPageIndex={false} // must keep an eye on this
         renderTopToolbarCustomActions={({ table }) => {
+          return (
+            <Box>
+              <IconButton
+                color='green'
+                sx={{ pl: 1.25, color: 'info.main' }}
+                onClick={() => handleOpen()}
+              >
+                <PersonAdd />
+              </IconButton>
+
+              <IconButton
+                color='green'
+                sx={{ color: 'success.main' }}
+                onClick={() => handleOpen()}
+                disabled={!secondaryButtonsEnabled}
+                //disableRipple={!secondaryButtonsEnabled}
+              >
+                <Image
+                  height={20}
+                  width={20}
+                  alt='Add permission icon'
+                  style={{
+                    filter: secondaryButtonsEnabled
+                      ? 'brightness(0) saturate(100%) invert(36%) sepia(57%) saturate(507%) hue-rotate(74deg) brightness(98%) contrast(95%)'
+                      : 'brightness(0) saturate(100%) invert(45%) sepia(3%) saturate(29%) hue-rotate(321deg) brightness(101%) contrast(89%)',
+                  }}
+                  src={'/add-permission.svg'}
+                />
+              </IconButton>
+              <IconButton
+                color='green'
+                sx={{ color: 'error.main' }}
+                onClick={() => handleOpen()}
+                disabled={!secondaryButtonsEnabled}
+                //disableRipple={!secondaryButtonsEnabled}
+              >
+                <Image
+                  height={20}
+                  width={20}
+                  alt='Add permission icon'
+                  style={{
+                    filter: secondaryButtonsEnabled
+                      ? 'brightness(0) saturate(100%) invert(29%) sepia(61%) saturate(3943%) hue-rotate(347deg) brightness(88%) contrast(86%)'
+                      : 'brightness(0) saturate(100%) invert(45%) sepia(3%) saturate(29%) hue-rotate(321deg) brightness(101%) contrast(89%)',
+                  }}
+                  src={'/permission-deletion.svg'}
+                />
+              </IconButton>
+            </Box>
+          );
+
+          // Old Code
           return (
             <Button variant='contained' onClick={() => handleOpen()}>
               {t('users_table_add_user')}
