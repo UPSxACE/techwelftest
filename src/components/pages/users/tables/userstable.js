@@ -45,6 +45,7 @@ export default function UsersTable() {
   const [closeable, setCloseable] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const [openWaiting, setOpenWaiting] = useState(false);
   const handleOpenWaiting = () => setOpenWaiting(true);
   const handleCloseWaiting = () => setOpenWaiting(false);

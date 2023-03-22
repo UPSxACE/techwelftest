@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import api from '@/api';
+import useHandle403 from '@/utils/handle-403';
 
 const inter = Inter({ subsets: ['latin'] });
 function Register() {
@@ -27,6 +28,8 @@ function Register() {
     websiteColor: Joi.any(),
     websiteLogo: Joi.any(),
   };
+
+  const handle403 = useHandle403();
 
   return (
     <Box
@@ -183,6 +186,9 @@ function Register() {
               })
               .then((response) => {
                 console.log('RES', response);
+              })
+              .catch((err) => {
+                if (err?.response?.status === 403) handle403();
               });
 
             //router.push('/');

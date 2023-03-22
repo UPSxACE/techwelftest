@@ -15,8 +15,10 @@ const api = {
         // DEBUG: console.log(response.data);
         return response;
       }),
-  getCompanySettings: () =>
-    instance.get('/admin_client/ClientsAPI/find').then((response) => response),
+  getCompanySettings: (CancelToken) =>
+    instance
+      .get('/admin_client/ClientsAPI/find', CancelToken)
+      .then((response) => response),
   updateCompanySettings: (newSettings) => {
     // Debug: console.log('NS', newSettings);
 
@@ -28,6 +30,10 @@ const api = {
         return response;
       });
   },
+  getRolesData: (CancelToken) =>
+    instance
+      .get('/admin_client/ClientsRolesUserAPI/findAll', CancelToken)
+      .then((response) => response),
   updateRole: (newRoleData) =>
     instance
       .post('/admin_client/ClientsRolesUserAPI/update', newRoleData)
@@ -54,7 +60,7 @@ function initInterceptor(instance) {
       const accessToken = localStorage.getItem('accessToken');
       // In case he has, add it to the request header
       if (accessToken) {
-        console.log('THERE');
+        // DEBUG:
         console.log(accessToken);
         config.headers = {
           ...config.headers,

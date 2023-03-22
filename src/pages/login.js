@@ -12,6 +12,7 @@ import { useContext, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import api from '@/api';
+import useHandle403 from '@/utils/handle-403';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,6 +27,8 @@ function Login() {
     username: Joi.string(),
     password: Joi.string(),
   };
+
+  const handle403 = useHandle403();
 
   return (
     <Box
@@ -97,6 +100,9 @@ function Login() {
                 localStorage.setItem('accessToken', accessToken);
                 router.push('/');
                 //setAuth({ ...auth, authenticated: true });
+              })
+              .catch((err) => {
+                if (err?.response?.status === 403) handle403();
               });
 
             //router.push('/');

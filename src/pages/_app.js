@@ -3,19 +3,15 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'normalize.css/normalize.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import themeConfig from '@/theme-config';
-import { initReactI18next, useTranslation } from 'react-i18next';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import LanguageContext from '@/contexts/language-context';
 import appConfig from '@/app-config';
 import { useEffect, useState } from 'react';
 import authenticationContext from '@/contexts/authentication-context';
-import LanguageDetector from 'i18next-browser-languagedetector';
 import 'yet-another-react-lightbox/styles.css';
-
 import { useRouter } from 'next/router';
 import { appWithTranslation } from 'next-i18next';
-import axios from 'axios';
 import api from '@/api';
 
 const AuthContext = authenticationContext;

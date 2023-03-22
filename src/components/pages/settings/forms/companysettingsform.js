@@ -9,6 +9,7 @@ import useClientSide from '@/hooks/client-side';
 import { Alert, Box } from '@mui/material';
 import api from '@/api';
 import LoaderPrimary from '@/components/loader-primary';
+import useHandle403 from '@/utils/handle-403';
 
 export default function CompanySettingsForm() {
   const [formData, setFormData] = useState({});
@@ -17,10 +18,16 @@ export default function CompanySettingsForm() {
   const [defaultValues, setDefaultValues] = useState(false); // false means the data needed didn't arrive yet
   const [dataArrived, setDataArrived] = useState(false);
 
+  const handle403 = useHandle403();
+
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     const sendRequest = async () => {
       await api
-        .getCompanySettings()
+        .getCompanySettings({
+          cancelToken: source.token,
+        })
         .then((response) => {
           const data = response?.data;
           if (data) {
@@ -28,11 +35,16 @@ export default function CompanySettingsForm() {
           }
         })
         .catch((error) => {
-          console.log(error);
+          if (error?.response?.status === 403) handle403();
+          //console.log(error);
         });
     };
 
     sendRequest();
+
+    return () => {
+      source.cancel('Component Unmounted', { silent: 'true' }); // Component Unmounted
+    };
   }, []);
 
   useEffect(() => {
@@ -226,7 +238,10 @@ export default function CompanySettingsForm() {
             .then((response) => {
               setAlert(t('company_settings_updated'));
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              console.log(err);
+              if (err?.response?.status === 403) handle403();
+            });
         }}
         onError={(err) => {
           console.log(err);

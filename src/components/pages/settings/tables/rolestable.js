@@ -15,44 +15,93 @@ import {
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import NewRoleFormModal from '../forms/newroleformmodal';
+import useHandle403 from '@/utils/handle-403';
 
 export default function RolesTable() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [openForm, setOpenForm] = useState(false);
+  const [closeable, setCloseable] = useState(true);
+  const handleOpenForm = () => setOpenForm(true);
+  const handleCloseForm = () => setOpenForm(false);
+
+  const [incomingData, setIncomingData] = useState(false); // false means the data needed didn't arrive yet
+  const [dataArrived, setDataArrived] = useState(false);
+
+  const handle403 = useHandle403();
+
+  /*
   const incomingData = [
-    { id: 1, user_backend: false, role: 'Operator', approval: 1 },
-    { id: 2, user_backend: false, role: 'Worker', approval: 2 },
+    { id: 1, caneditforms: false, name: 'Operator', positionapprovation: 1 },
+    { id: 2, caneditforms: false, name: 'Worker', positionapprovation: 2 },
     {
       id: 3,
-      user_backend: true,
-      role: 'Operator',
-      approval: 2,
+      caneditforms: true,
+      name: 'Operator',
+      positionapprovation: 2,
     },
-    { id: 4, user_backend: true, role: 'Worker', approval: 1 },
+    { id: 4, caneditforms: true, name: 'Worker', positionapprovation: 1 },
     {
       id: 5,
-      user_backend: true,
-      role: 'Worker',
-      approval: 5,
+      caneditforms: true,
+      name: 'Worker',
+      positionapprovation: 5,
     },
-    { id: 6, user_backend: false, role: 'Operator', approval: 3 },
-    { id: 7, user_backend: true, role: 'Worker', approval: 4 },
+    { id: 6, caneditforms: false, name: 'Operator', positionapprovation: 3 },
+    { id: 7, caneditforms: true, name: 'Worker', positionapprovation: 4 },
     {
       id: 8,
-      user_backend: true,
-      role: 'Operator',
-      approval: 5,
+      caneditforms: true,
+      name: 'Operator',
+      positionapprovation: 5,
     },
-    { id: 9, user_backend: false, role: 'Worker', approval: 1 },
+    { id: 9, caneditforms: false, name: 'Worker', positionapprovation: 1 },
     {
       id: 10,
-      user_backend: true,
-      role: 'Worker',
-      approval: 2,
+      caneditforms: true,
+      name: 'Worker',
+      positionapprovation: 2,
     },
-  ];
+  ];*/
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const sendRequest = async () => {
+      await api
+        .getRolesData({
+          cancelToken: source.token,
+        })
+        .then((response) => {
+          const data = response?.data;
+          if (data) {
+            setIncomingData(data);
+          }
+        })
+        .catch((error) => {
+          if (error?.response?.data?.errors?.[0] === 'Records not found') {
+            setIncomingData({});
+          }
+          if (error?.response?.status === 403) handle403();
+        });
+    };
+
+    sendRequest();
+
+    return () => {
+      source.cancel('Component Unmounted', { silent: 'true' }); // Component Unmounted
+    };
+  }, []);
+
+  useEffect(() => {
+    if (incomingData !== false) {
+      setDataArrived(true);
+    }
+  }, [incomingData]);
 
   const [data, setData] = useState(incomingData);
 
@@ -82,9 +131,9 @@ export default function RolesTable() {
       await api.updateRole(
         {
           id: data[row_index].id,
-          name: data[row_index].role,
-          positionapprovation: data[row_index].approval,
-          caneditforms: data[row_index].user_backend,
+          name: data[row_index].name,
+          positionapprovation: data[row_index].positionapprovation,
+          caneditforms: data[row_index].caneditforms,
         },
         {
           //headers: { 'Content-Type': 'multipart/form-data' },
@@ -97,6 +146,9 @@ export default function RolesTable() {
         // if successeful close edit mode
         exitEditMode();
       })
+      .catch((err) => {
+        if (err?.response?.status === 403) handle403();
+      })
       .finally(() => {
         // set WAIT modal false
         handleClose();
@@ -106,13 +158,13 @@ export default function RolesTable() {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'role', //access nested data with dot notation
+        accessorKey: 'name', //access nested data with dot notation
         header: 'Role',
         readOnly: true,
       },
       {
-        accessorKey: 'user_backend', //access nested data with dot notation
-        header: 'User Backend',
+        accessorKey: 'caneditforms', //access nested data with dot notation
+        header: 'Can Edit Forms',
         Cell: ({ cell, row }) => {
           return (
             <Checkbox
@@ -139,7 +191,7 @@ export default function RolesTable() {
                 if (!column.columnDef.readOnly) {
                   setChecked(event.target.checked);
                   handleNewCellEdit(cell, event.target.checked);
-                  //console.log('ROW', row.original.role);
+                  //console.log('ROW', row.original.name);
                 }
               }}
             />
@@ -147,8 +199,8 @@ export default function RolesTable() {
         },
       },
       {
-        accessorKey: 'approval', //access nested data with dot notation
-        header: 'Approval',
+        accessorKey: 'positionapprovation', //access nested data with dot notation
+        header: 'Approvation',
         Edit: ({ cell, column }) => {
           const [value, setValue] = useState(cell.getValue());
 
@@ -160,8 +212,8 @@ export default function RolesTable() {
           };
           return (
             <Select
-              labelId='approval-select-label'
-              id='approval-select'
+              labelId='positionapprovation-select-label'
+              id='positionapprovation-select'
               disabled={column.columnDef.readOnly}
               value={value}
               label='Age'
@@ -188,9 +240,40 @@ export default function RolesTable() {
     []
   );
 
+  const { t } = useTranslation();
+
+  if (!dataArrived) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: 2,
+        }}
+      >
+        <LoaderPrimary />
+      </Box>
+    );
+  }
+
   return (
     <LoadingModalWrapper open={open}>
+      <NewRoleFormModal
+        open={openForm}
+        handleClose={handleCloseForm}
+        closeable={closeable}
+        setCloseable={setCloseable}
+      />
       <MaterialReactTable
+        key={dataArrived}
+        renderTopToolbarCustomActions={({ table }) => {
+          return (
+            <Button variant='contained' onClick={() => handleOpenForm()}>
+              {t('roles_table_add_roles')}
+            </Button>
+          );
+        }}
         autoResetPageIndex={false} // must keep an eye on this
         initialState={{ pagination: { pageSize: 7 } }}
         muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
