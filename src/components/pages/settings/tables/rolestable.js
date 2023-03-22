@@ -83,7 +83,7 @@ export default function RolesTable() {
           }
         })
         .catch((error) => {
-          if (error?.response?.data?.errors?.[0] === 'Records not found') {
+          if (error?.response?.status === 404) {
             setIncomingData({});
           }
           if (error?.response?.status === 403) handle403();

@@ -31,13 +31,26 @@ export default function NewRoleFormModal({
 }) {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
+  const [selectInitialized, setSelectInitialized] = useState(false);
+  const [permissions, setPermissions] = useState([
+    'Permission 1',
+    'Permission 2',
+    'Permission 3',
+  ]); // Must be null while waiting for the backend, because of the Boostrap Form Checkbox List component loader
+
+  const positionapprovation_options = [1, 2, 3, 4, 5];
 
   const defaultValues = {};
+
+  useEffect(() => {
+    console.log('fD', formData);
+  }, [formData]);
 
   const validators = {
     name: Joi.string(),
     positionapprovation: Joi.number().min(1).max(5),
-    caneditforms: Joi.any(),
+    //caneditforms: Joi.any(),
+    permissions: Joi.any(),
   };
 
   return (
@@ -64,14 +77,58 @@ export default function NewRoleFormModal({
             setCloseable(true);
           }}
         >
-          <BootstrapForm.Control label={t('name')} field='name'>
+          <BootstrapForm.Control
+            label={t('addroleform_label_name')}
+            field='name'
+          >
             <BootstrapForm.Label />
             <BootstrapForm.Input
               JOIValidator={validators.name}
               tooltip={{
-                tip: t('adduserform_tooltip_tip_name'),
-                example: t('adduserform_tooltip_example_name'),
+                tip: t('addroleform_tooltip_tip_rolename'),
+                example: t('addroleform_tooltip_example_rolename'),
               }}
+            />
+            <BootstrapForm.HelperText />
+          </BootstrapForm.Control>
+
+          <BootstrapForm.Control
+            label={t('addroleform_label_positionapprovation')}
+            field='positionapprovation'
+          >
+            <BootstrapForm.Label />
+
+            <BootstrapForm.Select
+              JOIValidator={validators.positionapprovation}
+              tooltip={{
+                tip: t('addroleform_tooltip_tip_positionapprovation'),
+                example: t('addroleform_tooltip_example_positionapprovation'),
+              }}
+              //nestedProperty={'name.common'}
+              options={positionapprovation_options}
+              initialized={selectInitialized}
+              //orderData
+            />
+            <BootstrapForm.HelperText />
+          </BootstrapForm.Control>
+
+          <BootstrapForm.Control
+            //label={t('addroleform_label_permissions')}
+            field='permissions'
+          >
+            <BootstrapForm.Label />
+
+            <BootstrapForm.CheckboxList
+              title='addroleform_label_permissions'
+              JOIValidator={validators.permissions}
+              tooltip={{
+                tip: t('addroleform_tooltip_tip_permissions'),
+                example: t('addroleform_tooltip_example_permissions'),
+              }}
+              //nestedProperty={'name.common'}
+              options={permissions}
+              initialized={selectInitialized}
+              //orderData
             />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>

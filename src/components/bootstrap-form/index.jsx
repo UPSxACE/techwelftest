@@ -9,6 +9,7 @@ import { Box, FormGroup, InputLabel, Typography } from '@mui/material';
 import TwoHalfs from './two-halfs';
 import BootstrapFillInput from './bootstrap-fill-input';
 import Select from './select';
+import CheckboxList from './checkbox-list';
 
 const Header = ({ children }) => <>{children}</>;
 const Footer = ({ children }) => <>{children}</>;
@@ -69,6 +70,7 @@ const BootstrapForm = {
   TwoHalfs,
   BootstrapFillInput,
   Select,
+  CheckboxList,
 };
 
 export default BootstrapForm;

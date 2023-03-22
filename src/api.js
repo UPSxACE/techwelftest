@@ -33,7 +33,10 @@ const api = {
   getRolesData: (CancelToken) =>
     instance
       .get('/admin_client/ClientsRolesUserAPI/findAll', CancelToken)
-      .then((response) => response),
+      .then((response) => {
+        console.log(response);
+        return response;
+      }),
   updateRole: (newRoleData) =>
     instance
       .post('/admin_client/ClientsRolesUserAPI/update', newRoleData)
@@ -51,7 +54,10 @@ const api = {
   getUsers: (CancelToken) =>
     instance
       .get('/admin_client/ClientsUserAPI/findAll', CancelToken)
-      .then((response) => response),
+      .then((response) => {
+        console.log(response);
+        return response;
+      }),
 };
 
 export default api;

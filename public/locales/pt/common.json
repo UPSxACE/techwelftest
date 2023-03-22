@@ -140,5 +140,14 @@
   "advancedsettings_tooltip_example_newip_whitelist": "----",
   "NETWORK_ERROR_DESCRIPTION": "Ocorreu um erro de rede. Entre em contato conosco para obter suporte se o erro persistir.",
   "UNHANDLED_ERROR_DESCRIPTION": "Ocorreu um erro inesperado. Entre em contato conosco para obter suporte se o erro persistir.",
-  "login_wrongcredentials_error": "Nome de utilizador/palavra-passe inválido. Por favor, tente outra vez."
+  "login_wrongcredentials_error": "Nome de utilizador/palavra-passe inválido. Por favor, tente outra vez.",
+  "addroleform_label_name": "Role Name",
+  "addroleform_tooltip_tip_name": "----",
+  "addroleform_tooltip_example_name": "----",
+  "addroleform_label_permissions": "Permissions",
+  "addroleform_tooltip_tip_permissions": "----",
+  "addroleform_tooltip_example_permissions": "----",
+  "addroleform_label_positionapprovation": "Position of Approvation",
+  "addroleform_tooltip_tip_positionapprovation": "----",
+  "addroleform_tooltip_example_positionapprovation": "----"
 }

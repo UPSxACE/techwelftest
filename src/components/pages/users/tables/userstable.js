@@ -92,7 +92,8 @@ export default function UsersTable() {
           }
         })
         .catch((error) => {
-          if (error?.response?.data?.errors?.[0] === 'Records not found') {
+          // Debug: console.log('CATCH', error?.response?.data?.errors?.[0]);
+          if (error?.response?.status === 404) {
             setData({});
           }
           if (error?.response?.status === 403) handle403();
