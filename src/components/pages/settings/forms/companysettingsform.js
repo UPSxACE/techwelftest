@@ -35,7 +35,7 @@ export default function CompanySettingsForm() {
           }
         })
         .catch((error) => {
-          handle403(error, true);
+          handle403(error);
         });
     };
 
