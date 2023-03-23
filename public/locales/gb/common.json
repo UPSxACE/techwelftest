@@ -141,5 +141,6 @@
   "advancedsettings_tooltip_example_newip_whitelist": "----",
   "NETWORK_ERROR_DESCRIPTION": "A network error has occurred. Please reach us for support if the error persists.",
   "UNHANDLED_ERROR_DESCRIPTION": "An unexpected error has occurred. Please reach us for support if the error persists.",
-  "login_wrongcredentials_error": "Invalid username/password. Please try again."
+  "e_client_usernameorpassword": "Invalid username/password. Please try again.",
+  "e_clientsroles_alreadyexist": "A role with that name already exists."
 }

@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import NewRoleFormModal from '../forms/newroleformmodal';
 import useHandle403 from '@/utils/handle-403';
@@ -29,44 +29,11 @@ export default function RolesTable() {
   const handleOpenForm = () => setOpenForm(true);
   const handleCloseForm = () => setOpenForm(false);
 
-  const [incomingData, setIncomingData] = useState(false); // false means the data needed didn't arrive yet
   const [dataArrived, setDataArrived] = useState(false);
+  const [data, setData] = useState(false); // false means the data needed didn't arrive yet
+  const [dataChanges, setDataChanges] = useState(false);
 
   const handle403 = useHandle403();
-
-  /*
-  const incomingData = [
-    { id: 1, caneditforms: false, name: 'Operator', positionapprovation: 1 },
-    { id: 2, caneditforms: false, name: 'Worker', positionapprovation: 2 },
-    {
-      id: 3,
-      caneditforms: true,
-      name: 'Operator',
-      positionapprovation: 2,
-    },
-    { id: 4, caneditforms: true, name: 'Worker', positionapprovation: 1 },
-    {
-      id: 5,
-      caneditforms: true,
-      name: 'Worker',
-      positionapprovation: 5,
-    },
-    { id: 6, caneditforms: false, name: 'Operator', positionapprovation: 3 },
-    { id: 7, caneditforms: true, name: 'Worker', positionapprovation: 4 },
-    {
-      id: 8,
-      caneditforms: true,
-      name: 'Operator',
-      positionapprovation: 5,
-    },
-    { id: 9, caneditforms: false, name: 'Worker', positionapprovation: 1 },
-    {
-      id: 10,
-      caneditforms: true,
-      name: 'Worker',
-      positionapprovation: 2,
-    },
-  ];*/
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -79,14 +46,17 @@ export default function RolesTable() {
         .then((response) => {
           const data = response?.data;
           if (data) {
-            setIncomingData(data);
+            setData(data);
+            setDataChanges(data);
           }
         })
         .catch((error) => {
+          handle403(error);
+
           if (error?.response?.status === 404) {
-            setIncomingData({});
+            setData({});
+            setDataChanges({});
           }
-          if (error?.response?.status === 403) handle403();
         });
     };
 
@@ -98,24 +68,23 @@ export default function RolesTable() {
   }, []);
 
   useEffect(() => {
-    if (incomingData !== false) {
+    if (data !== false) {
       setDataArrived(true);
     }
-  }, [incomingData]);
-
-  const [data, setData] = useState(incomingData);
-
-  const [dataChanges, setDataChanges] = useState(incomingData);
+  }, [data]);
 
   const tableRef = useRef(null);
 
-  function handleNewCellEdit(cell, value) {
-    //cell.column.id = the name of the field that is being edited
+  const handleNewCellEdit = useCallback(
+    (cell, value) => {
+      //cell.column.id = the name of the field that is being edited
 
-    const updateDataChanges = [...dataChanges];
-    updateDataChanges[cell.row.index][cell.column.id] = value;
-    setDataChanges([...updateDataChanges]);
-  }
+      const updateDataChanges = [...dataChanges];
+      updateDataChanges[cell.row.index][cell.column.id] = value;
+      setDataChanges([...updateDataChanges]);
+    },
+    [dataChanges]
+  );
 
   function saveEdits(row_index, exitEditMode) {
     // set WAIT modal
@@ -128,17 +97,24 @@ export default function RolesTable() {
     // send request
 
     const sendRequest = async () => {
-      await api.updateRole(
-        {
-          id: data[row_index].id,
-          name: data[row_index].name,
-          positionapprovation: data[row_index].positionapprovation,
-          caneditforms: data[row_index].caneditforms,
-        },
-        {
-          //headers: { 'Content-Type': 'multipart/form-data' },
-        }
-      );
+      await api
+        .updateRole(
+          {
+            id: data[row_index].id,
+            name: data[row_index].name,
+            positionapprovation: data[row_index].positionapprovation,
+            caneditforms: data[row_index].caneditforms,
+          },
+          {
+            //headers: { 'Content-Type': 'multipart/form-data' },
+          }
+        )
+        .then((response) => {
+          // setAlert
+        })
+        .catch((err) => {
+          handle403(err, true);
+        });
     };
 
     sendRequest()
@@ -147,7 +123,7 @@ export default function RolesTable() {
         exitEditMode();
       })
       .catch((err) => {
-        if (err?.response?.status === 403) handle403();
+        handle403(err, true);
       })
       .finally(() => {
         // set WAIT modal false
@@ -237,7 +213,7 @@ export default function RolesTable() {
       /*valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,*/
     ],
-    []
+    [handleNewCellEdit]
   );
 
   const { t } = useTranslation();
@@ -264,6 +240,8 @@ export default function RolesTable() {
         handleClose={handleCloseForm}
         closeable={closeable}
         setCloseable={setCloseable}
+        dataState={{ data, setData }}
+        dataChangesState={{ dataChanges, setDataChanges }}
       />
       <MaterialReactTable
         key={dataArrived}

@@ -188,7 +188,7 @@ function Register() {
                 console.log('RES', response);
               })
               .catch((err) => {
-                if (err?.response?.status === 403) handle403();
+                handle403(err, true);
               });
 
             //router.push('/');

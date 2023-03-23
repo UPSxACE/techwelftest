@@ -1,10 +1,12 @@
-import { Box, Button, Modal } from '@mui/material';
+import { Alert, Box, Button, Modal } from '@mui/material';
 import LoaderPrimary from '@/components/loader-primary';
 import BootstrapForm from '@/components/bootstrap-form';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import Joi from 'joi';
 import axios from 'axios';
+import api from '@/api';
+import useHandle403 from '@/utils/handle-403';
 
 const modalStyle = {
   position: 'absolute',
@@ -28,15 +30,20 @@ export default function NewRoleFormModal({
   handleClose = () => {},
   closeable,
   setCloseable,
+  dataState,
+  dataChangesState,
 }) {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
-  const [selectInitialized, setSelectInitialized] = useState(false);
-  const [permissions, setPermissions] = useState([
-    'Permission 1',
-    'Permission 2',
-    'Permission 3',
-  ]); // Must be null while waiting for the backend, because of the Boostrap Form Checkbox List component loader
+  const [selectInitialized, setSelectInitialized] = useState(true); // Set false in case it needs to come from database, and then update it with true as data is ready
+  const [permissions, setPermissions] = useState(['permission_caneditforms']); // Must be null while waiting for the backend, because of the Boostrap Form Checkbox List component loader
+
+  const [alert, setAlert] = useState(null);
+
+  const { data, setData } = dataState;
+  const { dataChanges, setDataChanges } = dataChangesState;
+
+  const handle403 = useHandle403();
 
   const positionapprovation_options = [1, 2, 3, 4, 5];
 
@@ -62,7 +69,7 @@ export default function NewRoleFormModal({
     >
       <Box sx={modalStyle}>
         <BootstrapForm.Form
-          autoFinalize
+          // autoFinalize
           defaultValues={defaultValues}
           formDataState={{ formData, setFormData }}
           fullWidth
@@ -77,9 +84,17 @@ export default function NewRoleFormModal({
             setCloseable(true);
           }}
         >
+          <BootstrapForm.Header>
+            {alert && (
+              <Alert severity='error' sx={{ marginBottom: 2 }}>
+                {alert}
+              </Alert>
+            )}
+          </BootstrapForm.Header>
           <BootstrapForm.Control
             label={t('addroleform_label_name')}
             field='name'
+            required
           >
             <BootstrapForm.Label />
             <BootstrapForm.Input
@@ -95,6 +110,7 @@ export default function NewRoleFormModal({
           <BootstrapForm.Control
             label={t('addroleform_label_positionapprovation')}
             field='positionapprovation'
+            required
           >
             <BootstrapForm.Label />
 
@@ -136,20 +152,63 @@ export default function NewRoleFormModal({
           <BootstrapForm.Submit
             title={t('settings_accordionform_save')}
             validators={validators}
-            onSubmit={async (formData) => {
+            onSubmit={async () => {
               setCloseable(false);
 
-              // Test endpoint
-              await axios.post(
-                'http://localhost:9000/test/formdata',
-                formData,
-                {
-                  headers: { 'Content-Type': 'multipart/form-data' },
-                }
-              );
+              const submitData = {
+                name: formData.name.value,
+                positionapprovation: formData.positionapprovation.value,
+              };
+
+              Object.keys(formData.permissions.value).forEach((permission) => {
+                submitData[permission.replace('permission_', '')] = Boolean(
+                  submitData[permission]
+                );
+              });
+
+              await api
+                .createRole({
+                  ...submitData,
+                })
+                .then((response) => {
+                  const response_data = response?.data;
+                  if (response_data) {
+                    setData((data) => {
+                      const newData = [...data, response_data];
+                      setDataChanges(newData);
+                      return newData;
+                    });
+                  }
+                })
+                .catch((err) => {
+                  handle403(err, true);
+                });
+
+              //router.push('/');
             }}
             onSuccess={() => {
+              // set alert if needed
               setCloseable(true);
+              handleClose();
+            }}
+            onError={(err, setStatus) => {
+              console.log(err);
+              if (err?.response?.status) {
+                const error_code = err?.response?.status;
+                const error_data = err?.response?.data;
+
+                // HANDLE ERROR CODES HERE
+                if (error_code === 400) {
+                  const error_description = error_data?.errors?.[0];
+                  if (error_description) {
+                    setAlert(t(error_description));
+                    return;
+                  }
+                }
+              }
+
+              // If an error was unhandled
+              setStatus(false);
             }}
           />
         </BootstrapForm.Form>

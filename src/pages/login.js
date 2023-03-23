@@ -102,7 +102,7 @@ function Login() {
                 //setAuth({ ...auth, authenticated: true });
               })
               .catch((err) => {
-                if (err?.response?.status === 403) handle403();
+                handle403(err, true);
               });
 
             //router.push('/');
@@ -121,8 +121,8 @@ function Login() {
               // HANDLE ERROR CODES HERE
               if (error_code === 400) {
                 const error_description = error_data?.errors?.[0];
-                if (error_description === 'usernameOrPassword') {
-                  setAlert(t('login_wrongcredentials_error'));
+                if (error_description) {
+                  setAlert(t(error_description));
                   return;
                 }
               }

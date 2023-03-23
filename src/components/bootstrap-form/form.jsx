@@ -137,12 +137,26 @@ const Form = ({
     if (renderLoading) {
       return <>{renderLoading}</>;
     }
-    return <StyledForm>LOADING...</StyledForm>;
+    return (
+      <StyledForm
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
+        LOADING...
+      </StyledForm>
+    );
   }
 
   if (initialized && formStatus === null) {
     return (
-      <StyledForm fullWidth={fullWidth} style={style}>
+      <StyledForm
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+        fullWidth={fullWidth}
+        style={style}
+      >
         {Children.map(children, (child) => {
           if (isValidElement(child)) {
             return cloneElement(child, {
@@ -160,7 +174,14 @@ const Form = ({
 
   if (initialized && formStatus === true) {
     return (
-      <StyledForm className='success' fullWidth={fullWidth} style={style}>
+      <StyledForm
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+        className='success'
+        fullWidth={fullWidth}
+        style={style}
+      >
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'
@@ -187,7 +208,14 @@ const Form = ({
   if (initialized) {
     // Error submitting form
     return (
-      <StyledForm className='error' fullWidth={fullWidth} style={style}>
+      <StyledForm
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+        className='error'
+        fullWidth={fullWidth}
+        style={style}
+      >
         <Typography
           sx={{ textAlign: 'center', mb: 2 }}
           variant='h4'

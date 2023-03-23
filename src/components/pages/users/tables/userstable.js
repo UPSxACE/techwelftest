@@ -92,11 +92,11 @@ export default function UsersTable() {
           }
         })
         .catch((error) => {
-          // Debug: console.log('CATCH', error?.response?.data?.errors?.[0]);
+          handle403(error);
+
           if (error?.response?.status === 404) {
             setData({});
           }
-          if (error?.response?.status === 403) handle403();
         });
     };
 

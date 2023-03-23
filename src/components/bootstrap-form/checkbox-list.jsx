@@ -37,10 +37,6 @@ const CheckboxList = ({
   const [checkboxValues, setCheckboxValues] = useState({});
   const [selectAll, setSelectAll] = useState(false);
 
-  useEffect(() => {
-    console.log(checkboxValues);
-  }, [checkboxValues]);
-
   const getOptions = useMemo(() => {
     let options_array = options;
     if (nestedProperty) {
@@ -175,6 +171,13 @@ const CheckboxList = ({
                     const newFormData = { ...formData };
                     if (newValue) {
                       getOptions.forEach((option) => {
+                        if (
+                          Object.prototype.toString.call(
+                            newFormData[field].value !== '[object Object]'
+                          )
+                        ) {
+                          newFormData[field].value = {};
+                        }
                         newFormData[field].value[option] = true;
                       });
 
@@ -250,7 +253,7 @@ const CheckboxList = ({
                           cursor: 'default!important',
                         },
                       }}
-                      primary={permission}
+                      primary={t(permission)}
                     />
                     <ListItemIcon>
                       <Checkbox

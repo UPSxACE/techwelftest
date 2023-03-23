@@ -34,9 +34,14 @@ const api = {
     instance
       .get('/admin_client/ClientsRolesUserAPI/findAll', CancelToken)
       .then((response) => {
-        console.log(response);
         return response;
       }),
+  createRole: (roleData) => {
+    // Debug: console.log('UD', userData);
+    return instance
+      .post('/admin_client/ClientsRolesUserAPI/create', roleData)
+      .then((response) => response);
+  },
   updateRole: (newRoleData) =>
     instance
       .post('/admin_client/ClientsRolesUserAPI/update', newRoleData)

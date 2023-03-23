@@ -35,8 +35,7 @@ export default function CompanySettingsForm() {
           }
         })
         .catch((error) => {
-          if (error?.response?.status === 403) handle403();
-          //console.log(error);
+          handle403(error, true);
         });
     };
 
@@ -239,8 +238,7 @@ export default function CompanySettingsForm() {
               setAlert(t('company_settings_updated'));
             })
             .catch((err) => {
-              console.log(err);
-              if (err?.response?.status === 403) handle403();
+              handle403(err, true);
             });
         }}
         onError={(err) => {
