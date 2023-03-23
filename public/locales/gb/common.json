@@ -142,5 +142,7 @@
   "NETWORK_ERROR_DESCRIPTION": "A network error has occurred. Please reach us for support if the error persists.",
   "UNHANDLED_ERROR_DESCRIPTION": "An unexpected error has occurred. Please reach us for support if the error persists.",
   "e_client_usernameorpassword": "Invalid username/password. Please try again.",
-  "e_clientsroles_alreadyexist": "A role with that name already exists."
+  "e_clientsroles_alreadyexist": "A role with that name already exists.",
+  "autocomplete_no_options": "No options found.",
+  "addroleform_no_autocomplete_option": "A new role will be created."
 }

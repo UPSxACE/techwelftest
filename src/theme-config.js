@@ -46,6 +46,15 @@ const themeConfig = {
         },
       },
     },
+    MuiAutocomplete: {
+      styleOverrides: {
+        popper: {
+          '& .MuiAutocomplete-option': {
+            color: 'black',
+          },
+        },
+      },
+    },
   },
   palette: {
     primary: {

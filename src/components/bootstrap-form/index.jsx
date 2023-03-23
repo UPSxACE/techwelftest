@@ -10,6 +10,7 @@ import TwoHalfs from './two-halfs';
 import BootstrapFillInput from './bootstrap-fill-input';
 import Select from './select';
 import CheckboxList from './checkbox-list';
+import Autocomplete from './autocomplete';
 
 const Header = ({ children }) => <>{children}</>;
 const Footer = ({ children }) => <>{children}</>;
@@ -71,6 +72,7 @@ const BootstrapForm = {
   BootstrapFillInput,
   Select,
   CheckboxList,
+  Autocomplete,
 };
 
 export default BootstrapForm;

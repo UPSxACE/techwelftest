@@ -151,5 +151,7 @@
   "addroleform_tooltip_tip_positionapprovation": "----",
   "addroleform_tooltip_example_positionapprovation": "----",
   "permission_caneditforms": "Can edit forms",
-  "e_clientsroles_alreadyexist": "Um grupo com este nome já existe."
+  "e_clientsroles_alreadyexist": "Um grupo com este nome já existe.",
+  "autocomplete_no_options": "Não foi encontrada nenhuma opção.",
+  "addroleform_no_autocomplete_option": "Irá ser criado novo grupo."
 }

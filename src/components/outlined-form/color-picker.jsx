@@ -44,7 +44,7 @@ const ColorPicker = ({
                   <>
                     <br />
                     <br />
-                    {t('formExample') + t(tooltip.example)}
+                    {t('formExample') + ' ' + t(tooltip.example)}
                   </>
                 )}
               </p>

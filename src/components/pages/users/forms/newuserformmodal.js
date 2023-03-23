@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import Joi from 'joi';
 import axios from 'axios';
+import api from '@/api';
+import useHandle403 from '@/utils/handle-403';
 
 const modalStyle = {
   position: 'absolute',
@@ -30,6 +32,40 @@ export default function NewUserFormModal({
   setCloseable,
 }) {
   const [formData, setFormData] = useState({});
+  const [roleOptions, setRoleOptions] = useState([]);
+
+  const handle403 = useHandle403();
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const sendRequest = async () => {
+      await api
+        .getRolesData({
+          cancelToken: source.token,
+        })
+        .then((response) => {
+          const data = response?.data;
+          if (data) {
+            setRoleOptions(data);
+          }
+        })
+        .catch((error) => {
+          handle403(error);
+
+          if (error?.response?.status === 404) {
+            // No roles yet
+          }
+        });
+    };
+
+    sendRequest();
+
+    return () => {
+      source.cancel('Component Unmounted', { silent: 'true' }); // Component Unmounted
+    };
+  }, []);
+
   const { t } = useTranslation();
 
   const defaultValues = {};
@@ -66,7 +102,7 @@ export default function NewUserFormModal({
             setCloseable(true);
           }}
         >
-          <BootstrapForm.Control label={t('name')} field='name'>
+          <BootstrapForm.Control label={t('name')} field='name' required>
             <BootstrapForm.Label />
             <BootstrapForm.Input
               JOIValidator={validators.name}
@@ -126,14 +162,22 @@ export default function NewUserFormModal({
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
 
-          <BootstrapForm.Control label={t('role')} field='role' required>
+          <BootstrapForm.Control
+            label={t('addroleform_label_name')}
+            field='role'
+            required
+          >
             <BootstrapForm.Label />
-            <BootstrapForm.Input
+            <BootstrapForm.Autocomplete
+              nestedProperty={'name'}
+              options={roleOptions}
+              noOptionsText={'addroleform_no_autocomplete_option'}
               JOIValidator={validators.role}
               tooltip={{
                 tip: t('adduserform_tooltip_tip_role'),
                 example: t('adduserform_tooltip_example_role'),
               }}
+              orderData
             />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
