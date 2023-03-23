@@ -27,6 +27,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   ]),
 
   '& .MuiInputBase-root': {
+    height: 45,
     '&.Mui-focused': {
       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
     },

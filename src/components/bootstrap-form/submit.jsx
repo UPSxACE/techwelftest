@@ -127,6 +127,7 @@ const Submit = ({
                 //setFormData({}); this is probably not good
               })
               .catch((error) => {
+                console.log('400000003', error);
                 // Debug: console.log(error);
                 if (onError) onError(error, setFormStatus);
                 if (autoFinalize) setFormStatus(error);

@@ -9,6 +9,7 @@ export default function useHandle403() {
     if (err?.response?.status === 403) {
       removeAccessToken();
       router.push('/login');
+      if (throwBool && !isCancel(err)) throw err; // experimental/dangerous change
     } else {
       if (throwBool && !isCancel(err)) throw err;
     }

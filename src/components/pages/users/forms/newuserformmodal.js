@@ -184,20 +184,36 @@ export default function NewUserFormModal({
           <BootstrapForm.Submit
             title={t('settings_accordionform_save')}
             validators={validators}
-            onSubmit={async (formData) => {
+            onSubmit={async () => {
               setCloseable(false);
 
-              // Test endpoint
-              await axios.post(
-                'http://localhost:9000/test/formdata',
-                formData,
-                {
-                  headers: { 'Content-Type': 'multipart/form-data' },
-                }
-              );
+              await api
+                .createUser({
+                  username: formData.name.value,
+                  password: formData.password.value,
+                  email: formData.email.value,
+                })
+                .then((response) => {
+                  const response_data = response?.data;
+                  if (response_data) {
+                    console.log('WRK', response_data);
+                    /*
+                    setData((data) => {
+                      const newData = [...data, response_data];
+                      setDataChanges(newData);
+                      return newData;
+                    });*/
+                  }
+                })
+                .catch((err) => {
+                  handle403(err, true);
+                });
             }}
             onSuccess={() => {
               setCloseable(true);
+            }}
+            onError={(err) => {
+              console.log(err);
             }}
           />
         </BootstrapForm.Form>

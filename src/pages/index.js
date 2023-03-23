@@ -395,6 +395,7 @@ export default function Home() {
               variant='h5'
               component='p'
               textAlign={'center'}
+              sx={{ fontSize: '1.4rem' }}
             >
               {t('wgyb2')}
             </Typography>

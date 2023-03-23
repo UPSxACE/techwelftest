@@ -56,6 +56,12 @@ const api = {
       .post('/ClientsAPIPublic/create', userData)
       .then((response) => response);
   },
+  createUser: (userData) => {
+    // Debug: console.log('UD', userData);
+    return instance
+      .post('/admin_client/ClientsUserAPI/create', userData)
+      .then((response) => response);
+  },
   getUsers: (CancelToken) =>
     instance
       .get('/admin_client/ClientsUserAPI/findAll', CancelToken)
