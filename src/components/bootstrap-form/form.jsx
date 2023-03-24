@@ -54,6 +54,7 @@ const Form = ({
   children,
   renderLoading,
   onErrorConfirm = false,
+  resetOnSuccess,
 }) => {
   const { formData, setFormData } = formDataState;
   const [initialized, setInitialized] = useState(false);
@@ -160,10 +161,12 @@ const Form = ({
         {Children.map(children, (child) => {
           if (isValidElement(child)) {
             return cloneElement(child, {
+              // Pass down props
               formDataState,
               formStatusState: { formStatus, setFormStatus },
               formLoadingState: { formLoading, setFormLoading },
               autoFinalize,
+              resetOnSuccess,
             });
           }
           return child;

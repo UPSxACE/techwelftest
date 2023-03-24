@@ -98,6 +98,10 @@ export default function NewIpFormModal({
               setCloseable(true);
               handleClose();
             }}
+            onError={() => {
+              // errors yet to be handled
+              setCloseable(true);
+            }}
           />
         </BootstrapForm.Form>
       </Box>

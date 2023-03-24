@@ -32,14 +32,14 @@ const api = {
   },
   getRolesData: (CancelToken) =>
     instance
-      .get('/admin_client/ClientsRolesUserAPI/findAll', CancelToken)
+      .get('/admin_client/ClientsRoleAPI/findAll', CancelToken)
       .then((response) => {
         return response;
       }),
   createRole: (roleData) => {
     // Debug: console.log('UD', userData);
     return instance
-      .post('/admin_client/ClientsRolesUserAPI/create', roleData)
+      .post('/admin_client/ClientsRoleAPI/create', roleData)
       .then((response) => response);
   },
   updateRole: (newRoleData) =>

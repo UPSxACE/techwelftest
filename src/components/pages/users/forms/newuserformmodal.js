@@ -213,7 +213,9 @@ export default function NewUserFormModal({
               setCloseable(true);
             }}
             onError={(err) => {
+              // errors yet to be handled
               console.log(err);
+              setCloseable(true);
             }}
           />
         </BootstrapForm.Form>

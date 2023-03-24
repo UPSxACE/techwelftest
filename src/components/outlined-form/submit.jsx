@@ -12,6 +12,7 @@ const Submit = ({
   onSuccess,
   onError,
   autoFinalize,
+  resetOnSuccess,
 }) => {
   const { formData, setFormData } = formDataState;
   const { formStatus, setFormStatus } = formStatusState;
@@ -89,6 +90,19 @@ const Submit = ({
     return valid;
   }
 
+  function resetFormData() {
+    const newFormData = { ...formData };
+    Object.keys(newFormData).map((field) => {
+      if (field[0] !== '_') {
+        if (newFormData[field]?.['value']) {
+          newFormData[field].value = null;
+        }
+      }
+    });
+
+    setFormData(newFormData);
+  }
+
   return (
     <Button
       disabled={!validate()}
@@ -107,6 +121,7 @@ const Submit = ({
             .then((result) => {
               if (onSuccess) onSuccess(result, setFormStatus);
               if (autoFinalize) setFormStatus(true);
+              if (resetOnSuccess) resetFormData();
               setFormLoading(false);
             })
             .catch((error) => {

@@ -49,10 +49,6 @@ export default function NewRoleFormModal({
 
   const defaultValues = {};
 
-  useEffect(() => {
-    console.log('fD', formData);
-  }, [formData]);
-
   const validators = {
     name: Joi.string(),
     positionapprovation: Joi.number().min(1).max(5),
@@ -83,6 +79,7 @@ export default function NewRoleFormModal({
           onErrorConfirm={() => {
             setCloseable(true);
           }}
+          resetOnSuccess
         >
           <BootstrapForm.Header>
             {alert && (
@@ -160,11 +157,15 @@ export default function NewRoleFormModal({
                 positionapprovation: formData.positionapprovation.value,
               };
 
-              Object.keys(formData.permissions.value).forEach((permission) => {
-                submitData[permission.replace('permission_', '')] = Boolean(
-                  submitData[permission]
+              if (formData.permissions?.value) {
+                Object.keys(formData.permissions.value).forEach(
+                  (permission) => {
+                    submitData[permission.replace('permission_', '')] = Boolean(
+                      submitData[permission]
+                    );
+                  }
                 );
-              });
+              }
 
               await api
                 .createRole({
@@ -202,6 +203,7 @@ export default function NewRoleFormModal({
                   const error_description = error_data?.errors?.[0];
                   if (error_description) {
                     setAlert(t(error_description));
+                    setCloseable(true);
                     return;
                   }
                 }
@@ -209,6 +211,7 @@ export default function NewRoleFormModal({
 
               // If an error was unhandled
               setStatus(false);
+              setCloseable(true);
             }}
           />
         </BootstrapForm.Form>
