@@ -44,7 +44,7 @@ const api = {
   },
   updateRole: (newRoleData) =>
     instance
-      .post('/admin_client/ClientsRolesUserAPI/update', newRoleData)
+      .post('/admin_client/ClientsRoleAPI/update', newRoleData)
       .then((response) => {
         // DEBUG: console.log('RESPONSE DATA');
         // DEBUG: console.log(response.data);

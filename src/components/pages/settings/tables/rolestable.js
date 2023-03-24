@@ -123,7 +123,7 @@ export default function RolesTable() {
         exitEditMode();
       })
       .catch((err) => {
-        handle403(err, true);
+        handle403(err);
       })
       .finally(() => {
         // set WAIT modal false
