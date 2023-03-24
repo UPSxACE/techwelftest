@@ -30,9 +30,14 @@ export default function NewUserFormModal({
   handleClose = () => {},
   closeable,
   setCloseable,
+  dataState,
+  dataChangesState,
 }) {
   const [formData, setFormData] = useState({});
   const [roleOptions, setRoleOptions] = useState([]);
+
+  const { data, setData } = dataState;
+  const { dataChanges, setDataChanges } = dataChangesState;
 
   const handle403 = useHandle403();
 
@@ -47,7 +52,6 @@ export default function NewUserFormModal({
         .then((response) => {
           const data = response?.data;
           if (data) {
-            // Testing: setRoleOptions([{ name: 'aaaa' }, { name: 'bbbb' }]);
             setRoleOptions(data);
           }
         })
@@ -72,7 +76,7 @@ export default function NewUserFormModal({
   const defaultValues = {};
 
   const validators = {
-    name: Joi.string(),
+    username: Joi.string(),
     email: Joi.string().email({ tlds: { allow: false } }),
     password: Joi.string().min(9),
     passwordConfirm: Joi.string(),
@@ -88,6 +92,7 @@ export default function NewUserFormModal({
     >
       <Box sx={modalStyle}>
         <BootstrapForm.Form
+          resetOnSuccess
           autoFinalize
           defaultValues={defaultValues}
           formDataState={{ formData, setFormData }}
@@ -103,13 +108,17 @@ export default function NewUserFormModal({
             setCloseable(true);
           }}
         >
-          <BootstrapForm.Control label={t('name')} field='name' required>
+          <BootstrapForm.Control
+            label={t('Username')}
+            field='username'
+            required
+          >
             <BootstrapForm.Label />
             <BootstrapForm.Input
-              JOIValidator={validators.name}
+              JOIValidator={validators.username}
               tooltip={{
-                tip: t('adduserform_tooltip_tip_name'),
-                example: t('adduserform_tooltip_example_name'),
+                tip: t('adduserform_tooltip_tip_username'),
+                example: t('adduserform_tooltip_example_username'),
               }}
             />
             <BootstrapForm.HelperText />
@@ -165,13 +174,13 @@ export default function NewUserFormModal({
 
           {/* 
           <BootstrapForm.Control
-            label={t('addroleform_label_name')}
+            label={t('addroleform_label_username')}
             field='role'
             required
           >
             <BootstrapForm.Label />
             <BootstrapForm.Autocomplete
-              nestedProperty={'name'}
+              nestedProperty={'username'}
               options={roleOptions}
               noOptionsText={'addroleform_no_autocomplete_option'}
               JOIValidator={validators.role}
@@ -192,20 +201,18 @@ export default function NewUserFormModal({
 
               await api
                 .createUser({
-                  username: formData.name.value,
+                  username: formData.username.value,
                   password: formData.password.value,
                   email: formData.email.value,
                 })
                 .then((response) => {
                   const response_data = response?.data;
                   if (response_data) {
-                    console.log('WRK', response_data);
-                    /*
                     setData((data) => {
                       const newData = [...data, response_data];
                       setDataChanges(newData);
                       return newData;
-                    });*/
+                    });
                   }
                 })
                 .catch((err) => {
