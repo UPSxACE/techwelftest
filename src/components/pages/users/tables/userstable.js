@@ -1,27 +1,15 @@
 import LoadingModalWrapper from '@/components/loading-modal-wrapper';
-import {
-  Cancel,
-  ControlPoint,
-  Edit,
-  GroupAdd,
-  GroupRemove,
-  PersonAdd,
-  RemoveCircle,
-  RemoveCircleOutline,
-  Save,
-} from '@mui/icons-material';
-import { Box, Button, Icon, IconButton, Modal, SvgIcon } from '@mui/material';
+import { Cancel, Edit, PersonAdd, Save } from '@mui/icons-material';
+import { Box, Button, IconButton } from '@mui/material';
 import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import NewUserFormModal from '../forms/newuserformmodal';
-import MySvg from '@/../public/add-permission.svg';
 import Image from 'next/image';
 import useHandle403 from '@/utils/handle-403';
 import api from '@/api';
 import LoaderPrimary from '@/components/loader-primary';
-import ConfirmModal from '@/components/confirm-modal';
 
 const incomingData = [
   { id: 1, name: 'Snow', email: 'Jon@ad.com', role: 'Operator' },

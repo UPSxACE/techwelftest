@@ -6,8 +6,6 @@ import {
   Button,
   Box,
   Checkbox,
-  Modal,
-  Typography,
   Select,
   MenuItem,
   IconButton,
