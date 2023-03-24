@@ -47,7 +47,8 @@ export default function NewUserFormModal({
         .then((response) => {
           const data = response?.data;
           if (data) {
-            setRoleOptions(data);
+            setRoleOptions([{ name: 'aaaa' }, { name: 'bbbb' }]);
+            //setRoleOptions(data);
           }
         })
         .catch((error) => {

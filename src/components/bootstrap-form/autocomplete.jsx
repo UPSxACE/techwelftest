@@ -141,14 +141,65 @@ const Autocomplete = ({
     return result;
   }, [options, nestedProperty, orderData]);
 
+  function updateData(newValue) {
+    const obj = { ...formData };
+    obj[field] = formData[field];
+    obj[field]['value'] = newValue;
+    if (JOIValidator) {
+      const validateValue = required
+        ? JOIValidator.required().validate(newValue)
+        : JOIValidator.allow('').allow(null).validate(newValue);
+      obj[field]['error'] = validateValue.error
+        ? validateValue.error.details[0]
+        : null;
+      if (obj[field]['error']) {
+        // Try to generate a message of an error that was already predicted
+        const error_message = generateMessage(obj[field]['error']);
+        // If that kind of error was already predicted, exchange the default error message by one that was manually set.
+        if (error_message) {
+          obj[field]['error']['message'] = error_message;
+        }
+      }
+    }
+
+    if (formData[field] && formData[field]['matchesPassword']) {
+      if (
+        !(
+          formData[field]['value'] ===
+          formData[formData[field].matchesPassword]['value']
+        )
+      )
+        obj[field].error = {
+          type: 'does_not_match_password',
+          message: 'does_not_match_password',
+          context: {
+            field1: field,
+            field2: obj[field].matchesPassword,
+          },
+        };
+    }
+
+    if (formData[field] && formData[field]['matches']) {
+    }
+    if (formData[field] && formData[field]['extraValidation']) {
+    }
+
+    obj['_filledFields'][field] = newValue ? true : null;
+    setFormData({ ...obj });
+  }
+
   return (
     <MuiAutocomplete
       noOptionsText={t(noOptionsText)}
-      clearOnBlur={false}
+      freeSolo
       disablePortal
       id={field + '-autocomplete'}
       options={getOptions}
       //sx={{ width: 300 }}
+      onChange={(_, value) => {
+        const newValue = value;
+        updateData(newValue);
+      }}
       renderInput={(params) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <StyledTextField
@@ -168,62 +219,19 @@ const Autocomplete = ({
             //label={required ? label + ' *' : label}
             id={field}
             aria-describedby='my-helper-text'
-            onChange={(event) => {
-              const newValue = event.target.value;
-              const obj = { ...formData };
-              obj[field] = formData[field];
-              obj[field]['value'] = newValue;
-              if (JOIValidator) {
-                const validateValue = required
-                  ? JOIValidator.required().validate(newValue)
-                  : JOIValidator.allow('').allow(null).validate(newValue);
-                obj[field]['error'] = validateValue.error
-                  ? validateValue.error.details[0]
-                  : null;
-                if (obj[field]['error']) {
-                  // Try to generate a message of an error that was already predicted
-                  const error_message = generateMessage(obj[field]['error']);
-                  // If that kind of error was already predicted, exchange the default error message by one that was manually set.
-                  if (error_message) {
-                    obj[field]['error']['message'] = error_message;
-                  }
-                }
-              }
-
-              if (formData[field] && formData[field]['matchesPassword']) {
-                if (
-                  !(
-                    formData[field]['value'] ===
-                    formData[formData[field].matchesPassword]['value']
-                  )
-                )
-                  obj[field].error = {
-                    type: 'does_not_match_password',
-                    message: 'does_not_match_password',
-                    context: {
-                      field1: field,
-                      field2: obj[field].matchesPassword,
-                    },
-                  };
-              }
-
-              if (formData[field] && formData[field]['matches']) {
-              }
-              if (formData[field] && formData[field]['extraValidation']) {
-              }
-
-              obj['_filledFields'][field] = newValue ? true : null;
-              setFormData({ ...obj });
-            }}
             required
             {...inputProps}
-            defaultValue={
+            {...params}
+            onChange={(event) => {
+              const newValue = event.target.value;
+              updateData(newValue);
+            }}
+            value={
               formData[field] && formData[field]['value']
                 ? formData[field]['value']
                 : null
             }
-            {...params}
-          />{' '}
+          />
           <Tooltip
             placement='right'
             title={

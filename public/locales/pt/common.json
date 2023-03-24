@@ -52,7 +52,7 @@
   "CompanyName": "Nome da Empresa",
   "EmailAddress": "Endereço de email",
   "account_already": "Fazer login em vez disso",
-  "err_string_min": "O tamanho mínimo deste campo é de {{tamanho}} caracteres.",
+  "err_string_min": "O tamanho mínimo deste campo é de {{size}} caracteres.",
   "err_number_base": "Este campo deve ser preenchido apenas com números.",
   "does_not_match_password": "As passwords não coincidem.",
   "image_too_big": "A imagem não pode ser maior do que {{limitW}}x{{limitH}} px.",
