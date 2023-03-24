@@ -37,6 +37,7 @@
     "normalize.css": "^8.0.1",
     "react": "18.2.0",
     "react-color": "^2.19.3",
+    "react-csv-reader": "^4.0.0",
     "react-dom": "18.2.0",
     "react-fontawesome": "^1.7.1",
     "react-i18next": "^12.2.0",
