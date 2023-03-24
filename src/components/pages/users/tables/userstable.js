@@ -21,6 +21,7 @@ import Image from 'next/image';
 import useHandle403 from '@/utils/handle-403';
 import api from '@/api';
 import LoaderPrimary from '@/components/loader-primary';
+import ConfirmModal from '@/components/confirm-modal';
 
 const incomingData = [
   { id: 1, name: 'Snow', email: 'Jon@ad.com', role: 'Operator' },
@@ -95,7 +96,8 @@ export default function UsersTable() {
           handle403(error);
 
           if (error?.response?.status === 404) {
-            setData({});
+            setData([]);
+            setDataChanges([]);
           }
         });
     };
@@ -142,6 +144,7 @@ export default function UsersTable() {
         // if successeful close edit mode
         exitEditMode();
       })
+      .catch((err) => {})
       .finally(() => {
         // set WAIT modal false
         handleCloseWaiting();
@@ -196,154 +199,161 @@ export default function UsersTable() {
 
   return (
     <LoadingModalWrapper open={openWaiting}>
-      <NewUserFormModal
-        open={open}
-        handleClose={handleClose}
-        closeable={closeable}
-        setCloseable={setCloseable}
-      />
-      <MaterialReactTable
-        key={dataArrived}
-        // Row selection code
-        enableRowSelection
-        onRowSelectionChange={setRowSelection}
-        state={{ rowSelection }}
-        //
-        autoResetPageIndex={false} // must keep an eye on this
-        renderTopToolbarCustomActions={({ table }) => {
-          return (
-            <Box>
-              <IconButton
-                color='green'
-                sx={{ pl: 1.25, color: 'info.main' }}
-                onClick={() => handleOpen()}
-              >
-                <PersonAdd />
-              </IconButton>
-
-              <IconButton
-                color='green'
-                sx={{ color: 'success.main' }}
-                onClick={() => handleOpen()}
-                disabled={!secondaryButtonsEnabled}
-                //disableRipple={!secondaryButtonsEnabled}
-              >
-                <Image
-                  height={20}
-                  width={20}
-                  alt='Add permission icon'
-                  style={{
-                    filter: secondaryButtonsEnabled
-                      ? 'brightness(0) saturate(100%) invert(36%) sepia(57%) saturate(507%) hue-rotate(74deg) brightness(98%) contrast(95%)'
-                      : 'brightness(0) saturate(100%) invert(45%) sepia(3%) saturate(29%) hue-rotate(321deg) brightness(101%) contrast(89%)',
-                  }}
-                  src={'/add-permission.svg'}
-                />
-              </IconButton>
-              <IconButton
-                color='green'
-                sx={{ color: 'error.main' }}
-                onClick={() => handleOpen()}
-                disabled={!secondaryButtonsEnabled}
-                //disableRipple={!secondaryButtonsEnabled}
-              >
-                <Image
-                  height={20}
-                  width={20}
-                  alt='Add permission icon'
-                  style={{
-                    filter: secondaryButtonsEnabled
-                      ? 'brightness(0) saturate(100%) invert(29%) sepia(61%) saturate(3943%) hue-rotate(347deg) brightness(88%) contrast(86%)'
-                      : 'brightness(0) saturate(100%) invert(45%) sepia(3%) saturate(29%) hue-rotate(321deg) brightness(101%) contrast(89%)',
-                  }}
-                  src={'/permission-deletion.svg'}
-                />
-              </IconButton>
-            </Box>
-          );
-
-          // Old Code
-          return (
-            <Button variant='contained' onClick={() => handleOpen()}>
-              {t('users_table_add_user')}
-            </Button>
-          );
-        }}
-        initialState={{ pagination: { pageSize: 7 } }}
-        muiTablePaperProps={{ style: { borderRadius: 4, overflow: 'hidden' } }}
-        muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
-        muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
-        muiTablePaginationProps={{
-          sx: { color: 'text.secondary' },
-          rowsPerPageOptions: [7, 10, 15, 20, 50, 75, 100],
-        }}
-        data={data}
-        columns={columns}
-        muiTableBodyCellEditTextFieldProps={({ cell }) => {
-          return {
-            disabled: cell.column.columnDef.readOnly,
-            onChange: (event) => {
-              if (!cell.column.columnDef.readOnly) {
-                handleNewCellEdit(cell, event.target.value);
-              }
-            },
-          };
-        }}
-        editingMode='row'
-        enableEditing={(rowData) => rowData.editable !== false}
-        onEditingRowSave={({ row, exitEditingMode }) => {
-          saveEdits(row.index, exitEditingMode);
-        }}
-        onEditingRowCancel={() => {
-          setDataChanges(data);
-        }}
-        displayColumnDefOptions={{
-          'mrt-row-actions': {
-            header: 'Actions',
-            Cell: ({ row, table }) => {
-              //console.log(table.getState().editingRow.original);
-              //console.log(table.getState().editingRow.index);
-
-              const row_index = row.index;
-
-              if (
-                tableRef.current.getState().editingRow &&
-                tableRef.current.getState().editingRow.index === row_index
-              ) {
-                //console.log(tableRef.current.getState().editingRow.original);
-                return (
-                  <>
-                    <IconButton
-                      onClick={() =>
-                        saveEdits(row_index, () => {
-                          table.setEditingRow(null);
-                        })
-                      }
-                    >
-                      <Save />
-                    </IconButton>
-                    <IconButton
-                      onClick={() => {
-                        setDataChanges(data);
-                        table.setEditingRow(null);
-                      }}
-                    >
-                      <Cancel />
-                    </IconButton>
-                  </>
-                );
-              }
-
-              return (
-                <IconButton onClick={() => table.setEditingRow(row)}>
-                  <Edit />
+      <>
+        <NewUserFormModal
+          key={dataArrived}
+          open={open}
+          handleClose={handleClose}
+          closeable={closeable}
+          setCloseable={setCloseable}
+        />
+      </>
+      <>
+        <MaterialReactTable
+          key={dataArrived}
+          // Row selection code
+          enableRowSelection
+          onRowSelectionChange={setRowSelection}
+          state={{ rowSelection }}
+          //
+          autoResetPageIndex={false} // must keep an eye on this
+          renderTopToolbarCustomActions={({ table }) => {
+            return (
+              <Box>
+                <IconButton
+                  color='green'
+                  sx={{ pl: 1.25, color: 'info.main' }}
+                  onClick={() => handleOpen()}
+                >
+                  <PersonAdd />
                 </IconButton>
-              );
+
+                <IconButton
+                  color='green'
+                  sx={{ color: 'success.main' }}
+                  onClick={() => handleOpen()}
+                  disabled={!secondaryButtonsEnabled}
+                  //disableRipple={!secondaryButtonsEnabled}
+                >
+                  <Image
+                    height={20}
+                    width={20}
+                    alt='Add permission icon'
+                    style={{
+                      filter: secondaryButtonsEnabled
+                        ? 'brightness(0) saturate(100%) invert(36%) sepia(57%) saturate(507%) hue-rotate(74deg) brightness(98%) contrast(95%)'
+                        : 'brightness(0) saturate(100%) invert(45%) sepia(3%) saturate(29%) hue-rotate(321deg) brightness(101%) contrast(89%)',
+                    }}
+                    src={'/add-permission.svg'}
+                  />
+                </IconButton>
+                <IconButton
+                  color='green'
+                  sx={{ color: 'error.main' }}
+                  onClick={() => handleOpen()}
+                  disabled={!secondaryButtonsEnabled}
+                  //disableRipple={!secondaryButtonsEnabled}
+                >
+                  <Image
+                    height={20}
+                    width={20}
+                    alt='Add permission icon'
+                    style={{
+                      filter: secondaryButtonsEnabled
+                        ? 'brightness(0) saturate(100%) invert(29%) sepia(61%) saturate(3943%) hue-rotate(347deg) brightness(88%) contrast(86%)'
+                        : 'brightness(0) saturate(100%) invert(45%) sepia(3%) saturate(29%) hue-rotate(321deg) brightness(101%) contrast(89%)',
+                    }}
+                    src={'/permission-deletion.svg'}
+                  />
+                </IconButton>
+              </Box>
+            );
+
+            // Old Code
+            return (
+              <Button variant='contained' onClick={() => handleOpen()}>
+                {t('users_table_add_user')}
+              </Button>
+            );
+          }}
+          initialState={{ pagination: { pageSize: 7 } }}
+          muiTablePaperProps={{
+            style: { borderRadius: 4, overflow: 'hidden' },
+          }}
+          muiTableHeadCellProps={{ sx: { color: 'text.secondary' } }}
+          muiTableBodyCellProps={{ sx: { color: 'text.secondary' } }}
+          muiTablePaginationProps={{
+            sx: { color: 'text.secondary' },
+            rowsPerPageOptions: [7, 10, 15, 20, 50, 75, 100],
+          }}
+          data={data}
+          columns={columns}
+          muiTableBodyCellEditTextFieldProps={({ cell }) => {
+            return {
+              disabled: cell.column.columnDef.readOnly,
+              onChange: (event) => {
+                if (!cell.column.columnDef.readOnly) {
+                  handleNewCellEdit(cell, event.target.value);
+                }
+              },
+            };
+          }}
+          editingMode='row'
+          enableEditing={(rowData) => rowData.editable !== false}
+          onEditingRowSave={({ row, exitEditingMode }) => {
+            saveEdits(row.index, exitEditingMode);
+          }}
+          onEditingRowCancel={() => {
+            setDataChanges(data);
+          }}
+          displayColumnDefOptions={{
+            'mrt-row-actions': {
+              header: 'Actions',
+              Cell: ({ row, table }) => {
+                //console.log(table.getState().editingRow.original);
+                //console.log(table.getState().editingRow.index);
+
+                const row_index = row.index;
+
+                if (
+                  tableRef.current.getState().editingRow &&
+                  tableRef.current.getState().editingRow.index === row_index
+                ) {
+                  //console.log(tableRef.current.getState().editingRow.original);
+                  return (
+                    <>
+                      <IconButton
+                        onClick={() =>
+                          saveEdits(row_index, () => {
+                            table.setEditingRow(null);
+                          })
+                        }
+                      >
+                        <Save />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          setDataChanges(data);
+                          table.setEditingRow(null);
+                        }}
+                      >
+                        <Cancel />
+                      </IconButton>
+                    </>
+                  );
+                }
+
+                return (
+                  <IconButton onClick={() => table.setEditingRow(row)}>
+                    <Edit />
+                  </IconButton>
+                );
+              },
             },
-          },
-        }}
-        tableInstanceRef={tableRef}
-      />
+          }}
+          tableInstanceRef={tableRef}
+        />
+      </>
     </LoadingModalWrapper>
   );
 }

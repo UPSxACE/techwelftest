@@ -50,6 +50,10 @@ const api = {
         // DEBUG: console.log(response.data);
         return response;
       }),
+  deleteRole: (roleId) =>
+    instance
+      .delete(`/admin_client/ClientsRoleAPI/delete/${roleId}`)
+      .then((response) => response),
   register: (userData) => {
     // Debug: console.log('UD', userData);
     return instance
@@ -66,7 +70,7 @@ const api = {
     instance
       .get('/admin_client/ClientsUserAPI/findAll', CancelToken)
       .then((response) => {
-        console.log(response);
+        // Debug: console.log(response);
         return response;
       }),
 };

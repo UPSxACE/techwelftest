@@ -47,8 +47,8 @@ export default function NewUserFormModal({
         .then((response) => {
           const data = response?.data;
           if (data) {
-            setRoleOptions([{ name: 'aaaa' }, { name: 'bbbb' }]);
-            //setRoleOptions(data);
+            // Testing: setRoleOptions([{ name: 'aaaa' }, { name: 'bbbb' }]);
+            setRoleOptions(data);
           }
         })
         .catch((error) => {
@@ -76,7 +76,7 @@ export default function NewUserFormModal({
     email: Joi.string().email({ tlds: { allow: false } }),
     password: Joi.string().min(9),
     passwordConfirm: Joi.string(),
-    role: Joi.string(),
+    //role: Joi.string(),
   };
 
   return (
@@ -163,6 +163,7 @@ export default function NewUserFormModal({
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
 
+          {/* 
           <BootstrapForm.Control
             label={t('addroleform_label_name')}
             field='role'
@@ -182,6 +183,7 @@ export default function NewUserFormModal({
             />
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
+          */}
           <BootstrapForm.Submit
             title={t('settings_accordionform_save')}
             validators={validators}

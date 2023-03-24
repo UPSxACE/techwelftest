@@ -1,7 +1,7 @@
 import api from '@/api';
 import LoaderPrimary from '@/components/loader-primary';
 import LoadingModalWrapper from '@/components/loading-modal-wrapper';
-import { Cancel, Edit, Save } from '@mui/icons-material';
+import { Cancel, Delete, Edit, Save } from '@mui/icons-material';
 import {
   Button,
   Box,
@@ -18,6 +18,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import NewRoleFormModal from '../forms/newroleformmodal';
 import useHandle403 from '@/utils/handle-403';
+import ConfirmModal from '@/components/confirm-modal';
 
 export default function RolesTable() {
   const [open, setOpen] = useState(false);
@@ -32,6 +33,9 @@ export default function RolesTable() {
   const [dataArrived, setDataArrived] = useState(false);
   const [data, setData] = useState(false); // false means the data needed didn't arrive yet
   const [dataChanges, setDataChanges] = useState(false);
+
+  const [rowToDelete, setRowToDelete] = useState(null);
+  const [confirmModal, setConfirmModal] = useState(false);
 
   const handle403 = useHandle403();
 
@@ -54,8 +58,8 @@ export default function RolesTable() {
           handle403(error);
 
           if (error?.response?.status === 404) {
-            setData({});
-            setDataChanges({});
+            setData([]);
+            setDataChanges([]);
           }
         });
     };
@@ -123,13 +127,34 @@ export default function RolesTable() {
         exitEditMode();
       })
       .catch((err) => {
-        handle403(err);
+        // handle403(err);
       })
       .finally(() => {
         // set WAIT modal false
         handleClose();
       });
   }
+
+  const deleteRoleByRow = useCallback(
+    async (row) => {
+      handleOpen();
+      const roleId = row.original.id;
+      console.log(roleId);
+
+      await api
+        .deleteRole(roleId)
+        .then((response) => {
+          const newData = [...data];
+          newData.splice(row.index, 1);
+          setData(newData);
+          setDataChanges(newData);
+        })
+        .finally(() => {
+          handleClose();
+        });
+    },
+    [data]
+  );
 
   const columns = useMemo(
     () => [
@@ -235,6 +260,13 @@ export default function RolesTable() {
 
   return (
     <LoadingModalWrapper open={open}>
+      <ConfirmModal
+        state={{ open: confirmModal, setOpen: setConfirmModal }}
+        onConfirm={() => {
+          deleteRoleByRow(rowToDelete);
+        }}
+      />
+
       <NewRoleFormModal
         open={openForm}
         handleClose={handleCloseForm}
@@ -243,6 +275,7 @@ export default function RolesTable() {
         dataState={{ data, setData }}
         dataChangesState={{ dataChanges, setDataChanges }}
       />
+
       <MaterialReactTable
         key={dataArrived}
         renderTopToolbarCustomActions={({ table }) => {
@@ -299,6 +332,7 @@ export default function RolesTable() {
 
               const row_index = row.index;
 
+              // Editing Mode
               if (
                 tableRef.current.getState().editingRow &&
                 tableRef.current.getState().editingRow.index === row_index
@@ -327,10 +361,21 @@ export default function RolesTable() {
                 );
               }
 
+              // Default Mode
               return (
-                <IconButton onClick={() => table.setEditingRow(row)}>
-                  <Edit />
-                </IconButton>
+                <>
+                  <IconButton onClick={() => table.setEditingRow(row)}>
+                    <Edit />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      setConfirmModal(true);
+                      setRowToDelete(row);
+                    }}
+                  >
+                    <Delete />
+                  </IconButton>
+                </>
               );
             },
           },
