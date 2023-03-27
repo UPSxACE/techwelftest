@@ -15,6 +15,7 @@ import {
   useWarningListModal,
   WarningListModal,
 } from '@/components/warning-list-modal';
+import BulkRemoveRoleModal from '../forms/bulkremoverolemodal';
 
 export default function UsersTable() {
   const [open, setOpen] = useState(false);
@@ -33,7 +34,6 @@ export default function UsersTable() {
 
   const [bulkRemoveOpen, setBulkRemoveOpen] = useState(false);
   const handleOpenBulkRemove = () => setBulkRemoveOpen(true);
-
   const handleCloseBulkRemove = () => setBulkRemoveOpen(false);
 
   const tableRef = useRef(null);
@@ -50,7 +50,9 @@ export default function UsersTable() {
 
   const warningListModalProps = useWarningListModal();
   const { addWarning, addSuccess, openWarnings } = warningListModalProps;
-  const bulkAddProps = { addWarning, addSuccess, openWarnings };
+  const bulkProps = { addWarning, addSuccess, openWarnings };
+
+  const [rolesData, setRolesData] = useState(0);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -136,8 +138,20 @@ export default function UsersTable() {
         header: 'Email',
       },
       {
-        accessorKey: 'role', //access nested data with dot notation
-        header: 'Role',
+        // accessorKey: 'role', //access nested data with dot notation
+        header: 'Roles',
+        accessorFn: (row) => {
+          const rolesArray = ['(not working yet)'];
+          let roles = '';
+          rolesArray.forEach((role, index) => {
+            if (index !== 0) {
+              roles += ', ' + role;
+              return;
+            }
+            roles += role;
+          });
+          return roles;
+        },
       },
       /*valueGetter: (params) =>
             `${params.row.firstName || ''} ${params.row.lastName || ''}`,*/
@@ -194,7 +208,18 @@ export default function UsersTable() {
         dataState={{ data, setData }}
         dataChangesState={{ dataChanges, setDataChanges }}
         selectedRows={rowSelection}
-        {...bulkAddProps}
+        {...bulkProps}
+      />
+
+      <BulkRemoveRoleModal
+        open={bulkRemoveOpen}
+        handleClose={handleCloseBulkRemove}
+        closeable={closeable}
+        setCloseable={setCloseable}
+        dataState={{ data, setData }}
+        dataChangesState={{ dataChanges, setDataChanges }}
+        selectedRows={rowSelection}
+        {...bulkProps}
       />
 
       <MaterialReactTable
@@ -217,7 +242,6 @@ export default function UsersTable() {
               </IconButton>
 
               <IconButton
-                color='green'
                 sx={{ color: 'success.main' }}
                 onClick={() => handleOpenBulkAdd()}
                 disabled={!secondaryButtonsEnabled}
@@ -236,7 +260,6 @@ export default function UsersTable() {
                 />
               </IconButton>
               <IconButton
-                color='green'
                 sx={{ color: 'error.main' }}
                 onClick={() => handleOpenBulkRemove()}
                 disabled={!secondaryButtonsEnabled}

@@ -31,7 +31,7 @@ export default function CompanySettingsForm() {
         .then((response) => {
           const data = response?.data;
           if (data) {
-            setDefaultValues(data);
+            setDefaultValues({ logoPath: '...', ...data });
           }
         })
         .catch((error) => {
@@ -66,6 +66,8 @@ export default function CompanySettingsForm() {
   if (!serverIsDone) {
     return;
   }
+
+  console.log(formData);
 
   if (!dataArrived) {
     return (

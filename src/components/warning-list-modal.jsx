@@ -1,4 +1,4 @@
-import { CheckCircle, Dangerous, Error } from '@mui/icons-material';
+import { CheckCircle, Dangerous, Error, Warning } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -84,7 +84,8 @@ export function WarningListModal({
                 >
                   <ListItemIcon>
                     {warning.status === 'error' ? (
-                      <Error color='error' />
+                      /*<Error color='error' />*/
+                      <Warning color='warning' />
                     ) : (
                       <CheckCircle color='success' />
                     )}
