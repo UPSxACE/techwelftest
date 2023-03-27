@@ -31,7 +31,7 @@ export default function CompanySettingsForm() {
         .then((response) => {
           const data = response?.data;
           if (data) {
-            setDefaultValues({ logoPath: '...', ...data });
+            setDefaultValues({ ...data, logoPath: '...' });
           }
         })
         .catch((error) => {
