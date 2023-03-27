@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import Joi from 'joi';
 import { useTranslation } from 'next-i18next';
 
 const Submit = ({
@@ -35,9 +36,17 @@ const Submit = ({
       Object.keys(formData._filledFields).map((field) => {
         if (valid) {
           let test_result = {};
+
           if (validators[field]) {
             test_result = formData[field].required
-              ? validators[field].validate(formData[field]['value'])
+              ? validators[field]
+                  .empty([
+                    Joi.array().length(0),
+                    null,
+                    Joi.object().keys().length(0),
+                  ])
+                  .required()
+                  .validate(formData[field]['value'])
               : validators[field]
                   .allow('')
                   .allow(null)

@@ -53,6 +53,20 @@ const themeConfig = {
             color: 'black',
           },
         },
+        tag: {
+          '& .MuiChip-label': {
+            color: 'black',
+          },
+          '& .MuiChip-deleteIcon': {
+            color: '#000000ad',
+          },
+          '& .MuiChip-deleteIcon:hover': {
+            color: '#000000ad',
+          },
+        },
+        option: {
+          color: 'black',
+        },
       },
     },
   },

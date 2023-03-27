@@ -1,10 +1,15 @@
-import { InfoOutlined } from '@mui/icons-material';
+import {
+  CheckBox,
+  CheckBoxOutlineBlank,
+  InfoOutlined,
+} from '@mui/icons-material';
 import {
   Autocomplete as MuiAutocomplete,
   OutlinedInput,
   TextField,
   Tooltip,
   Box,
+  Checkbox,
 } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -27,7 +32,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   ]),
 
   '& .MuiInputBase-root': {
-    height: 45,
+    //height: 45,
     '&.Mui-focused': {
       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
     },
@@ -66,7 +71,10 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },*/
 }));
 
-const Autocomplete = ({
+const icon = <CheckBoxOutlineBlank fontSize='small' />;
+const checkedIcon = <CheckBox fontSize='small' />;
+
+const AutocompleteCheckbox = ({
   JOIValidator,
   field,
   label,
@@ -202,9 +210,11 @@ const Autocomplete = ({
 
   return (
     <MuiAutocomplete
+      multiple
+      disableCloseOnSelect
       noOptionsText={t(noOptionsText)}
-      freeSolo
-      disablePortal
+      //freeSolo
+      //disablePortal
       id={field + '-autocomplete'}
       options={getOptions}
       //sx={{ width: 300 }}
@@ -212,9 +222,22 @@ const Autocomplete = ({
         const newValue = value;
         updateData(newValue);
       }}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+          {option}
+        </li>
+      )}
       renderInput={(params) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <StyledTextField
+            //label='Label'
+            //placeholder='Placeholder'
             name={field}
             sx={{
               '&.MuiInputBase-root': {
@@ -276,4 +299,4 @@ const Autocomplete = ({
   );
 };
 
-export default Autocomplete;
+export default AutocompleteCheckbox;

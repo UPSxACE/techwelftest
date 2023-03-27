@@ -11,6 +11,7 @@ import BootstrapFillInput from './bootstrap-fill-input';
 import Select from './select';
 import CheckboxList from './checkbox-list';
 import Autocomplete from './autocomplete';
+import AutocompleteCheckbox from './autocompletecheckbox';
 
 const Header = ({ children }) => <>{children}</>;
 const Footer = ({ children }) => <>{children}</>;
@@ -73,6 +74,7 @@ const BootstrapForm = {
   Select,
   CheckboxList,
   Autocomplete,
+  AutocompleteCheckbox,
 };
 
 export default BootstrapForm;

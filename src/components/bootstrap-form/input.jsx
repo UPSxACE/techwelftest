@@ -117,7 +117,19 @@ const Input = ({
         if (formData[field] && formData[field]['extraValidation']) {
         }
 
-        obj['_filledFields'][field] = newValue ? true : null;
+        function isNotEmpty(something) {
+          if (Object.prototype.toString.call(something) === '[object Object]') {
+            return Boolean(Object.keys(something).length !== 0);
+          }
+
+          if (Object.prototype.toString.call(something) === '[object Array]') {
+            return Boolean(something.length !== 0);
+          }
+
+          return Boolean(something);
+        }
+
+        obj['_filledFields'][field] = isNotEmpty(newValue) ? true : null;
         setFormData({ ...obj });
       }}
       required

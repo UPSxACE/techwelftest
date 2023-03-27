@@ -73,6 +73,16 @@ const api = {
         // Debug: console.log(response);
         return response;
       }),
+  addRoleToUser: (targetData) => {
+    // Debug: console.log('UD', userData);
+    return instance
+      .post('/admin_client/ClientsRolesUserAPI/create', targetData)
+      .then((response) => response);
+  },
+  deleteRoleFromUser: (targetData) =>
+    instance
+      .delete(`/admin_client/ClientsRolesUserAPI/delete`, targetData)
+      .then((response) => response),
 };
 
 export default api;

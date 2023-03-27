@@ -153,5 +153,6 @@
   "addroleform_tooltip_example_positionapprovation": "----",
   "permission_caneditforms": "Pode editar os forms",
   "autocomplete_no_options": "Não foi encontrada nenhuma opção.",
-  "addroleform_no_autocomplete_option": "Irá ser criado novo grupo."
+  "addroleform_no_autocomplete_option": "Irá ser criado novo grupo.",
+  "warning_list_modal_title": "Some errors have occurred while proccessing your request"
 }

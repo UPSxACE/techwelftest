@@ -1,5 +1,7 @@
 import { Box, Button } from '@mui/material';
+import Joi from 'joi';
 import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
 
 const Submit = ({
   validators,
@@ -41,7 +43,14 @@ const Submit = ({
           let test_result = {};
           if (validators[field]) {
             test_result = formData[field].required
-              ? validators[field].validate(formData[field]['value'])
+              ? validators[field]
+                  .empty([
+                    Joi.array().length(0),
+                    null,
+                    Joi.object().keys().length(0),
+                  ])
+                  .required()
+                  .validate(formData[field]['value'])
               : validators[field]
                   .allow('')
                   .allow(null)
@@ -132,19 +141,27 @@ const Submit = ({
               await onSubmit(getFormDataValues());
             }
 
+            function successActions(result) {
+              if (onSuccess) onSuccess(result, setFormStatus);
+              if (autoFinalize) setFormStatus(true);
+              if (resetOnSuccess) resetFormData();
+            }
+
+            function errorActions(error) {
+              if (onError) onError(error, setFormStatus);
+              if (autoFinalize) setFormStatus(error);
+            }
+
             setFormLoading(true);
             handleSubmit()
               .then((result) => {
-                if (onSuccess) onSuccess(result, setFormStatus);
-                if (autoFinalize) setFormStatus(true);
-                if (resetOnSuccess) resetFormData();
+                successActions(result);
                 setFormLoading(false);
                 //setFormData({}); this is probably not good
               })
               .catch((error) => {
                 // Debug: console.log(error);
-                if (onError) onError(error, setFormStatus);
-                if (autoFinalize) setFormStatus(error);
+                errorActions(error);
                 setFormLoading(false);
               });
           }

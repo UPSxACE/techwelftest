@@ -151,5 +151,6 @@
   "addroleform_tooltip_example_positionapprovation": "----",
   "permission_caneditforms": "Can edit forms",
   "autocomplete_no_options": "No options found.",
-  "addroleform_no_autocomplete_option": "A new role will be created."
+  "addroleform_no_autocomplete_option": "A new role will be created.",
+  "warning_list_modal_title": "Some errors have occurred while proccessing your request"
 }

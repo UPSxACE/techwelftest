@@ -34,12 +34,16 @@ export default function NewUserFormModal({
   dataChangesState,
 }) {
   const [formData, setFormData] = useState({});
-  const [roleOptions, setRoleOptions] = useState([]);
 
   const { data, setData } = dataState;
   const { dataChanges, setDataChanges } = dataChangesState;
 
   const handle403 = useHandle403();
+
+  /*
+  Assigning role on new user disabled for now
+
+  //const [roleOptions, setRoleOptions] = useState([]);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -70,6 +74,7 @@ export default function NewUserFormModal({
       source.cancel('Component Unmounted', { silent: 'true' }); // Component Unmounted
     };
   }, []);
+  */
 
   const { t } = useTranslation();
 
