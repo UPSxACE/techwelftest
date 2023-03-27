@@ -185,7 +185,7 @@ function Register() {
                 logoPath: 'Aaa',
               })
               .then((response) => {
-                console.log('RES', response);
+                // Debug: console.log('RESPONSE', response);
               })
               .catch((err) => {
                 handle403(err, true);

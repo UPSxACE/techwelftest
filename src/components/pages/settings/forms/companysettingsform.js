@@ -67,7 +67,7 @@ export default function CompanySettingsForm() {
     return;
   }
 
-  console.log(formData);
+  // Debug: console.log(formData);
 
   if (!dataArrived) {
     return (

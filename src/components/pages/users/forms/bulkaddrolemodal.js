@@ -58,7 +58,6 @@ export default function BulkAddRoleModal({
           const data = response?.data;
           if (data) {
             setRoleOptions(data);
-            console.log('DATA BULK', data);
           }
         })
         .catch((error) => {
@@ -178,7 +177,7 @@ export default function BulkAddRoleModal({
                         addSuccess(
                           `Added role ${roleId} to user ${userId} successfully.`
                         );
-                        console.log('RESPONSE DATA', response_data);
+
                         /*
                         setData((data) => {
                           const newData = [...data, response_data];

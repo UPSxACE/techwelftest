@@ -96,7 +96,7 @@ function initInterceptor(instance) {
       // In case he has, add it to the request header
       if (accessToken) {
         // DEBUG:
-        console.log(accessToken);
+        //console.log(accessToken);
         config.headers = {
           ...config.headers,
           Authorization: 'Bearer ' + accessToken,

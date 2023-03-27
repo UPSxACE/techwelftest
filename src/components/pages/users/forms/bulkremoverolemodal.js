@@ -58,7 +58,6 @@ export default function BulkRemoveRoleModal({
           const data = response?.data;
           if (data) {
             setRoleOptions(data);
-            console.log('DATA BULK', data);
           }
         })
         .catch((error) => {
@@ -178,7 +177,6 @@ export default function BulkRemoveRoleModal({
                         addSuccess(
                           `Removed role ${roleId} from user ${userId} successfully.`
                         );
-                        console.log('RESPONSE DATA', response_data);
                         /*
                         setData((data) => {
                           const newData = [...data, response_data];

@@ -166,7 +166,7 @@ export function useWarningListModal() {
   }
 
   function openWarnings() {
-    console.log('OPEN WARNINGS TRIGGERED');
+    // Debug: console.log('OPEN WARNINGS TRIGGERED');
     setVisible(true);
     // Debug: else {console.log("No warnings")}
   }

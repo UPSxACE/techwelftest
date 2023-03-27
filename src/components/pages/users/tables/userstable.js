@@ -164,7 +164,6 @@ export default function UsersTable() {
   const [secondaryButtonsEnabled, setSecondaryButtonsEnabled] = useState(false);
 
   useEffect(() => {
-    console.log('RR', rowSelection);
     if (Object.keys(rowSelection).length > 0) {
       setSecondaryButtonsEnabled(true);
     } else {

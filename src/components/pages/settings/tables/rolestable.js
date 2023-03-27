@@ -137,7 +137,7 @@ export default function RolesTable() {
     async (row) => {
       handleOpen();
       const roleId = row.original.id;
-      console.log(roleId);
+      // Debug: console.log(roleId);
 
       await api
         .deleteRole(roleId)
