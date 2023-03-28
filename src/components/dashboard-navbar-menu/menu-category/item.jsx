@@ -33,7 +33,12 @@ export default function Item({
           <ListItemButton sx={{ p: 0, height: '100%', px: 1.5 }}>
             <Box sx={{ width: 40, display: 'flex', justifyContent: 'center' }}>
               <Typography
-                sx={{ width: 40, display: 'flex', justifyContent: 'center' }}
+                sx={{
+                  width: 40,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  fontSize: '1.625rem',
+                }}
                 color={'text.primary'}
                 variant={'h4'}
                 component='i'
