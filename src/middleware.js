@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import appConfig from './app-config';
+import i18config from '../next-i18next.config';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -15,14 +16,21 @@ export async function middleware(req) {
   const defaultLanguage = appConfig.defaultLanguage.id;
 
   if (req.nextUrl.locale === defaultLanguage) {
-    const locale = req.cookies.get('NEXT_LOCALE')?.value || defaultLanguage;
+    let locale = req.cookies.get('NEXT_LOCALE')?.value || defaultLanguage;
     if (locale !== defaultLanguage) {
-      return NextResponse.redirect(
+      if (i18config.i18n.locales.findIndex((x) => locale === x) === -1) {
+        locale = defaultLanguage;
+      }
+
+      const res = NextResponse.redirect(
         new URL(
           `/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`,
           req.url
         )
       );
+
+      res.cookies.set('NEXT_LOCALE', locale);
+      return res;
     }
   }
 }
