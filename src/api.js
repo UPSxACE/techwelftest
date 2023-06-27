@@ -61,12 +61,10 @@ const api = {
       .then((response) => response);
   },
   getUsers: (CancelToken) =>
-    instance
-      .get('/admin_client/ClientsUserAPI/findAll', CancelToken)
-      .then((response) => {
-        // Debug: console.log(response);
-        return response;
-      }),
+    instance.get('/user/all', CancelToken).then((response) => {
+      // Debug: console.log(response);
+      return response;
+    }),
   addRoleToUser: (targetData) => {
     // Debug: console.log('UD', userData);
     return instance

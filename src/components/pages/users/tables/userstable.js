@@ -131,6 +131,10 @@ export default function UsersTable() {
     () => [
       {
         accessorKey: 'username', //access nested data with dot notation
+        header: 'Username',
+      },
+      {
+        accessorKey: 'profile.firstName', //access nested data with dot notation
         header: 'Name',
       },
       {
@@ -139,9 +143,15 @@ export default function UsersTable() {
       },
       {
         // accessorKey: 'role', //access nested data with dot notation
-        header: 'Roles',
+        header: 'Permissions',
         accessorFn: (row) => {
-          const rolesArray = ['(not working yet)'];
+          let rolesArray = [];
+          for (const [key, val] of Object.entries(row.permissions)) {
+            if (key != 'id' && key != 'canFrontend' && val === true) {
+              rolesArray.push(t(key));
+            }
+          }
+
           let roles = '';
           rolesArray.forEach((role, index) => {
             if (index !== 0) {

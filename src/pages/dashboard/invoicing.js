@@ -2,13 +2,15 @@ import DashboardPageHeader from '@/components/dashboard-page-header';
 import DashboardWrapper from '@/components/dashboard-wrapper';
 import InvoicingForm from '@/components/pages/invoicing/forms/invoicingform';
 import DashboardLayout from '@/layouts/dashboard-layout';
-import { Box } from '@mui/material';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Invoicing() {
   return (
     <DashboardWrapper>
-      <DashboardPageHeader title='Home' rightText={'Dashboard / Home'} />
+      <DashboardPageHeader
+        title='Invoicing'
+        rightText={'Dashboard / Invoicing'}
+      />
       <InvoicingForm shadow />
     </DashboardWrapper>
   );
