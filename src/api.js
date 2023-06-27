@@ -65,16 +65,16 @@ const api = {
       // Debug: console.log(response);
       return response;
     }),
-  addRoleToUser: (targetData) => {
-    // Debug: console.log('UD', userData);
+  addRoleToUser: (userId, roleName) => {
     return instance
-      .post('/admin_client/ClientsRolesUserAPI/create', targetData)
+      .patch(`/user/${userId}/add-role/${roleName}`)
       .then((response) => response);
   },
-  deleteRoleFromUser: (targetData) =>
-    instance
-      .delete(`/admin_client/ClientsRolesUserAPI/delete`, targetData)
-      .then((response) => response),
+  deleteRoleFromUser: (userId, roleName) => {
+    return instance
+      .patch(`/user/${userId}/remove-role/${roleName}`)
+      .then((response) => response);
+  },
 };
 
 export default api;

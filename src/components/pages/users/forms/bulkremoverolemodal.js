@@ -1,10 +1,9 @@
-import { Box, Button, Modal } from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import LoaderPrimary from '@/components/loader-primary';
 import BootstrapForm from '@/components/bootstrap-form';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import Joi from 'joi';
-import axios from 'axios';
 import api from '@/api';
 import useHandle403 from '@/utils/handle-403';
 
@@ -38,7 +37,14 @@ export default function BulkRemoveRoleModal({
   openWarnings,
 }) {
   const [formData, setFormData] = useState({});
-  const [roleOptions, setRoleOptions] = useState([]);
+
+  const { t } = useTranslation();
+
+  const [roleOptions, setRoleOptions] = useState([
+    { name: 'canForms', label: t('canForms') },
+    { name: 'canApprovation', label: t('canApprovation') },
+    { name: 'canManagement', label: t('canManagement') },
+  ]);
 
   const { data, setData } = dataState;
   const { dataChanges, setDataChanges } = dataChangesState;
@@ -46,6 +52,7 @@ export default function BulkRemoveRoleModal({
   const handle403 = useHandle403();
 
   // Get role options
+  /* FIXME - possibly deprecated concept
   useEffect(() => {
     const source = axios.CancelToken.source();
 
@@ -76,7 +83,7 @@ export default function BulkRemoveRoleModal({
     };
   }, []);
 
-  const { t } = useTranslation();
+  */
 
   const defaultValues = {};
 
@@ -137,46 +144,46 @@ export default function BulkRemoveRoleModal({
               setCloseable(false);
 
               // Will store the IDs of all the roles to add to the user
-              const rolesToAdd = [];
+              const rolesToRemove = [];
 
               formData.roles.value.forEach((role) => {
                 const roleObj = roleOptions.find(
                   (roleObject) => roleObject.name === role
                 );
-                const roleId = roleObj.id;
-                rolesToAdd.push(roleId);
+                const roleId = roleObj.name;
+                rolesToRemove.push(roleId);
               });
 
-              // Will store the IDs of all the users that will have the role added
-              const usersToAddRole = [];
+              // Will store the IDs of all the users that will have the role removed
+              const usersToRemoveRole = [];
+              const usersToRemoveRoleId = {};
 
-              Object.keys(selectedRows).forEach((roleIndex) => {
-                if (selectedRows[roleIndex] === true) {
-                  usersToAddRole.push(data[roleIndex].id);
+              Object.keys(selectedRows).forEach((rowIndex) => {
+                if (selectedRows[rowIndex] === true) {
+                  usersToRemoveRole.push(data[rowIndex].username);
+                  usersToRemoveRoleId[data[rowIndex].username] =
+                    data[rowIndex].id;
                 }
               });
 
-              for (const roleId of rolesToAdd) {
-                for (const userId of usersToAddRole) {
+              const newArr = [...dataState.data];
+
+              for (const roleId of rolesToRemove) {
+                for await (const userId of usersToRemoveRole) {
                   await api
-                    .deleteRoleFromUser({
-                      id: {
-                        fkUser: userId,
-                        fkRole: roleId,
-                      },
-                      fkUser: {
-                        id: userId,
-                      },
-                      fkRole: {
-                        id: roleId,
-                      },
-                    })
+                    .deleteRoleFromUser(usersToRemoveRoleId[userId], roleId)
                     .then((response) => {
                       const response_data = response?.data;
                       if (response_data) {
                         addSuccess(
                           `Removed role ${roleId} from user ${userId} successfully.`
                         );
+
+                        const target = newArr.findIndex(
+                          (user) => user.id === response_data.id
+                        );
+                        newArr[target]['permissions'][roleId] = false;
+
                         /*
                         setData((data) => {
                           const newData = [...data, response_data];
@@ -190,16 +197,20 @@ export default function BulkRemoveRoleModal({
                       if (err?.response?.status === 400) {
                         const error_data = err?.response?.data;
                         const error_message = error_data?.errors?.[0]
-                          ? `Error removing role ${roleId} from user ${userId} successfully: ${error_data?.errors?.[0]}`
-                          : `Error removing role ${roleId} from user ${userId} successfully.`;
+                          ? `Error removing permission ${roleId} from user ${userId} successfully: ${error_data?.errors?.[0]}`
+                          : `Error removing permission ${roleId} from user ${userId} successfully.`;
                         addWarning(error_message);
                         console.log('CATCH', err);
                       } else {
-                        handle403(err, true);
+                        const error_message = `Error removing permission ${roleId} from user ${userId}`;
+                        addWarning(error_message);
+                        handle403(err);
                       }
                     });
                 }
               }
+
+              dataState.setData(newArr);
 
               openWarnings();
             }}
