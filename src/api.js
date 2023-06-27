@@ -1,20 +1,18 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://172.20.159.7:18080',
+  baseURL: 'http://localhost:8080',
   //timeout: 3000, no timeout for now
 });
 
 const api = {
   initInterceptor: () => initInterceptor(instance),
   login: (credentials) =>
-    instance
-      .post('/ClientsAPIPublic/authenticate', credentials)
-      .then((response) => {
-        // DEBUG: console.log('RESPONSE DATA');
-        // DEBUG: console.log(response.data);
-        return response;
-      }),
+    instance.post('/auth/login', credentials).then((response) => {
+      // DEBUG: console.log('RESPONSE DATA');
+      // DEBUG: console.log(response.data);
+      return response;
+    }),
   getCompanySettings: (CancelToken) =>
     instance
       .get('/admin_client/ClientsAPI/find', CancelToken)
@@ -57,7 +55,7 @@ const api = {
   register: (userData) => {
     // Debug: console.log('UD', userData);
     return instance
-      .post('/ClientsAPIPublic/create', userData)
+      .post('/auth/register', userData)
       .then((response) => response);
   },
   createUser: (userData) => {

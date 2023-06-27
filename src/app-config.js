@@ -2,26 +2,16 @@
 // Find icon names in: https://fontawesome.com/search?o=r&m=free
 // Find flags in: https://flagicons.lipis.dev/
 import {
-  faFaceAngry,
   faBell,
-  faCode,
   faDatabase,
-  faGears,
   faGlobe,
-  faLayerGroup,
   faListCheck,
-  faLock,
-  faMicrochip,
   faShield,
   faTasks,
-  faTelevision,
   faUserGroup,
-  faUsers,
-  faWifi,
 } from '@fortawesome/free-solid-svg-icons';
 import gb from './locales/gb';
 import pt from './locales/pt';
-import bkImage from '../public/software-pic-1.webp';
 
 const appConfig = {
   // Available html anchors: #page-start #screenshots, #features, #product
@@ -51,7 +41,7 @@ const appConfig = {
       translationFile: gb,
     },
   },
-  userAccess: false, // Allow common users to register and login
+  userAccess: true, // Allow common users to register and login
   usersOptionsMenu: [
     { name: 'Login', route: '/login' },
     { name: 'Register', route: '/register' },
