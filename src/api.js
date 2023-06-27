@@ -14,19 +14,15 @@ const api = {
       return response;
     }),
   getCompanySettings: (CancelToken) =>
-    instance
-      .get('/admin_client/ClientsAPI/find', CancelToken)
-      .then((response) => response),
+    instance.get('/client-config', CancelToken).then((response) => response),
   updateCompanySettings: (newSettings) => {
     // Debug: console.log('NS', newSettings);
 
-    return instance
-      .post('/admin_client/ClientsAPI/update', newSettings)
-      .then((response) => {
-        // DEBUG: console.log('RESPONSE DATA');
-        // DEBUG: console.log(response.data);
-        return response;
-      });
+    return instance.patch('/client-config', newSettings).then((response) => {
+      // DEBUG: console.log('RESPONSE DATA');
+      // DEBUG: console.log(response.data);
+      return response;
+    });
   },
   getRolesData: (CancelToken) =>
     instance

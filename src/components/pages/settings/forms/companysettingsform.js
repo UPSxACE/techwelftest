@@ -1,5 +1,4 @@
 import BootstrapForm from '@/components/bootstrap-form';
-import DashboardPageHeader from '@/components/dashboard-page-header';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import themeConfig from '@/theme-config';
@@ -18,6 +17,8 @@ export default function CompanySettingsForm() {
   const [defaultValues, setDefaultValues] = useState(false); // false means the data needed didn't arrive yet
   const [dataArrived, setDataArrived] = useState(false);
 
+  console.log(formData);
+
   const handle403 = useHandle403();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function CompanySettingsForm() {
         .then((response) => {
           const data = response?.data;
           if (data) {
-            setDefaultValues({ ...data, logoPath: '...' });
+            setDefaultValues({ ...data, companyLogo: '...' });
           }
         })
         .catch((error) => {
@@ -53,12 +54,13 @@ export default function CompanySettingsForm() {
   }, [defaultValues]);
 
   const validators = {
-    email: Joi.string().email({ tlds: { allow: false } }),
-    password: Joi.string().min(9),
-    newPasswordConfirm: Joi.string(),
-    domain: Joi.string().max(32),
-    color: Joi.any(),
-    logoPath: Joi.any(),
+    companyEmail: Joi.string().email({ tlds: { allow: false } }),
+    //password: Joi.string().min(9),
+    //newPasswordConfirm: Joi.string(),
+    subdomain: Joi.string().max(32),
+    companyName: Joi.any(),
+    companyColor: Joi.any(),
+    companyLogo: Joi.any(),
   };
 
   const { serverIsDone } = useClientSide();
@@ -104,10 +106,11 @@ export default function CompanySettingsForm() {
           </Alert>
         )}
       </BootstrapForm.Header>
-      <BootstrapForm.Control label={t('CompanyName')} field='designation'>
+      <BootstrapForm.Control label={t('CompanyName')} field='companyName'>
         <BootstrapForm.Label />
         <BootstrapForm.Input
-          readOnly
+          //readOnly
+          JOIValidator={validators.companyName}
           tooltip={{
             tip: t('companysettings_tooltip_tip_companyname'),
             example: 'companysettings_tooltip_example_companyname',
@@ -128,10 +131,10 @@ export default function CompanySettingsForm() {
         <BootstrapForm.HelperText />
       </BootstrapForm.Control> 
       */}
-      <BootstrapForm.Control label={t('EmailAddress')} field='email' required>
+      <BootstrapForm.Control label={t('EmailAddress')} field='companyEmail'>
         <BootstrapForm.Label />
         <BootstrapForm.Input
-          JOIValidator={validators.email}
+          JOIValidator={validators.companyEmail}
           tooltip={{
             tip: t('companysettings_tooltip_tip_email'),
             example: 'companysettings_tooltip_example_email',
@@ -139,6 +142,7 @@ export default function CompanySettingsForm() {
         />
         <BootstrapForm.HelperText />
       </BootstrapForm.Control>
+      {/*
       <BootstrapForm.Control label={t('newPassword')} field='password'>
         <BootstrapForm.Label />
         <BootstrapForm.Input
@@ -166,14 +170,14 @@ export default function CompanySettingsForm() {
           }}
         />
         <BootstrapForm.HelperText />
-      </BootstrapForm.Control>
+      </BootstrapForm.Control>*/}
 
-      <BootstrapForm.TwoHalfs fields={['color', 'logoPath']}>
+      <BootstrapForm.TwoHalfs fields={['companyColor', 'companyLogo']}>
         <BootstrapForm.Control
           half
           required
           label={t('websiteColor')}
-          field='color'
+          field='companyColor'
         >
           <BootstrapForm.ColorPicker
             defaultColor={themeConfig.palette.primary.special1}
@@ -188,7 +192,7 @@ export default function CompanySettingsForm() {
           half
           required
           label={t('websiteLogo')}
-          field='logoPath'
+          field='companyLogo'
         >
           <BootstrapForm.ImageUploader
             backgroundSwitcher
@@ -210,11 +214,11 @@ export default function CompanySettingsForm() {
           <BootstrapForm.HelperText />
         </BootstrapForm.Control>
       </BootstrapForm.TwoHalfs>
-      <BootstrapForm.Control label={t('Domain')} field='domain' required>
+      <BootstrapForm.Control label={t('Domain')} field='subdomain' required>
         <BootstrapForm.Label />
         <BootstrapForm.BootstrapFillInput
           text={'.ok1st.com'}
-          JOIValidator={validators.domain}
+          JOIValidator={validators.subdomain}
           tooltip={{
             tip: t('companysettings_tooltip_tip_domain'),
             example: t('companysettings_tooltip_example_domain'),
@@ -228,13 +232,13 @@ export default function CompanySettingsForm() {
         validators={validators}
         containerStyle={{ marginTop: 'auto' }}
         onSubmit={async () => {
+          setAlert(null);
           await api
             .updateCompanySettings({
-              designation: formData.designation.value,
-              domain: formData.domain.value,
-              color: formData.color.value,
-              password: formData.password?.value || null,
-              email: formData.email.value,
+              companyName: formData.companyName.value,
+              companyColor: formData.companyColor.value,
+              companyEmail: formData.companyEmail.value,
+              subdomain: formData.subdomain.value,
             })
             .then((response) => {
               setAlert(t('company_settings_updated'));
