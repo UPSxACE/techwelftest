@@ -56,9 +56,7 @@ const api = {
   },
   createUser: (userData) => {
     // Debug: console.log('UD', userData);
-    return instance
-      .post('/admin_client/ClientsUserAPI/create', userData)
-      .then((response) => response);
+    return instance.post('/user/create', userData).then((response) => response);
   },
   getUsers: (CancelToken) =>
     instance.get('/user/all', CancelToken).then((response) => {

@@ -4,7 +4,6 @@ import MainLayout from '@/layouts/main-layout';
 import onlyGuest from '@/utils/onlyGuest';
 import { Alert, Box, Typography } from '@mui/material';
 import { Inter } from '@next/font/google';
-import axios from 'axios';
 import Joi from 'joi';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -119,10 +118,13 @@ function Login() {
               const error_data = error?.response?.data;
 
               // HANDLE ERROR CODES HERE
-              if (error_code === 400) {
+              if (error_code === 401) {
                 const error_description = error_data?.errors?.[0];
                 if (error_description) {
                   setAlert(t(error_description));
+                  return;
+                } else {
+                  setAlert(t('e_client_usernameorpassword'));
                   return;
                 }
               }
