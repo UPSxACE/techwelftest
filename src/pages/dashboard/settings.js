@@ -8,10 +8,7 @@ import { Box } from '@mui/material';
 import Joi from 'joi';
 import AccordionForm from '@/components/accordion-form';
 import CompanySettingsForm from '@/components/pages/settings/forms/companysettingsform';
-import UsersTable from '@/components/pages/users/tables/userstable';
-import RolesTable from '@/components/pages/settings/tables/rolestable';
-import InvoicingForm from '@/components/pages/invoicing/forms/invoicingform';
-import AdvancedSettings from '@/components/pages/settings/advancedsettings';
+import DefaultCycleSettings from '@/components/pages/settings/defaultcyclesettings';
 
 export default function Settings() {
   const [formData, setFormData] = useState({});
@@ -67,6 +64,10 @@ export default function Settings() {
             <AccordionForm.Part title={t('CompanySettings')} id={1}>
               <CompanySettingsForm />
             </AccordionForm.Part>
+            <AccordionForm.Part title={t('DefaultCycle')} id={6}>
+              <DefaultCycleSettings />
+            </AccordionForm.Part>
+            {/*
 
             <AccordionForm.Part title={t('SettingsRoles')} id={3}>
               <RolesTable />
@@ -75,6 +76,8 @@ export default function Settings() {
             <AccordionForm.Part title={t('AdvancedSettings')} id={5}>
               <AdvancedSettings ipState={{ ipList, setIpList }} />
             </AccordionForm.Part>
+
+            */}
           </AccordionForm.Form>
         </Box>
       </Box>

@@ -30,6 +30,33 @@ const api = {
       .then((response) => {
         return response;
       }),
+  getDefaultCycle: (CancelToken) =>
+    instance
+      .get('/approval-cycle/default-cycle', CancelToken)
+      .then((response) => {
+        return response;
+      }),
+  getAvailableOperators: (CancelToken) =>
+    instance
+      .get('/approval-cycle/available-operators', CancelToken)
+      .then((response) => {
+        return response;
+      }),
+  removeFromDefaultCycle: (requestData) =>
+    instance
+      .delete('/approval-cycle/remove-from-cycle', { data: requestData })
+      .then((response) => {
+        return response;
+      }),
+
+  addToDefaultCycle: (requestData) =>
+    instance
+      .post('/approval-cycle/add-to-cycle', requestData)
+      .then((response) => {
+        // DEBUG: console.log('RESPONSE DATA');
+        // DEBUG: console.log(response.data);
+        return response;
+      }),
   createRole: (roleData) => {
     // Debug: console.log('UD', userData);
     return instance
@@ -68,6 +95,7 @@ const api = {
       .patch(`/user/${userId}/add-role/${roleName}`)
       .then((response) => response);
   },
+
   deleteRoleFromUser: (userId, roleName) => {
     return instance
       .patch(`/user/${userId}/remove-role/${roleName}`)
