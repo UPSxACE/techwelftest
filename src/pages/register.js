@@ -1,13 +1,11 @@
 import OutlinedForm from '@/components/outlined-form';
 import MainLayout from '@/layouts/main-layout';
-import themeConfig from '@/theme-config';
 import onlyGuest from '@/utils/onlyGuest';
 import { Alert, Box, Typography } from '@mui/material';
 import { Inter } from '@next/font/google';
-import axios from 'axios';
 import Joi from 'joi';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import api from '@/api';
@@ -20,6 +18,7 @@ function Register() {
   const [alert, setAlert] = useState(null);
 
   const validators = {
+    username: Joi.string().min(6),
     cname: Joi.string().min(3),
     email: Joi.string().email({ tlds: { allow: false } }),
     //cid: Joi.number(),
@@ -41,7 +40,7 @@ function Register() {
         padding: { xs: 2, sm: 8, md: 14 },
       }}
     >
-      <OutlinedForm.Form autoFinalize formDataState={{ formData, setFormData }}>
+      <OutlinedForm.Form formDataState={{ formData, setFormData }}>
         <OutlinedForm.Header>
           <Box sx={{ mb: 2 }}>
             <Typography
@@ -63,6 +62,17 @@ function Register() {
             </Alert>
           )}
         </OutlinedForm.Header>
+
+        <OutlinedForm.Control required label={t('Username')} field='username'>
+          <OutlinedForm.Label />
+          <OutlinedForm.Input
+            tooltip={{
+              tip: t('tooltip_tip_username'),
+            }}
+            JOIValidator={validators.username}
+          />
+          <OutlinedForm.HelperText />
+        </OutlinedForm.Control>
 
         <OutlinedForm.Control required label={t('CompanyName')} field='cname'>
           <OutlinedForm.Label />
@@ -178,11 +188,12 @@ function Register() {
               .register({
                 //id: Number(formData.cid.value),
                 //companyIdentifier: formData.cname.value, // convert to number
+                username: formData.username.value,
                 email: formData.email.value,
-                designation: formData.cname.value,
+                company_name: formData.cname.value,
                 password: formData.password.value,
-                color: '#AAAA',
-                logoPath: 'Aaa',
+                //color: '#AAAA',
+                //logoPath: 'Aaa',
               })
               .then((response) => {
                 // Debug: console.log('RESPONSE', response);
@@ -195,7 +206,7 @@ function Register() {
           }}
           onError={(error, setStatus) => {
             // Debug:
-            console.log('ERR', error);
+            // console.log('ERR', error);
             if (error?.code === 'ERR_NETWORK') {
               setStatus(t('NETWORK_ERROR_DESCRIPTION'));
               return;
@@ -208,16 +219,27 @@ function Register() {
               // HANDLE ERROR CODES HERE
               if (error_code === 400) {
                 const error_description = error_data?.errors?.[0];
-                if (error_description === 'usernameOrPassword') {
-                  setAlert(t('login_wrongcredentials_error'));
+                //if (error_description === 'usernameOrPassword') {
+                setAlert(t('login_wrongcredentials_error'));
+                return;
+                //}
+              }
+
+              if (error_code === 409) {
+                const error_description = error_data?.errors?.[0];
+                if (error_description) {
+                  setAlert(t(error_description));
+                  return;
+                } else {
+                  setAlert(t('e_client_useroremailalreadyexists'));
                   return;
                 }
               }
             }
-
             // Show unhandled error screen in case the function didn't return yet (error wasn't handled)
             setStatus(false);
           }}
+          onSuccess={(_, setFormStatus) => setFormStatus(true)}
         />
 
         <OutlinedForm.Footer>
