@@ -152,5 +152,14 @@
   "permission_caneditforms": "Can edit forms",
   "autocomplete_no_options": "No options found.",
   "addroleform_no_autocomplete_option": "A new role will be created.",
-  "warning_list_modal_title": "Some errors have occurred while proccessing your request"
+  "warning_list_modal_title": "Some errors have occurred while proccessing your request",
+  "DefaultCycle": "Default Cycle",
+  "default_cycle": "Default Cycle",
+  "defaultcyclesettings_newtocycle": "Add to Cycle",
+  "defaultcyclesettings_newtocycle_save": "Save",
+  "canForms": "Manage forms",
+  "canApprovation": "Approve forms",
+  "canManagement": "Manage application",
+  "bulkaddroleform_label_roles": "Add roles to selected users",
+  "bulkremoveroleform_label_roles": "Remove roles to selected users"
 }

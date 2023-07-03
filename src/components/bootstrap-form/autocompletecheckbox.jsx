@@ -5,7 +5,6 @@ import {
 } from '@mui/icons-material';
 import {
   Autocomplete as MuiAutocomplete,
-  OutlinedInput,
   TextField,
   Tooltip,
   Box,
@@ -13,7 +12,6 @@ import {
 } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'next-i18next';
-import BootstrapInput from './bootstrap-input';
 import generateMessage from '@/utils/forms/generateMessage';
 import { alpha, styled } from '@mui/system';
 import objectGetter from '@/utils/object-getter';
@@ -88,6 +86,7 @@ const AutocompleteCheckbox = ({
   nestedProperty,
   orderData,
 }) => {
+  // FIXME - the "nestedProperty" behavior is apparently buggy and needs more testing (avoid using it)
   const { formData, setFormData } = formDataState;
   const { t } = useTranslation();
 
@@ -230,7 +229,7 @@ const AutocompleteCheckbox = ({
             style={{ marginRight: 8 }}
             checked={selected}
           />
-          {option}
+          {option.label}
         </li>
       )}
       renderInput={(params) => (

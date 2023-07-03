@@ -41,9 +41,9 @@ export default function BulkRemoveRoleModal({
   const { t } = useTranslation();
 
   const [roleOptions, setRoleOptions] = useState([
-    { name: 'canForms', label: t('canForms') },
-    { name: 'canApprovation', label: t('canApprovation') },
-    { name: 'canManagement', label: t('canManagement') },
+    { id: 'canForms', label: t('canForms') },
+    { id: 'canApprovation', label: t('canApprovation') },
+    { id: 'canManagement', label: t('canManagement') },
   ]);
 
   const { data, setData } = dataState;
@@ -124,7 +124,7 @@ export default function BulkRemoveRoleModal({
           >
             <BootstrapForm.Label />
             <BootstrapForm.AutocompleteCheckbox
-              nestedProperty={'name'}
+              //nestedProperty={'name'}
               options={roleOptions}
               //noOptionsText={'addroleform_no_autocomplete_option'}
               JOIValidator={validators.roles}
@@ -148,9 +148,9 @@ export default function BulkRemoveRoleModal({
 
               formData.roles.value.forEach((role) => {
                 const roleObj = roleOptions.find(
-                  (roleObject) => roleObject.name === role
+                  (roleObject) => roleObject.id === role.id
                 );
-                const roleId = roleObj.name;
+                const roleId = roleObj.id;
                 rolesToRemove.push(roleId);
               });
 
