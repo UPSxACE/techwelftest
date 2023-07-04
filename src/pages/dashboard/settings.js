@@ -9,18 +9,45 @@ import Joi from 'joi';
 import AccordionForm from '@/components/accordion-form';
 import CompanySettingsForm from '@/components/pages/settings/forms/companysettingsform';
 import DefaultCycleSettings from '@/components/pages/settings/defaultcyclesettings';
+import AdvancedSettings from '@/components/pages/settings/advancedsettings';
+import requestIp from 'request-ip';
+import { parse } from 'ipaddr.js';
+import api from '@/api';
+import axios from 'axios';
+import useHandle403 from '@/utils/handle-403';
 
-export default function Settings() {
+export default function Settings({ ip }) {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
 
   const [ipList, setIpList] = useState(null); // please set to null initially (before data arrives)
 
+  const handle403 = useHandle403();
+
   useEffect(() => {
-    //setTimeout(() => {
-    // Debug: console.log('Testing ipList...');
-    setIpList(['127.0.0.1', '128.5.14.3', '192.165.21.42']);
-    //}, 5000);
+    const source = axios.CancelToken.source();
+
+    const sendRequest = async () => {
+      await api
+        .getWhitelistedIps({
+          cancelToken: source.token,
+        })
+        .then((response) => {
+          const data = response?.data;
+          if (data) {
+            setIpList(data);
+          }
+        })
+        .catch((error) => {
+          handle403(error);
+        });
+    };
+
+    sendRequest();
+
+    return () => {
+      source.cancel('Component Unmounted', { silent: 'true' }); // Component Unmounted
+    };
   }, []);
 
   const defaultValues = {
@@ -73,11 +100,14 @@ export default function Settings() {
               <RolesTable />
             </AccordionForm.Part>
 
-            <AccordionForm.Part title={t('AdvancedSettings')} id={5}>
-              <AdvancedSettings ipState={{ ipList, setIpList }} />
-            </AccordionForm.Part>
-
             */}
+
+            <AccordionForm.Part title={t('AdvancedSettings')} id={5}>
+              <AdvancedSettings
+                defaultIp={ip}
+                ipState={{ ipList, setIpList }}
+              />
+            </AccordionForm.Part>
           </AccordionForm.Form>
         </Box>
       </Box>
@@ -91,12 +121,11 @@ Settings.getLayout = function getLayout(page) {
 
 //export default withAuth(Settings);
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ req, locale }) {
   return {
     props: {
-      // not compatible with getInitialProps
+      ip: requestIp.getClientIp(req),
       ...(await serverSideTranslations(locale, ['common', 'footer'])),
-      // Will be passed to the page component as props
     },
   };
 }

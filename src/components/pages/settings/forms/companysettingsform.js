@@ -17,7 +17,7 @@ export default function CompanySettingsForm() {
   const [defaultValues, setDefaultValues] = useState(false); // false means the data needed didn't arrive yet
   const [dataArrived, setDataArrived] = useState(false);
 
-  console.log(formData);
+  // Debug: console.log(formData);
 
   const handle403 = useHandle403();
 

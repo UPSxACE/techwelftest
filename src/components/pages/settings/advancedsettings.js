@@ -1,25 +1,27 @@
-import BootstrapSingleInput from '@/components/bootstrap-form/bootstrap-single-input';
 import ConfirmModal from '@/components/confirm-modal';
 import LoaderPrimary from '@/components/loader-primary';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import {
   Box,
-  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import NewIpFormModal from './forms/newipformmodal';
+import api from '@/api';
+import useHandle403 from '@/utils/handle-403';
 
-export default function AdvancedSettings({ ipState }) {
+export default function AdvancedSettings({ ipState, defaultIp }) {
   const { t } = useTranslation();
   const [confirmModal, setConfirmModal] = useState(false);
   const [ipToDelete, setIpToDelete] = useState('');
   const { ipList, setIpList } = ipState;
+
+  const handle403 = useHandle403();
 
   // New Ip Form
   const [open, setOpen] = useState(false);
@@ -27,22 +29,15 @@ export default function AdvancedSettings({ ipState }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  function deleteIp(ip) {
+  function deleteIp(newIpList) {
     // send request to delete IP
     // Debug: console.log('IP ' + ipToDelete + ' will be deleted!');
 
-    setIpList((ipList) => {
-      const ipToDelete = ipList.indexOf(ip);
-      if (ipToDelete !== -1) {
-        const newIpList = [...ipList];
-        newIpList.splice(ipToDelete, 1);
-        return newIpList;
-      }
-    });
+    setIpList(newIpList);
   }
 
-  function addIp(ip) {
-    setIpList((ipList) => [...ipList, ip]);
+  function addIp(newIpList) {
+    setIpList(newIpList);
   }
 
   return (
@@ -53,11 +48,22 @@ export default function AdvancedSettings({ ipState }) {
         closeable={closeable}
         setCloseable={setCloseable}
         addIp={addIp}
+        defaultIp={defaultIp}
       />
       <ConfirmModal
         state={{ open: confirmModal, setOpen: setConfirmModal }}
-        onConfirm={() => {
-          deleteIp(ipToDelete);
+        onConfirm={async () => {
+          // Test endpoint
+          await api
+            .removeWhitelistedIp(ipToDelete)
+            .then((response) => {
+              //Debug: console.log(response);
+              addIp(response?.data);
+              //setAlert(t('company_settings_updated'));
+            })
+            .catch((err) => {
+              handle403(err, true);
+            });
         }}
       />
       <List>
@@ -100,7 +106,7 @@ export default function AdvancedSettings({ ipState }) {
           </ListItem>
         )}
         {ipList !== null &&
-          ipList.map((ip, index) => {
+          ipList.map((ipObj, index) => {
             return (
               <ListItem key={index} disablePadding>
                 <ListItemButton
@@ -109,13 +115,13 @@ export default function AdvancedSettings({ ipState }) {
                     cursor: 'default',
                   }}
                 >
-                  <ListItemText primary={ip} />
+                  <ListItemText primary={ipObj.ip} />
                   <ListItemIcon>
                     <RemoveCircleOutline
                       sx={{ marginLeft: 'auto', cursor: 'pointer' }}
                       color='error'
                       onClick={() => {
-                        setIpToDelete(ip); // add decent logic here
+                        setIpToDelete(ipObj.ip); // add decent logic here
                         setConfirmModal(true);
                       }}
                     />

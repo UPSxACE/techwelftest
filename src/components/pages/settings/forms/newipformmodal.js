@@ -1,10 +1,12 @@
-import { Box, Button, Modal } from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import LoaderPrimary from '@/components/loader-primary';
 import BootstrapForm from '@/components/bootstrap-form';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import Joi from 'joi';
-import axios from 'axios';
+import api from '@/api';
+import useHandle403 from '@/utils/handle-403';
+import { parse } from 'ipaddr.js';
 
 const modalStyle = {
   position: 'absolute',
@@ -29,15 +31,28 @@ export default function NewIpFormModal({
   closeable,
   setCloseable,
   addIp,
+  defaultIp,
 }) {
   const [formData, setFormData] = useState({});
   const { t } = useTranslation();
 
-  const defaultValues = {};
+  const defaultValues = { newip: defaultIp };
 
   const validators = {
     newip: Joi.string(),
   };
+
+  const handle403 = useHandle403();
+
+  function tryParseIp() {
+    try {
+      return parse(formData?.newip?.value).toNormalizedString();
+    } catch (err) {
+      return null;
+    }
+  }
+
+  const parsedIp = tryParseIp();
 
   return (
     <Modal
@@ -79,26 +94,28 @@ export default function NewIpFormModal({
             <BootstrapForm.HelperText />
           </BootstrapForm.Control>
           <BootstrapForm.Submit
+            forceDisabled={parsedIp === null}
             title={t('settings_accordionform_save')}
             validators={validators}
-            onSubmit={async (formData) => {
+            onSubmit={async () => {
               setCloseable(false);
 
-              // Test endpoint
-              await axios.post(
-                'http://localhost:9000/test/formdata',
-                formData,
-                {
-                  headers: { 'Content-Type': 'multipart/form-data' },
-                }
-              );
+              await api
+                .whitelistIp(parsedIp)
+                .then((response) => {
+                  //Debug: console.log(response);
+                  addIp(response?.data);
+                  //setAlert(t('company_settings_updated'));
+                })
+                .catch((err) => {
+                  handle403(err, true);
+                });
             }}
             onSuccess={() => {
-              addIp(formData.newip.value);
               setCloseable(true);
               handleClose();
             }}
-            onError={() => {
+            onError={(err) => {
               // errors yet to be handled
               setCloseable(true);
             }}

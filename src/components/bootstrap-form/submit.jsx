@@ -17,6 +17,7 @@ const Submit = ({
   containerStyle,
   alignRight,
   resetOnSuccess,
+  forceDisabled,
 }) => {
   const { formData, setFormData } = formDataState;
   const { formStatus, setFormStatus } = formStatusState;
@@ -126,7 +127,7 @@ const Submit = ({
       }}
     >
       <Button
-        disabled={!validate()}
+        disabled={forceDisabled || !validate()}
         variant='contained'
         sx={{
           height: 56,

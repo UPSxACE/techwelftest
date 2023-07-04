@@ -101,6 +101,21 @@ const api = {
       .patch(`/user/${userId}/remove-role/${roleName}`)
       .then((response) => response);
   },
+  getWhitelistedIps: (CancelToken) =>
+    instance
+      .get('/client-config/whitelisted-ips', CancelToken)
+      .then((response) => {
+        // Debug: console.log(response);
+        return response;
+      }),
+  whitelistIp: (ip) =>
+    instance
+      .post(`/client-config/whitelist-ip?ip=${ip}`)
+      .then((response) => response),
+  removeWhitelistedIp: (ip) =>
+    instance
+      .delete(`/client-config/remove-whitelisted-ip?ip=${ip}`)
+      .then((response) => response),
 };
 
 export default api;

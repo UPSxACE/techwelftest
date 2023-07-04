@@ -100,7 +100,7 @@
   "Settings": "Settings",
   "CompanySettings": "Company Settings",
   "SettingsRoles": "Role Settings",
-  "AdvancedSettings": "Advanced Settings",
+  "AdvancedSettings": "Allowed IPs",
   "invoicing_tooltip_tip_vatnumber": "-----",
   "invoicing_tooltip_example_vatnumber": "-----",
   "invoicing_tooltip_tip_street1": "-----",
@@ -161,5 +161,6 @@
   "canApprovation": "Approve forms",
   "canManagement": "Manage application",
   "bulkaddroleform_label_roles": "Add roles to selected users",
-  "bulkremoveroleform_label_roles": "Remove roles to selected users"
+  "bulkremoveroleform_label_roles": "Remove roles to selected users",
+  "allowed_ips": "IP"
 }
